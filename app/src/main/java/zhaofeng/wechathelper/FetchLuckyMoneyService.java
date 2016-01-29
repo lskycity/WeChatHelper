@@ -30,7 +30,7 @@ public class FetchLuckyMoneyService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-      //  Log.v("111111111111", "1111111111111111 0x"+Integer.toHexString(event.getEventType())+", "+event.getText()+event.getClassName());
+        Log.v("111111111111", "1111111111111111 0x"+Integer.toHexString(event.getEventType())+", "+event.getText()+event.getClassName());
 
         if(mNotificationFlowHelper.onAccessibilityEvent(event)) {
             isOpenByService = false;
@@ -47,12 +47,16 @@ public class FetchLuckyMoneyService extends AccessibilityService {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 mCurrentUI = event.getClassName().toString();
                 if(TextUtils.equals(mCurrentUI, Constans.WECHAT_LUCKY_MONEY_RECEIVER)) {
-                    PacketUtils.openPacketInDetail(this);
+                    boolean success = PacketUtils.openPacketInDetail(this);
+                    Log.v("1111111111", "11111111111111 "+success);
+                    if(isOpenByService && !success) {
+                        backToChatWindow();
+                        isOpenByService = false;
+                    }
                 } else if(TextUtils.equals(mCurrentUI, Constans.WECHAT_LUCKY_MONEY_DETAIL)) {
                     if (isOpenByService) {
                         backToChatWindow();
                         isOpenByService = false;
-
                     }
                 }
                 break;
@@ -74,7 +78,7 @@ public class FetchLuckyMoneyService extends AccessibilityService {
     private void checkLastMessageAndOpenLuckyMoney() {
         AccessibilityNodeInfo packet = PacketUtils.getLastPacket(this);
         if(packet!=null && PacketUtils.isLastNodeInListView(packet)) {
-            isOpenByService = PacketUtils.clickThePacketNode(packet);
+            isOpenByService = PacketUtils.clickThePacketNode(this, packet);
         }
     }
 

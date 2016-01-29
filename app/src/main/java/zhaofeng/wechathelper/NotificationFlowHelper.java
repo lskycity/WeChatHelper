@@ -59,7 +59,12 @@ public class NotificationFlowHelper {
                     }
                 } else if(TextUtils.equals(className, Constans.WECHAT_LUCKY_MONEY_RECEIVER)) {
                     if(mState == 2) {
-                        PacketUtils.openPacketInDetail(mService);
+                        boolean fetchSuccess = PacketUtils.openPacketInDetail(mService);
+                        if (!fetchSuccess) {
+                            // fetch failed, lucky money dispatch finished, back to chat window
+                            mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);  //back to chat window
+                            mState = 0;
+                        }
                         return true;
                     }
                 }
@@ -82,6 +87,6 @@ public class NotificationFlowHelper {
 
     private boolean fetchPacketAndClick() {
         AccessibilityNodeInfo nodeInfo = PacketUtils.getLastPacket(mService);
-        return nodeInfo != null && PacketUtils.clickThePacketNode(nodeInfo);
+        return nodeInfo != null && PacketUtils.clickThePacketNode(mService, nodeInfo);
     }
 }

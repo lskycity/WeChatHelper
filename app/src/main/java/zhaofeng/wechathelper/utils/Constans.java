@@ -12,6 +12,7 @@ public class Constans {
      * open detail
      */
     public static final String WECHAT_LUCKY_MONEY_RECEIVER = "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI";
+//    com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI
     /**
      * lucky money detail
      */

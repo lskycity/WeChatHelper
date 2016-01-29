@@ -2,10 +2,7 @@ package zhaofeng.wechathelper.utils;
 
 import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
-import android.util.Log;
-import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.ListView;
 
 import java.util.List;
 
@@ -15,18 +12,23 @@ import zhaofeng.wechathelper.R;
  * Created by liuzhaofeng on 2016/1/28.
  */
 public class PacketUtils {
-    public static void openPacketInDetail(AccessibilityService service){
+    public static boolean openPacketInDetail(AccessibilityService service){
         AccessibilityNodeInfo nodeInfo = service.getRootInActiveWindow();
         if (nodeInfo != null) {
             List<AccessibilityNodeInfo> nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_receive_lucky_money));
-            if(nodeInfos.size()<=0) {
-                return;
+            if(nodeInfos.size()==0) {
+                nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_receive_lucky_money_from_group));
+            }
+            if(nodeInfos.size()==0) {
+                return false;
             }
             AccessibilityNodeInfo textNode = nodeInfos.get(0);
             AccessibilityNodeInfo contentNode = textNode.getParent().getParent();
             AccessibilityNodeInfo openButtonNode = contentNode.getChild(contentNode.getChildCount()-1);
             openButtonNode.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            return true;
         }
+        return false;
     }
 
     public static AccessibilityNodeInfo getLastPacket(AccessibilityService service) {
@@ -60,10 +62,17 @@ public class PacketUtils {
 
     }
 
-    public static boolean clickThePacketNode(AccessibilityNodeInfo fetchLuckyMoneyNode) {
+    public static boolean clickThePacketNode(Context context, AccessibilityNodeInfo fetchLuckyMoneyNode) {
         try {
-            fetchLuckyMoneyNode.getParent().getParent().getParent().getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
-            return true;
+            AccessibilityNodeInfo note = fetchLuckyMoneyNode.getParent().getParent().getParent().getParent();
+            List<AccessibilityNodeInfo> list = note.findAccessibilityNodeInfosByText(context.getString(R.string.key_word_wechat_lucky_money));
+            // check it's a real packet instead of just a text message
+            if(list.size() == 1) {
+                note.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                return true;
+            } else {
+                return false;
+            }
         }catch (Exception e) {
             return false;
         }
