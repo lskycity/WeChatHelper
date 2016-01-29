@@ -7,6 +7,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import java.util.List;
 
 import zhaofeng.wechathelper.R;
+import zhaofeng.wechathelper.record.Record;
 
 /**
  * Created by liuzhaofeng on 2016/1/28.
@@ -77,4 +78,37 @@ public class PacketUtils {
             return false;
         }
     }
+
+    public static Record getFetchAmountInDetail(AccessibilityService service){
+        AccessibilityNodeInfo nodeInfo = service.getRootInActiveWindow();
+        if (nodeInfo != null) {
+            List<AccessibilityNodeInfo> nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_fetched_lucky_money));
+            if(nodeInfos.size()==0) {
+                return null;
+            }
+
+            try {
+                Record record = new Record();
+                AccessibilityNodeInfo textNode = nodeInfos.get(0);
+                AccessibilityNodeInfo amountParentNode = textNode.getParent().getParent();
+                AccessibilityNodeInfo amountNode = amountParentNode.getChild(0);
+                record.amount = amountNode.getText().toString();
+
+                record.time = System.currentTimeMillis();
+
+                AccessibilityNodeInfo senderInfoNode = amountParentNode.getParent().getParent();
+                AccessibilityNodeInfo senderNode = senderInfoNode.getChild(0).getChild(2).getChild(0);
+                record.sender = senderNode.getText().toString();
+
+                AccessibilityNodeInfo wishNode = senderInfoNode.getChild(0).getChild(3);
+                record.desc = wishNode.getText().toString();
+                return record;
+            } catch (Exception e) {
+                return null;
+            }
+
+        }
+        return null;
+    }
+
 }

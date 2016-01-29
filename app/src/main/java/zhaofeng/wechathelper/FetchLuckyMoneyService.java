@@ -9,6 +9,8 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import java.util.List;
 
+import zhaofeng.wechathelper.record.FetchRecordDbHelper;
+import zhaofeng.wechathelper.record.Record;
 import zhaofeng.wechathelper.utils.Constans;
 import zhaofeng.wechathelper.utils.PacketUtils;
 
@@ -18,7 +20,8 @@ import zhaofeng.wechathelper.utils.PacketUtils;
 public class FetchLuckyMoneyService extends AccessibilityService {
 
 
-    NotificationFlowHelper mNotificationFlowHelper;
+    private NotificationFlowHelper mNotificationFlowHelper;
+    private FetchRecordDbHelper mFetchRecordDbHelper;
     private String mCurrentUI = "";
     private boolean isOpenByService = false;
 
@@ -26,6 +29,7 @@ public class FetchLuckyMoneyService extends AccessibilityService {
     protected void onServiceConnected() {
         super.onServiceConnected();
         mNotificationFlowHelper = new NotificationFlowHelper(this);
+        mFetchRecordDbHelper = new FetchRecordDbHelper(this);
     }
 
     @Override
@@ -52,6 +56,7 @@ public class FetchLuckyMoneyService extends AccessibilityService {
                         isOpenByService = false;
                     }
                 } else if(TextUtils.equals(mCurrentUI, Constans.WECHAT_LUCKY_MONEY_DETAIL)) {
+                    saveAmountAndTime();
                     if (isOpenByService) {
                         backToChatWindow();
                         isOpenByService = false;
@@ -63,6 +68,13 @@ public class FetchLuckyMoneyService extends AccessibilityService {
                     checkLastMessageAndOpenLuckyMoney();
                 }
                 break;
+        }
+    }
+
+    private void saveAmountAndTime() {
+        Record record = PacketUtils.getFetchAmountInDetail(this);
+        if(record!=null) {
+            mFetchRecordDbHelper.insert(record);
         }
     }
 

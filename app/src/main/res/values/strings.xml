@@ -9,4 +9,5 @@
     <string name="key_word_open_lucky_money">拆红包</string>
     <string name="key_word_receive_lucky_money">给你发了一个红包</string>
     <string name="key_word_receive_lucky_money_from_group">发了一个红包，金额随机</string>
+    <string name="key_word_fetched_lucky_money">已存入零钱，可直接消费</string>
 </resources>

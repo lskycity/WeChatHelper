@@ -1,0 +1,169 @@
+[1mdiff --git a/app/src/main/java/zhaofeng/wechathelper/FetchLuckyMoneyService.java b/app/src/main/java/zhaofeng/wechathelper/FetchLuckyMoneyService.java[m
+[1mindex 243f267..54fed22 100644[m
+[1m--- a/app/src/main/java/zhaofeng/wechathelper/FetchLuckyMoneyService.java[m
+[1m+++ b/app/src/main/java/zhaofeng/wechathelper/FetchLuckyMoneyService.java[m
+[36m@@ -9,6 +9,8 @@[m [mimport android.view.accessibility.AccessibilityNodeInfo;[m
+ [m
+ import java.util.List;[m
+ [m
+[32m+[m[32mimport zhaofeng.wechathelper.record.FetchRecordDbHelper;[m
+[32m+[m[32mimport zhaofeng.wechathelper.record.Record;[m
+ import zhaofeng.wechathelper.utils.Constans;[m
+ import zhaofeng.wechathelper.utils.PacketUtils;[m
+ [m
+[36m@@ -18,7 +20,8 @@[m [mimport zhaofeng.wechathelper.utils.PacketUtils;[m
+ public class FetchLuckyMoneyService extends AccessibilityService {[m
+ [m
+ [m
+[31m-    NotificationFlowHelper mNotificationFlowHelper;[m
+[32m+[m[32m    private NotificationFlowHelper mNotificationFlowHelper;[m
+[32m+[m[32m    private FetchRecordDbHelper mFetchRecordDbHelper;[m
+     private String mCurrentUI = "";[m
+     private boolean isOpenByService = false;[m
+ [m
+[36m@@ -26,6 +29,7 @@[m [mpublic class FetchLuckyMoneyService extends AccessibilityService {[m
+     protected void onServiceConnected() {[m
+         super.onServiceConnected();[m
+         mNotificationFlowHelper = new NotificationFlowHelper(this);[m
+[32m+[m[32m        mFetchRecordDbHelper = new FetchRecordDbHelper(this);[m
+     }[m
+ [m
+     @Override[m
+[36m@@ -52,6 +56,7 @@[m [mpublic class FetchLuckyMoneyService extends AccessibilityService {[m
+                         isOpenByService = false;[m
+                     }[m
+                 } else if(TextUtils.equals(mCurrentUI, Constans.WECHAT_LUCKY_MONEY_DETAIL)) {[m
+[32m+[m[32m                    saveAmountAndTime();[m
+                     if (isOpenByService) {[m
+                         backToChatWindow();[m
+                         isOpenByService = false;[m
+[36m@@ -66,6 +71,13 @@[m [mpublic class FetchLuckyMoneyService extends AccessibilityService {[m
+         }[m
+     }[m
+ [m
+[32m+[m[32m    private void saveAmountAndTime() {[m
+[32m+[m[32m        Record record = PacketUtils.getFetchAmountInDetail(this);[m
+[32m+[m[32m        if(record!=null) {[m
+[32m+[m[32m            mFetchRecordDbHelper.insert(record);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+     private boolean isListViewBottom(AccessibilityEvent event) {[m
+         if(TextUtils.equals(event.getClassName(), "android.widget.ListView")) {[m
+             return event.getToIndex() == event.getItemCount()-1;[m
+[1mdiff --git a/app/src/main/java/zhaofeng/wechathelper/MainActivity.java b/app/src/main/java/zhaofeng/wechathelper/MainActivity.java[m
+[1mindex 40ecac2..50b7b23 100644[m
+[1m--- a/app/src/main/java/zhaofeng/wechathelper/MainActivity.java[m
+[1m+++ b/app/src/main/java/zhaofeng/wechathelper/MainActivity.java[m
+[36m@@ -1,13 +1,37 @@[m
+ package zhaofeng.wechathelper;[m
+ [m
+[32m+[m[32mimport android.database.Cursor;[m
+ import android.support.v7.app.AppCompatActivity;[m
+ import android.os.Bundle;[m
+[32m+[m[32mimport android.widget.TextView;[m
+[32m+[m
+[32m+[m[32mimport java.util.Date;[m
+[32m+[m
+[32m+[m[32mimport zhaofeng.wechathelper.record.FetchRecordDbHelper;[m
+ [m
+ public class MainActivity extends AppCompatActivity {[m
+ [m
+[32m+[m[32m    private TextView mTextView;[m
+     @Override[m
+     protected void onCreate(Bundle savedInstanceState) {[m
+         super.onCreate(savedInstanceState);[m
+         setContentView(R.layout.activity_main);[m
+[32m+[m[32m        mTextView = (TextView) findViewById(R.id.description);[m
+[32m+[m
+[32m+[m[32m        Cursor cursor = new FetchRecordDbHelper(this).query();[m
+[32m+[m[32m        StringBuilder builder = new StringBuilder();[m
+[32m+[m[32m        while (cursor.moveToNext()) {[m
+[32m+[m[32m            String amount = cursor.getString(1);[m
+[32m+[m[32m            long time = cursor.getLong(2);[m
+[32m+[m[32m            builder.append(amount);[m
+[32m+[m[32m            builder.append(", ");[m
+[32m+[m[32m            builder.append(new Date(time).toLocaleString());[m
+[32m+[m[32m            builder.append(", ");[m
+[32m+[m[32m            builder.append(cursor.getString(3));[m
+[32m+[m[32m            builder.append(", ");[m
+[32m+[m[32m            builder.append(cursor.getString(4));[m
+[32m+[m[32m            builder.append("\n");[m
+[32m+[m[32m        }[m
+[32m+[m[32m        mTextView.setText(builder);[m
+     }[m
+ }[m
+[1mdiff --git a/app/src/main/java/zhaofeng/wechathelper/utils/PacketUtils.java b/app/src/main/java/zhaofeng/wechathelper/utils/PacketUtils.java[m
+[1mindex 5653ce7..8f66840 100644[m
+[1m--- a/app/src/main/java/zhaofeng/wechathelper/utils/PacketUtils.java[m
+[1m+++ b/app/src/main/java/zhaofeng/wechathelper/utils/PacketUtils.java[m
+[36m@@ -7,6 +7,7 @@[m [mimport android.view.accessibility.AccessibilityNodeInfo;[m
+ import java.util.List;[m
+ [m
+ import zhaofeng.wechathelper.R;[m
+[32m+[m[32mimport zhaofeng.wechathelper.record.Record;[m
+ [m
+ /**[m
+  * Created by liuzhaofeng on 2016/1/28.[m
+[36m@@ -77,4 +78,37 @@[m [mpublic class PacketUtils {[m
+             return false;[m
+         }[m
+     }[m
+[32m+[m
+[32m+[m[32m    public static Record getFetchAmountInDetail(AccessibilityService service){[m
+[32m+[m[32m        AccessibilityNodeInfo nodeInfo = service.getRootInActiveWindow();[m
+[32m+[m[32m        if (nodeInfo != null) {[m
+[32m+[m[32m            List<AccessibilityNodeInfo> nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_fetched_lucky_money));[m
+[32m+[m[32m            if(nodeInfos.size()==0) {[m
+[32m+[m[32m                return null;[m
+[32m+[m[32m            }[m
+[32m+[m
+[32m+[m[32m            try {[m
+[32m+[m[32m                Record record = new Record();[m
+[32m+[m[32m                AccessibilityNodeInfo textNode = nodeInfos.get(0);[m
+[32m+[m[32m                AccessibilityNodeInfo amountParentNode = textNode.getParent().getParent();[m
+[32m+[m[32m                AccessibilityNodeInfo amountNode = amountParentNode.getChild(0);[m
+[32m+[m[32m                record.amount = amountNode.getText().toString();[m
+[32m+[m
+[32m+[m[32m                record.time = System.currentTimeMillis();[m
+[32m+[m
+[32m+[m[32m                AccessibilityNodeInfo senderInfoNode = amountParentNode.getParent().getParent();[m
+[32m+[m[32m                AccessibilityNodeInfo senderNode = senderInfoNode.getChild(0).getChild(2).getChild(0);[m
+[32m+[m[32m                record.sender = senderNode.getText().toString();[m
+[32m+[m
+[32m+[m[32m                AccessibilityNodeInfo wishNode = senderInfoNode.getChild(0).getChild(3);[m
+[32m+[m[32m                record.desc = wishNode.getText().toString();[m
+[32m+[m[32m                return record;[m
+[32m+[m[32m            } catch (Exception e) {[m
+[32m+[m[32m                return null;[m
+[32m+[m[32m            }[m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m[32m        return null;[m
+[32m+[m[32m    }[m
+[32m+[m
+ }[m
+[1mdiff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml[m
+[1mindex a7f774c..54dbed1 100644[m
+[1m--- a/app/src/main/res/layout/activity_main.xml[m
+[1m+++ b/app/src/main/res/layout/activity_main.xml[m
+[36m@@ -10,6 +10,7 @@[m
+     tools:context="zhaofeng.wechathelper.MainActivity">[m
+ [m
+     <TextView[m
+[32m+[m[32m        android:id="@+id/description"[m
+         android:layout_width="wrap_content"[m
+         android:layout_height="wrap_content"[m
+         android:text="@string/open_service_tip" />[m
+[1mdiff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml[m
+[1mindex efaf8d8..236bc26 100644[m
+[1m--- a/app/src/main/res/values/strings.xml[m
+[1m+++ b/app/src/main/res/values/strings.xml[m
+[36m@@ -9,4 +9,5 @@[m
+     <string name="key_word_open_lucky_money">拆红包</string>[m
+     <string name="key_word_receive_lucky_money">给你发了一个红包</string>[m
+     <string name="key_word_receive_lucky_money_from_group">发了一个红包，金额随机</string>[m
+[32m+[m[32m    <string name="key_word_fetched_lucky_money">已存入零钱，可直接消费</string>[m
+ </resources>[m
+warning: LF will be replaced by CRLF in app/src/main/java/zhaofeng/wechathelper/FetchLuckyMoneyService.java.
+The file will have its original line endings in your working directory.
