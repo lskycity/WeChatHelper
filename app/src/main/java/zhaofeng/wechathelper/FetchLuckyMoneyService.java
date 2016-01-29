@@ -30,7 +30,6 @@ public class FetchLuckyMoneyService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        Log.v("111111111111", "1111111111111111 0x"+Integer.toHexString(event.getEventType())+", "+event.getText()+event.getClassName());
 
         if(mNotificationFlowHelper.onAccessibilityEvent(event)) {
             isOpenByService = false;
@@ -48,7 +47,6 @@ public class FetchLuckyMoneyService extends AccessibilityService {
                 mCurrentUI = event.getClassName().toString();
                 if(TextUtils.equals(mCurrentUI, Constans.WECHAT_LUCKY_MONEY_RECEIVER)) {
                     boolean success = PacketUtils.openPacketInDetail(this);
-                    Log.v("1111111111", "11111111111111 "+success);
                     if(isOpenByService && !success) {
                         backToChatWindow();
                         isOpenByService = false;
