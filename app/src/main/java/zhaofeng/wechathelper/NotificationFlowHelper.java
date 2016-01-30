@@ -47,17 +47,17 @@ public class NotificationFlowHelper {
     }
 
     public boolean onAccessibilityEvent(AccessibilityEvent event) {
-        if(!isScreenOn())
-        {
-            lightScreen();
-        }
         int eventType = event.getEventType();
         switch (eventType) {
             case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
                 if (NotificationUtils.checkNotificationContains(event, mService.getString(R.string.key_word_notification))) {
+                    if(!isScreenOn()){
+                        lightScreen();
+                    }
                     Notification notification = NotificationUtils.getNotification(event);
                     if(notification != null) {
-                        mState = NotificationUtils.openNotification(notification) ? State.notification : State.invalid;
+                        boolean success = NotificationUtils.openNotification(notification);
+                        changeToState(success ? State.notification : State.invalid);
                     }
                 }
                 return mState == State.notification;
@@ -131,23 +131,19 @@ public class NotificationFlowHelper {
         return nodeInfo != null && PacketUtils.clickThePacketNode(mService, nodeInfo);
     }
 
-    private boolean isScreenOn()
-    {
+    private boolean isScreenOn() {
         PowerManager powerManager = (PowerManager)mService.getSystemService(Context.POWER_SERVICE);
         return powerManager.isInteractive();
     }
 
-    private void lightScreen()
-    {
+    private void lightScreen(){
         acquireWakeLock();
     }
 
-    private void acquireWakeLock()
-    {
+    private void acquireWakeLock(){
         PowerManager powerManager = (PowerManager)mService.getSystemService(Context.POWER_SERVICE);
-        if(mWakeLock==null)
-        {
-            mWakeLock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP|PowerManager.FULL_WAKE_LOCK,"LuckyMoneyWakeLock");
+        if(mWakeLock==null) {
+            mWakeLock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP|PowerManager.FULL_WAKE_LOCK, "LuckyMoneyWakeLock");
         }
         mWakeLock.acquire(WAKE_TIME_IN_SECONDS*1000);
     }
