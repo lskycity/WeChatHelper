@@ -85,10 +85,12 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
             MediaPlayer player = null;
             if (receivedMoney > BIG_MONEY) {
                 player = MediaPlayer.create(this, R.raw.money_big);
-            } else {
+            } else if (receivedMoney > 0.0f) {
                 player = MediaPlayer.create(this, R.raw.money_small);
             }
-            player.start();
+            if (player != null) {
+                player.start();
+            }
         } catch (NumberFormatException e) {
 
         }
