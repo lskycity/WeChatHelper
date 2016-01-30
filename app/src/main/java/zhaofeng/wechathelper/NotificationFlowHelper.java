@@ -3,6 +3,7 @@ package zhaofeng.wechathelper;
 import android.accessibilityservice.AccessibilityService;
 import android.app.Notification;
 import android.content.Context;
+import android.os.Build;
 import android.os.PowerManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -133,7 +134,11 @@ public class NotificationFlowHelper {
 
     private boolean isScreenOn() {
         PowerManager powerManager = (PowerManager)mService.getSystemService(Context.POWER_SERVICE);
-        return powerManager.isInteractive();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            return powerManager.isInteractive();
+        } else {
+            return powerManager.isScreenOn();
+        }
     }
 
     private void lightScreen(){
