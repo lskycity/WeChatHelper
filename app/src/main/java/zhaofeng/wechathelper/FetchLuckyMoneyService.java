@@ -1,9 +1,7 @@
 package zhaofeng.wechathelper;
 
 import android.accessibilityservice.AccessibilityService;
-import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -131,6 +129,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     public void onNotificationFlowStateChanged(NotificationFlowHelper.State state) {
         if(state == NotificationFlowHelper.State.detail) {
             saveAmountAndTime();
+        } else if(state == NotificationFlowHelper.State.notification) {
         }
     }
 }
