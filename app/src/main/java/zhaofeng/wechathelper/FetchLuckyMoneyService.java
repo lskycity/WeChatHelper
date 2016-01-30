@@ -1,6 +1,7 @@
 package zhaofeng.wechathelper;
 
 import android.accessibilityservice.AccessibilityService;
+import android.media.MediaPlayer;
 import android.text.TextUtils;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -15,13 +16,14 @@ import zhaofeng.wechathelper.utils.PacketUtils;
 /**
  * Created by liuzhaofeng on 1/6/16.
  */
-public class FetchLuckyMoneyService extends AccessibilityService implements NotificationFlowHelper.FlowListener{
+public class FetchLuckyMoneyService extends AccessibilityService implements NotificationFlowHelper.FlowListener {
 
 
     private NotificationFlowHelper mNotificationFlowHelper;
     private FetchRecordDbHelper mFetchRecordDbHelper;
     private String mCurrentUI = "";
     private boolean isOpenByService = false;
+    private static final double BIG_MONEY = 5.0f;
 
     @Override
     protected void onServiceConnected() {
@@ -33,9 +35,9 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
 
-        if(mNotificationFlowHelper.onAccessibilityEvent(event)) {
+        if (mNotificationFlowHelper.onAccessibilityEvent(event)) {
             isOpenByService = false;
-            if(event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED){
+            if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
                 mCurrentUI = event.getClassName().toString();
             }
             return;
@@ -47,13 +49,13 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                 break;
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 mCurrentUI = event.getClassName().toString();
-                if(TextUtils.equals(mCurrentUI, Constans.WECHAT_LUCKY_MONEY_RECEIVER)) {
+                if (TextUtils.equals(mCurrentUI, Constans.WECHAT_LUCKY_MONEY_RECEIVER)) {
                     boolean success = PacketUtils.openPacketInDetail(this);
-                    if(isOpenByService && !success) {
+                    if (isOpenByService && !success) {
                         backToChatWindow();
                         isOpenByService = false;
                     }
-                } else if(TextUtils.equals(mCurrentUI, Constans.WECHAT_LUCKY_MONEY_DETAIL)) {
+                } else if (TextUtils.equals(mCurrentUI, Constans.WECHAT_LUCKY_MONEY_DETAIL)) {
                     if (isOpenByService) {
                         saveAmountAndTime();
                         backToChatWindow();
@@ -62,7 +64,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                 }
                 break;
             case AccessibilityEvent.TYPE_VIEW_SCROLLED:
-                if(Constans.WECHAT_LAUNCHER.equals(mCurrentUI) && !mNotificationFlowHelper.isTryToFetchAndClick() && isListViewBottom(event)) {
+                if (Constans.WECHAT_LAUNCHER.equals(mCurrentUI) && !mNotificationFlowHelper.isTryToFetchAndClick() && isListViewBottom(event)) {
                     checkLastMessageAndOpenLuckyMoney();
                 }
                 break;
@@ -71,21 +73,38 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     private void saveAmountAndTime() {
         Record record = PacketUtils.getFetchAmountInDetail(this);
-        if(record!=null) {
+        if (record != null) {
+            playMoneySound(record);
             mFetchRecordDbHelper.insert(record);
         }
     }
 
+    private void playMoneySound(Record record) {
+        try {
+            double receivedMoney = Double.valueOf(record.amount);
+            MediaPlayer player = null;
+            if (receivedMoney > BIG_MONEY) {
+                player = MediaPlayer.create(this, R.raw.money_big);
+            } else {
+                player = MediaPlayer.create(this, R.raw.money_small);
+            }
+            player.start();
+        } catch (NumberFormatException e) {
+
+        }
+    }
+
+
     private boolean isListViewBottom(AccessibilityEvent event) {
-        if(TextUtils.equals(event.getClassName(), "android.widget.ListView")) {
-            return event.getToIndex() == event.getItemCount()-1;
+        if (TextUtils.equals(event.getClassName(), "android.widget.ListView")) {
+            return event.getToIndex() == event.getItemCount() - 1;
         }
         return false;
     }
 
     private void checkLastMessageAndOpenLuckyMoney() {
         AccessibilityNodeInfo packet = PacketUtils.getLastPacket(this);
-        if(packet!=null && PacketUtils.isLastNodeInListView(packet)) {
+        if (packet != null && PacketUtils.isLastNodeInListView(packet)) {
             isOpenByService = PacketUtils.clickThePacketNode(this, packet);
         }
     }
@@ -95,7 +114,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     }
 
     public String getAlreadyFetchString() {
-        return "你领取了"+getRemoteName()+"的红包";
+        return "你领取了" + getRemoteName() + "的红包";
     }
 
     public CharSequence getRemoteName() {
@@ -103,7 +122,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
         if (rootNode != null) {
             List<AccessibilityNodeInfo> nodeInfos = rootNode.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/ew");
-            if(nodeInfos.size()<=0) {
+            if (nodeInfos.size() <= 0) {
                 return "";
             } else {
                 return nodeInfos.get(0).getText();
@@ -127,9 +146,9 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     @Override
     public void onNotificationFlowStateChanged(NotificationFlowHelper.State state) {
-        if(state == NotificationFlowHelper.State.detail) {
+        if (state == NotificationFlowHelper.State.detail) {
             saveAmountAndTime();
-        } else if(state == NotificationFlowHelper.State.notification) {
+        } else if (state == NotificationFlowHelper.State.notification) {
         }
     }
 }
