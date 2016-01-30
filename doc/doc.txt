@@ -1,0 +1,10 @@
+we can add doc for project.
+
+something I think need improve
+1.main screen ugly
+2.need turn screen off and then swipe
+3.or send the password and unlock the screen
+4.turn screen off if we get the lucky money
+5.add setting for enable and disable the sound
+6.remove the notification when user want to rm.
+7.mark as read
