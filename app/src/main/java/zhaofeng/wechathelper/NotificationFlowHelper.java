@@ -2,7 +2,10 @@ package zhaofeng.wechathelper;
 
 import android.accessibilityservice.AccessibilityService;
 import android.app.Notification;
+import android.content.Context;
+import android.os.PowerManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -29,8 +32,10 @@ public class NotificationFlowHelper {
 
     private AccessibilityService mService;
     private State mState = State.invalid;
+    private PowerManager.WakeLock mWakeLock = null;
 
     private FlowListener mFlowListener;
+    private static final int WAKE_TIME_IN_SECONDS = 5;
 
     public NotificationFlowHelper(AccessibilityService service) {
         mService = service;
@@ -42,6 +47,10 @@ public class NotificationFlowHelper {
     }
 
     public boolean onAccessibilityEvent(AccessibilityEvent event) {
+        if(!isScreenOn())
+        {
+            lightScreen();
+        }
         int eventType = event.getEventType();
         switch (eventType) {
             case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
@@ -120,5 +129,26 @@ public class NotificationFlowHelper {
     private boolean fetchPacketAndClick() {
         AccessibilityNodeInfo nodeInfo = PacketUtils.getLastPacket(mService);
         return nodeInfo != null && PacketUtils.clickThePacketNode(mService, nodeInfo);
+    }
+
+    private boolean isScreenOn()
+    {
+        PowerManager powerManager = (PowerManager)mService.getSystemService(Context.POWER_SERVICE);
+        return powerManager.isInteractive();
+    }
+
+    private void lightScreen()
+    {
+        acquireWakeLock();
+    }
+
+    private void acquireWakeLock()
+    {
+        PowerManager powerManager = (PowerManager)mService.getSystemService(Context.POWER_SERVICE);
+        if(mWakeLock==null)
+        {
+            mWakeLock = powerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP|PowerManager.FULL_WAKE_LOCK,"LuckyMoneyWakeLock");
+        }
+        mWakeLock.acquire(WAKE_TIME_IN_SECONDS*1000);
     }
 }
