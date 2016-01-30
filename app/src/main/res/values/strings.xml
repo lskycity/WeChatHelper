@@ -2,6 +2,8 @@
     <string name="app_name">WeChat Helper</string>
     <string name="fetch_lucky_money_service_description">Help you fetch the Lucky money from WeChat automatically.</string>
     <string name="open_service_tip">enable the fetch lucky money service in setting</string>
+    <string name="open_service_button">Open setting</string>
+
     <string name="lucky_service_label">Fetch lucky money service</string>
     <string name="key_word_wechat_lucky_money">微信红包</string>
     <string name="key_word_notification">[微信红包]</string>
