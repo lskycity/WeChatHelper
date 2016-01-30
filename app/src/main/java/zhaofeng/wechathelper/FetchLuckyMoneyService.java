@@ -17,7 +17,7 @@ import zhaofeng.wechathelper.utils.PacketUtils;
 /**
  * Created by liuzhaofeng on 1/6/16.
  */
-public class FetchLuckyMoneyService extends AccessibilityService {
+public class FetchLuckyMoneyService extends AccessibilityService implements NotificationFlowHelper.FlowListener{
 
 
     private NotificationFlowHelper mNotificationFlowHelper;
@@ -56,8 +56,8 @@ public class FetchLuckyMoneyService extends AccessibilityService {
                         isOpenByService = false;
                     }
                 } else if(TextUtils.equals(mCurrentUI, Constans.WECHAT_LUCKY_MONEY_DETAIL)) {
-                    saveAmountAndTime();
                     if (isOpenByService) {
+                        saveAmountAndTime();
                         backToChatWindow();
                         isOpenByService = false;
                     }
@@ -125,5 +125,12 @@ public class FetchLuckyMoneyService extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
+    }
+
+    @Override
+    public void onNotificationFlowStateChanged(NotificationFlowHelper.State state) {
+        if(state == NotificationFlowHelper.State.detail) {
+            saveAmountAndTime();
+        }
     }
 }

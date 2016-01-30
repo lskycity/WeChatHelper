@@ -3,7 +3,6 @@ package zhaofeng.wechathelper;
 import android.accessibilityservice.AccessibilityService;
 import android.app.Notification;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -16,11 +15,30 @@ import zhaofeng.wechathelper.utils.PacketUtils;
  */
 public class NotificationFlowHelper {
 
+    public enum State{
+        invalid,
+        notification,
+        clickedInList,
+        opened,
+        detail,
+    }
+
+    interface FlowListener {
+        void onNotificationFlowStateChanged(State state);
+    }
+
     private AccessibilityService mService;
-    private int mState;
+    private State mState = State.invalid;
+
+    private FlowListener mFlowListener;
+
     public NotificationFlowHelper(AccessibilityService service) {
         mService = service;
-        mState = 0;
+        mState = State.invalid;
+
+        if(service instanceof FlowListener) {
+            mFlowListener = (FlowListener) service;
+        }
     }
 
     public boolean onAccessibilityEvent(AccessibilityEvent event) {
@@ -30,58 +48,72 @@ public class NotificationFlowHelper {
                 if (NotificationUtils.checkNotificationContains(event, mService.getString(R.string.key_word_notification))) {
                     Notification notification = NotificationUtils.getNotification(event);
                     if(notification != null) {
-                        mState = NotificationUtils.openNotification(notification)?1:0;
+                        mState = NotificationUtils.openNotification(notification) ? State.notification : State.invalid;
                     }
                 }
-                return mState == 1;
+                return mState == State.notification;
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 CharSequence className = event.getClassName();
                 if (TextUtils.equals(className, Constans.WECHAT_LAUNCHER)) {
-                    if(mState == 1) {
-                        mState = fetchPacketAndClick() ? 2 : 0 ;
-                        return mState==2;
-                    } else if(mState ==3) {
-                        mState = 0;
-                        mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);  //back to chat list
-                        return true;
+                    if(mState == State.notification) {
+                        boolean success = fetchPacketAndClick();
+                        changeToState(success ? State.clickedInList : State.invalid);
+                        return mState==State.clickedInList;
                     } else {
-                        mState = 0;
+                        changeToState(State.invalid);
                         return false;
                     }
                 } else if(TextUtils.equals(className, Constans.WECHAT_LUCKY_MONEY_DETAIL)) {
-                    if (mState == 2) {
-                        mState = 3;
+                    if (mState == State.opened) {
+                        changeToState(State.detail);
                         mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);  //back to chat window
+                        changeToState(State.invalid);
                         return true;
                     } else {
-                        mState = 0;
+                        changeToState(State.invalid);
                         return false;
                     }
                 } else if(TextUtils.equals(className, Constans.WECHAT_LUCKY_MONEY_RECEIVER)) {
-                    if(mState == 2) {
+                    if(mState==State.clickedInList) {
                         boolean fetchSuccess = PacketUtils.openPacketInDetail(mService);
-                        if (!fetchSuccess) {
+                        if (fetchSuccess) {
+                            changeToState(State.opened);
+                        } else {
                             // fetch failed, lucky money dispatch finished, back to chat window
                             mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);  //back to chat window
-                            mState = 0;
+                            changeToState(State.invalid);
                         }
                         return true;
                     }
                 }
                 return false;
             default:
-                if(mState == 1) {
-                    mState = 0;
+                if(mState == State.notification) {
+                    changeToState(State.invalid);
                 }
                 return false;
         }
     }
 
-    public boolean isTryToFetchAndClick() {
-        return mState == 2;
+    private boolean isState(State state) {
+        return mState == state;
     }
 
-    public int getState() {
+    private void changeToState(State state) {
+        if(mState != state) {
+            mState = state;
+            if(mFlowListener !=null) {
+                mFlowListener.onNotificationFlowStateChanged(state);
+            }
+        }
+
+    }
+
+    public boolean isTryToFetchAndClick() {
+        return mState == State.clickedInList;
+    }
+
+    public State getState() {
         return mState;
     }
 

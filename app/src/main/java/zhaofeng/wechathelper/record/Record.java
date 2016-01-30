@@ -8,4 +8,9 @@ public class Record {
     public long time;
     public String sender;
     public String desc;
+
+    @Override
+    public String toString() {
+        return amount+", "+time+", "+sender+", "+desc;
+    }
 }

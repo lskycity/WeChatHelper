@@ -82,15 +82,15 @@ public class PacketUtils {
     public static Record getFetchAmountInDetail(AccessibilityService service){
         AccessibilityNodeInfo nodeInfo = service.getRootInActiveWindow();
         if (nodeInfo != null) {
-            List<AccessibilityNodeInfo> nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_fetched_lucky_money));
-            if(nodeInfos.size()==0) {
+            List<AccessibilityNodeInfo> unitNodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_money_unit));
+            if(unitNodeInfos.size()==0) {
                 return null;
             }
 
             try {
                 Record record = new Record();
-                AccessibilityNodeInfo textNode = nodeInfos.get(0);
-                AccessibilityNodeInfo amountParentNode = textNode.getParent().getParent();
+                AccessibilityNodeInfo unitNode = unitNodeInfos.get(0);
+                AccessibilityNodeInfo amountParentNode = unitNode.getParent();
                 AccessibilityNodeInfo amountNode = amountParentNode.getChild(0);
                 record.amount = amountNode.getText().toString();
 
