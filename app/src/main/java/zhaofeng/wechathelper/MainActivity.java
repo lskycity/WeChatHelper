@@ -9,51 +9,48 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import zhaofeng.wechathelper.record.FetchRecordDbHelper;
+import zhaofeng.wechathelper.record.Record;
+import zhaofeng.wechathelper.ui.adapter.LuckyMoneyCursorAdapter;
+import zhaofeng.wechathelper.ui.adapter.LuckyMoneyListAdapter;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private ListView mListView;
+    private FetchRecordDbHelper mDbHelper;
+    private LuckyMoneyCursorAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button openButton = (Button) findViewById(R.id.open_button);
+        mListView = (ListView) findViewById(R.id.list);
+        mAdapter = new LuckyMoneyCursorAdapter(this,null);
+        mListView.setAdapter(mAdapter);
         openButton.setOnClickListener(this);
 
         TextView mTextView = (TextView) findViewById(R.id.description);
-        Cursor cursor = new FetchRecordDbHelper(this).query();
-        StringBuilder builder = new StringBuilder();
-        while (cursor.moveToNext()) {
-            String amount = cursor.getString(1);
-            long time = cursor.getLong(2);
-            builder.append(amount);
-            builder.append(getString(R.string.key_word_money_unit));
-            builder.append(", ");
-            builder.append(new Date(time).toLocaleString());
-            builder.append(", ");
-            builder.append(cursor.getString(3));
-            builder.append(", ");
-            builder.append(cursor.getString(4));
-            builder.append("\n");
-        }
-        mTextView.setText(builder);
+        mDbHelper = new FetchRecordDbHelper(this);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        refreshList();
         ViewGroup serviceTipPanel = (ViewGroup) findViewById(R.id.service_tip_panel);
         serviceTipPanel.setVisibility(isAccessibilityEnabled() ? View.GONE : View.VISIBLE);
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.open_button) {
+        if (v.getId() == R.id.open_button) {
             openServiceSetting();
         }
     }
@@ -63,22 +60,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
-    public boolean isAccessibilityEnabled(){
+    public boolean isAccessibilityEnabled() {
         int accessibilityEnabled = 0;
         final String ACCESSIBILITY_SERVICE_NAME = "zhaofeng.wechathelper/zhaofeng.wechathelper.FetchLuckyMoneyService";
         try {
-            accessibilityEnabled = Settings.Secure.getInt(this.getContentResolver(),android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
+            accessibilityEnabled = Settings.Secure.getInt(this.getContentResolver(), android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
         } catch (Settings.SettingNotFoundException ignored) {
         }
 
-        if (accessibilityEnabled==1){
+        if (accessibilityEnabled == 1) {
             String settingValue = Settings.Secure.getString(getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
             if (settingValue != null) {
                 TextUtils.SimpleStringSplitter splitter = new TextUtils.SimpleStringSplitter(':');
                 splitter.setString(settingValue);
                 while (splitter.hasNext()) {
                     String accessibilityService = splitter.next();
-                    if (accessibilityService.equalsIgnoreCase(ACCESSIBILITY_SERVICE_NAME)){
+                    if (accessibilityService.equalsIgnoreCase(ACCESSIBILITY_SERVICE_NAME)) {
                         return true;
                     }
                 }
@@ -86,6 +83,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         return false;
+    }
+
+    private void refreshList()
+    {
+        if(mAdapter!=null)
+        {
+            mAdapter.refreshData(mDbHelper.query());
+        }
     }
 
 }

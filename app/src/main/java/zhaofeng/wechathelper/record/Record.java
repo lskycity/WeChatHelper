@@ -13,4 +13,14 @@ public class Record {
     public String toString() {
         return amount+", "+time+", "+sender+", "+desc;
     }
+
+    public Record(String amount, long time, String sender, String desc) {
+        this.amount = amount;
+        this.time = time;
+        this.desc = desc;
+        this.sender = sender;
+    }
+
+    public Record() {
+    }
 }
