@@ -6,6 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarStyle">@style/AppActionBarStyle</item>
+    </style>
+
+    <style name="AppActionBarStyle" parent="style/Widget.AppCompat.ActionBar.Solid">
+        <item name="elevation">4dp</item>
     </style>
 
     <style name="BoldMainText">
