@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lucky_money_background"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -11,29 +11,49 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="zhaofeng.wechathelper.MainActivity">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:id="@+id/service_tip_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
+        android:layout_marginBottom="4dp"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="2dp">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/open_service_tip" />
+            android:orientation="vertical"
+            android:showDividers="middle"
+            android:divider="@drawable/divider_linear_layout">
 
-        <Button
-            android:id="@+id/open_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/open_service_button" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/open_service_tip" />
 
-    <ListView
-        android:id="@+id/list"
+            <Button
+                android:id="@+id/open_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/open_service_button"
+                style="?attr/buttonBarPositiveButtonStyle"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_weight="1"
+        app:cardBackgroundColor="@color/lucky_money_background"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="0dp">
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.v7.widget.CardView>
+
 
 
 </LinearLayout>
