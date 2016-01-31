@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -117,13 +118,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showTotalMoneyCollected() {
+        Fragment oldFragment = getSupportFragmentManager().findFragmentByTag("TotalMoneyTipsFragment");
+        if(oldFragment != null) {
+            getSupportFragmentManager().beginTransaction().remove(oldFragment).commitAllowingStateLoss();
+        }
         initMoneyData();
         Float total = Utils.readFloatFromSharedPreference(this, Constants.TOTAL_MONEY_KEY);
         Bundle bundle = new Bundle();
         bundle.putFloat(TotalMoneyTipsFragment.TOTAL_MONEY_AMOUNT, total);
         TotalMoneyTipsFragment fragment = new TotalMoneyTipsFragment();
         fragment.setArguments(bundle);
-        fragment.show(getSupportFragmentManager(),"tag");
+        fragment.show(getSupportFragmentManager(),"TotalMoneyTipsFragment");
     }
 
     private boolean initMoneyData() {
