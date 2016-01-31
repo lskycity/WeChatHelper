@@ -3,6 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="record_item_gap">5dp</dimen>
+    <dimen name="wealth_god_width">30dp</dimen>
+    <dimen name="wealth_god_height">30dp</dimen>
+    <dimen name="wealth_god_margin">20dp</dimen>
 
     <dimen name="detail">16sp</dimen>
 </resources>

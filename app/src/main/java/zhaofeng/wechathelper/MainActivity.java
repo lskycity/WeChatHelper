@@ -11,14 +11,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Formatter;
 
+import zhaofeng.wechathelper.fragment.TotalMoneyTipsFragment;
 import zhaofeng.wechathelper.record.FetchRecordDbHelper;
-import zhaofeng.wechathelper.record.Record;
 import zhaofeng.wechathelper.ui.adapter.LuckyMoneyCursorAdapter;
-import zhaofeng.wechathelper.ui.adapter.LuckyMoneyListAdapter;
+import zhaofeng.wechathelper.utils.Constants;
+import zhaofeng.wechathelper.utils.Utils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView mListView;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Button openButton = (Button) findViewById(R.id.open_button);
         mListView = (ListView) findViewById(R.id.list);
-        mAdapter = new LuckyMoneyCursorAdapter(this,null);
+        mAdapter = new LuckyMoneyCursorAdapter(this, null);
         mListView.setAdapter(mAdapter);
         openButton.setOnClickListener(this);
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         refreshList();
+        showTotalMoneyCollected();
         ViewGroup serviceTipPanel = (ViewGroup) findViewById(R.id.service_tip_panel);
         serviceTipPanel.setVisibility(isAccessibilityEnabled() ? View.GONE : View.VISIBLE);
     }
@@ -85,12 +87,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
-    private void refreshList()
-    {
-        if(mAdapter!=null)
-        {
+    private void refreshList() {
+        if (mAdapter != null) {
             mAdapter.refreshData(mDbHelper.query());
         }
+    }
+
+    private void showTotalMoneyCollected() {
+        initMoneyData();
+        Float total = Utils.readFloatFromSharedPreference(this, Constants.TOTAL_MONEY_KEY);
+        Bundle bundle = new Bundle();
+        bundle.putFloat(TotalMoneyTipsFragment.TOTAL_MONEY_AMOUNT, total);
+        TotalMoneyTipsFragment fragment = new TotalMoneyTipsFragment();
+        fragment.setArguments(bundle);
+        fragment.show(getSupportFragmentManager(),"tag");
+    }
+
+    private boolean initMoneyData() {
+        if (!Utils.isMoneySharedPreferenceExist(this)) {
+            Cursor cursor = mDbHelper.query();
+            float total = 0.0f;
+            while (cursor.moveToNext()) {
+                String amount = cursor.getString(1);
+                try {
+                    float fAmount = Float.valueOf(amount);
+                    total += fAmount;
+
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+            }
+            Utils.saveFloatToSharedPreference(this, Constants.TOTAL_MONEY_KEY, total);
+            return true;
+        }
+        return true;
     }
 
 }

@@ -3,7 +3,7 @@ package zhaofeng.wechathelper.utils;
 /**
  * Created by liuzhaofeng on 2016/1/28.
  */
-public class Constans {
+public class Constants {
     /**
      * wechat package name
      */
@@ -20,4 +20,5 @@ public class Constans {
      * main screen or chat screen
      */
     public static final String WECHAT_LAUNCHER = "com.tencent.mm.ui.LauncherUI";
+    public static final String TOTAL_MONEY_KEY = "TOTAL";
 }
