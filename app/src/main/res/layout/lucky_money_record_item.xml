@@ -11,36 +11,32 @@
 
         <TextView
             android:id="@+id/amount"
+            style="@style/BoldMainText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/record_item_gap" />
-
+            android:layout_marginEnd="@dimen/record_item_gap"
+            android:textColor="@color/gold"/>
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/sender"
+            style="@style/MainText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/sender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/record_item_gap" />
+    <TextView
+        android:id="@+id/description"
+        style="@style/MainText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/record_item_gap" />
 
-    </LinearLayout>
-
+    <TextView
+        android:id="@+id/time"
+        style="@style/MainText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

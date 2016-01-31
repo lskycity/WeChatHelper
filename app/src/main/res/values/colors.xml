@@ -3,4 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="gold">#FFD700</color>
+    <color name="lucky_money_background">#E00606</color>
 </resources>
