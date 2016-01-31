@@ -4,16 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by kevinbest on 16/1/30.
  */
 public class Utils {
     private static final String SHARED_PREFERENCE_NAME = "MONEY_STATISTICS";
+    private static SimpleDateFormat FORMATER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
     public static String getTimeString(long time) {
-        return new Date(time).toLocaleString();
+        return FORMATER.format(new Date(time));
     }
 
     public static void saveStringToSharedPreference(Context context, String key, String value) {

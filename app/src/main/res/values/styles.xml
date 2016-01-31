@@ -9,7 +9,6 @@
     </style>
 
     <style name="BoldMainText">
-        <item name="android:textSize">@dimen/detail</item>
         <item name="android:typeface">monospace</item>
         <item name="android:textStyle">bold</item>
     </style>

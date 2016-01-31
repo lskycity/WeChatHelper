@@ -6,14 +6,12 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.Formatter;
 
 import zhaofeng.wechathelper.fragment.TotalMoneyTipsFragment;
 import zhaofeng.wechathelper.record.FetchRecordDbHelper;
@@ -36,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mListView.setAdapter(mAdapter);
         openButton.setOnClickListener(this);
 
-        TextView mTextView = (TextView) findViewById(R.id.description);
         mDbHelper = new FetchRecordDbHelper(this);
 
     }
@@ -48,6 +45,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         showTotalMoneyCollected();
         ViewGroup serviceTipPanel = (ViewGroup) findViewById(R.id.service_tip_panel);
         serviceTipPanel.setVisibility(isAccessibilityEnabled() ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.menu_about) {
+            openAboutActivity();
+            return true;
+        } else if(item.getItemId() == R.id.menu_settings) {
+            openSettingsActivity();
+            return true;
+        }
+        return false;
+    }
+
+    private void openAboutActivity() {
+
+    }
+
+    private void openSettingsActivity() {
+
     }
 
     @Override
