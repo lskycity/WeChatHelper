@@ -59,7 +59,7 @@ public class PacketUtils {
 
         AccessibilityNodeInfo listViewNode = listItem.getParent();
         int count = listViewNode.getChildCount();
-        for(int i=count-1; i>=count-lastCount-1; i--) {
+        for(int i=count-1; i>count-lastCount-1; i--) {
             if(listViewNode.getChild(i).equals(listItem)) {
                 return true;
             }
