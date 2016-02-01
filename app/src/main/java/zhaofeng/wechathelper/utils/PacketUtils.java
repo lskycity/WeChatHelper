@@ -45,7 +45,7 @@ public class PacketUtils {
         return null;
     }
 
-    public static boolean isLastNodeInListView(AccessibilityNodeInfo fetchLuckyMoneyNode) {
+    public static boolean isLastNodeInListView(AccessibilityNodeInfo fetchLuckyMoneyNode, int lastCount) {
         AccessibilityNodeInfo listItem = fetchLuckyMoneyNode;
         try {
             AccessibilityNodeInfo v;
@@ -59,7 +59,12 @@ public class PacketUtils {
 
         AccessibilityNodeInfo listViewNode = listItem.getParent();
         int count = listViewNode.getChildCount();
-        return listViewNode.getChild(count-1).equals(listItem);
+        for(int i=count-1; i>=count-lastCount-1; i--) {
+            if(listViewNode.getChild(i).equals(listItem)) {
+                return true;
+            }
+        }
+        return false;
 
     }
 

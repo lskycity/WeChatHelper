@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void showTotalMoneyCollected() {
         initMoneyData();
         Float total = Utils.readFloatFromSharedPreference(this, Constants.TOTAL_MONEY_KEY);
-        mTotalMoneyTips.setText( "红包助手已为你抢到" + String.format("%.2f",total) + " 元.");
+        mTotalMoneyTips.setText(String.format("红包助手已为你抢到%.2f元.",total));
 //        Fragment oldFragment = getSupportFragmentManager().findFragmentByTag("TotalMoneyTipsFragment");
 //        if(oldFragment != null) {
 //            getSupportFragmentManager().beginTransaction().remove(oldFragment).commitAllowingStateLoss();

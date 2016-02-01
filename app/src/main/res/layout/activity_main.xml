@@ -36,9 +36,10 @@
 
             <Button
                 android:id="@+id/open_button"
-                style="?attr/buttonBarPositiveButtonStyle"
+                android:minWidth="64dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:textColor="?attr/colorAccent"
+                android:layout_height="48dp"
                 android:layout_margin="8dp"
                 android:text="@string/open_service_button" />
         </LinearLayout>
@@ -47,7 +48,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         app:cardCornerRadius="2dp"
         app:cardElevation="2dp">
 
@@ -102,6 +103,5 @@
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
-
 
 </LinearLayout>

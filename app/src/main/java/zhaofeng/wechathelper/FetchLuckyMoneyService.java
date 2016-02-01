@@ -25,6 +25,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     private FetchRecordDbHelper mFetchRecordDbHelper;
     private String mCurrentUI = "";
     private boolean isOpenByService = false;
+    private int mListCount = 0;
     private static final double BIG_MONEY = 5.0f;
 
     @Override
@@ -66,8 +67,12 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                 }
                 break;
             case AccessibilityEvent.TYPE_VIEW_SCROLLED:
-                if (Constants.WECHAT_LAUNCHER.equals(mCurrentUI) && !mNotificationFlowHelper.isTryToFetchAndClick() && isListViewBottom(event)) {
-                    checkLastMessageAndOpenLuckyMoney();
+                if(Constants.WECHAT_LAUNCHER.equals(mCurrentUI) && isListViewScroll(event)) {
+                    int count = event.getItemCount();
+                    if((event.getToIndex() == count-1) && count != mListCount) {
+                        checkLastMessageAndOpenLuckyMoney(count - mListCount);
+                    }
+                    mListCount = count;
                 }
                 break;
         }
@@ -144,17 +149,13 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         }
     }
 
-
-    private boolean isListViewBottom(AccessibilityEvent event) {
-        if (TextUtils.equals(event.getClassName(), "android.widget.ListView")) {
-            return event.getToIndex() == event.getItemCount() - 1;
-        }
-        return false;
+    private boolean isListViewScroll(AccessibilityEvent event) {
+        return TextUtils.equals(event.getClassName(), "android.widget.ListView");
     }
 
-    private void checkLastMessageAndOpenLuckyMoney() {
+    private void checkLastMessageAndOpenLuckyMoney(int lastCount) {
         AccessibilityNodeInfo packet = PacketUtils.getLastPacket(this);
-        if (packet != null && PacketUtils.isLastNodeInListView(packet)) {
+        if (packet != null && PacketUtils.isLastNodeInListView(packet, lastCount)) {
             isOpenByService = PacketUtils.clickThePacketNode(this, packet);
         }
     }
