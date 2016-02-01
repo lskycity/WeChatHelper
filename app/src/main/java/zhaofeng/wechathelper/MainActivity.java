@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import zhaofeng.wechathelper.fragment.TotalMoneyTipsFragment;
 import zhaofeng.wechathelper.record.FetchRecordDbHelper;
@@ -24,17 +25,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView mListView;
     private FetchRecordDbHelper mDbHelper;
     private LuckyMoneyCursorAdapter mAdapter;
+    private TextView mTotalMoneyTips;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button openButton = (Button) findViewById(R.id.open_button);
-        mListView = (ListView) findViewById(R.id.list);
+        mListView = (ListView) findViewById(android.R.id.list);
         mAdapter = new LuckyMoneyCursorAdapter(this, null);
         mListView.setAdapter(mAdapter);
+        mListView.setEmptyView(findViewById(android.R.id.empty));
+        mTotalMoneyTips = (TextView)findViewById(R.id.tips);
         openButton.setOnClickListener(this);
-
         mDbHelper = new FetchRecordDbHelper(this);
 
     }
@@ -118,17 +121,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showTotalMoneyCollected() {
-        Fragment oldFragment = getSupportFragmentManager().findFragmentByTag("TotalMoneyTipsFragment");
-        if(oldFragment != null) {
-            getSupportFragmentManager().beginTransaction().remove(oldFragment).commitAllowingStateLoss();
-        }
         initMoneyData();
         Float total = Utils.readFloatFromSharedPreference(this, Constants.TOTAL_MONEY_KEY);
-        Bundle bundle = new Bundle();
-        bundle.putFloat(TotalMoneyTipsFragment.TOTAL_MONEY_AMOUNT, total);
-        TotalMoneyTipsFragment fragment = new TotalMoneyTipsFragment();
-        fragment.setArguments(bundle);
-        fragment.show(getSupportFragmentManager(),"TotalMoneyTipsFragment");
+        mTotalMoneyTips.setText( "红包助手已为你抢到" + String.format("%.2f",total) + " 元.");
+//        Fragment oldFragment = getSupportFragmentManager().findFragmentByTag("TotalMoneyTipsFragment");
+//        if(oldFragment != null) {
+//            getSupportFragmentManager().beginTransaction().remove(oldFragment).commitAllowingStateLoss();
+//        }
+//        Bundle bundle = new Bundle();
+//        bundle.putFloat(TotalMoneyTipsFragment.TOTAL_MONEY_AMOUNT, total);
+//        TotalMoneyTipsFragment fragment = new TotalMoneyTipsFragment();
+//        fragment.setArguments(bundle);
+//        fragment.show(getSupportFragmentManager(),"TotalMoneyTipsFragment");
     }
 
     private boolean initMoneyData() {

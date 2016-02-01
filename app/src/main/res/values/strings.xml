@@ -15,4 +15,5 @@
     <string name="key_word_receive_lucky_money">给你发了一个红包</string>
     <string name="key_word_receive_lucky_money_from_group">发了一个红包，金额随机</string>
     <string name="key_word_money_unit">元</string>
+    <string name="no_money_collected">可怜的人儿，还没抢到过红包。。。</string>
 </resources>
