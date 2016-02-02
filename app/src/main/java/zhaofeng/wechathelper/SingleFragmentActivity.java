@@ -14,6 +14,9 @@ public abstract class SingleFragmentActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_fragment);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         if (savedInstanceState == null)
         {
             FragmentManager fm = getSupportFragmentManager();
@@ -24,4 +27,13 @@ public abstract class SingleFragmentActivity extends AppCompatActivity
     }
 
     protected abstract Fragment createFragment();
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        if(!super.onSupportNavigateUp()) {
+            supportFinishAfterTransition();
+            return true;
+        }
+        return false;
+    }
 }
