@@ -74,11 +74,14 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                     int diff;
                     if(mListNodeCode == listNodeCode) {
                         diff = count - mListCount;
+                        if(diff<=0) {
+                            diff = 1;
+                        }
                     } else {
                         diff = 1;
                     }
 
-                    if((event.getToIndex() == count-1) && diff>0) {
+                    if(!mNotificationFlowHelper.isTryToFetchAndClick() && (event.getToIndex() == count-1)) {
                         checkLastMessageAndOpenLuckyMoney(diff);
                     }
                     mListCount = count;
