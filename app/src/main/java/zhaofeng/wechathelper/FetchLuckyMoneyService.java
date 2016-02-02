@@ -70,6 +70,9 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
             case AccessibilityEvent.TYPE_VIEW_SCROLLED:
                 if(Constants.WECHAT_LAUNCHER.equals(mCurrentUI) && isListViewScroll(event)) {
                     int count = event.getItemCount();
+                    if(event.getSource() == null) {
+                        return;
+                    }
                     int listNodeCode = event.getSource().hashCode();
                     int diff;
                     if(mListNodeCode == listNodeCode) {
