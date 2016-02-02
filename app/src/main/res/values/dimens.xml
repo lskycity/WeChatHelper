@@ -11,4 +11,9 @@
 
     <dimen name="list_primary_text_size">16sp</dimen>
     <dimen name="list_secondary_text_size">13sp</dimen>
+
+    <dimen name="avatar_margin">4dp</dimen>
+    <dimen name="text_margin">8dp</dimen>
+    <dimen name="avatar_width">100dp</dimen>
+    <dimen name="avatar_height">100dp</dimen>
 </resources>

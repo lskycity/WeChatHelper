@@ -37,4 +37,16 @@
     3.对于因不可抗力或因黑客攻击、通讯线路中断等APP不能控制的原因造成的网络服务中断或其他缺陷，导致用户不能正常使用APP，APP不承担任何责任。\n\n
     4.本声明未涉及的问题请参见国家有关法律法规，当本声明与国家有关法律法规冲突时，以国家法律法规为准。\n\n
     5.本网站相关声明版权及其修改权、更新权和最终解释权均属APP手机APP所有。</string>
+
+
+    <string name="team_intro">来自于宇宙无敌的jabber android team为您倾情奉献，欢迎大家提各种意见，当然，大部分情况我们不会采纳.但是你可以死皮赖脸的发过来，万一我们大发慈悲的采纳了呐^_^</string>
+    <string name="team_name">关于我们</string>
+    <string name="zhaofeng_nickname">Running snail</string>
+    <string name="zhaofeng_intro">梦想是要有的，万一要是见鬼了呢～</string>
+    <string name="xianpeng_nickname">百无聊赖的凯文－张</string>
+    <string name="xianpeng_intro">颜值担当</string>
+    <string name="yuanyuan_nickname">圆圆</string>
+    <string name="yuanyuan_intro">四体不勤，五谷不分，文不能测字，武不能防身</string>
+    <string name="team_email">邮箱：yanzhibaobiao@gmail.com</string>
+    <string name="team_wechat">公众号：暂时还没有</string>
 </resources>
