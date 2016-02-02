@@ -26,6 +26,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     private String mCurrentUI = "";
     private boolean isOpenByService = false;
     private int mListCount = 0;
+    private long mListNodeCode = 0;
     private static final double BIG_MONEY = 5.0f;
 
     @Override
@@ -69,10 +70,19 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
             case AccessibilityEvent.TYPE_VIEW_SCROLLED:
                 if(Constants.WECHAT_LAUNCHER.equals(mCurrentUI) && isListViewScroll(event)) {
                     int count = event.getItemCount();
-                    if((event.getToIndex() == count-1) && count != mListCount) {
-                        checkLastMessageAndOpenLuckyMoney(count - mListCount);
+                    int listNodeCode = event.getSource().hashCode();
+                    int diff;
+                    if(mListNodeCode == listNodeCode) {
+                        diff = count - mListCount;
+                    } else {
+                        diff = 1;
+                    }
+
+                    if((event.getToIndex() == count-1) && diff>0) {
+                        checkLastMessageAndOpenLuckyMoney(diff);
                     }
                     mListCount = count;
+                    mListNodeCode = listNodeCode;
                 }
                 break;
         }
