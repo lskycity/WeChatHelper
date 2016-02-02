@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">WeChat Helper</string>
     <string name="fetch_lucky_money_service_description">Help you fetch the Lucky money from WeChat automatically.</string>
-    <string name="open_service_tip">要开启自动抢红包功能，请打开抢红包服务，进入系统设定，打开辅助功能，点击抢红包服务，打开开关。注意：小米手机的辅助功能在高级设置里面！</string>
+    <string name="open_service_tip"><Data><![CDATA[<font color="#ff0000"><b>注意：</b></font>要开启自动抢红包功能，请打开抢红包服务，进入系统设定，打开辅助功能，点击抢红包服务，打开开关。注意：小米手机的辅助功能在高级设置里面！]]></Data></string>
     <string name="open_service_button">进入辅助功能</string>
 
     <string name="main_menu_about">关于我们</string>

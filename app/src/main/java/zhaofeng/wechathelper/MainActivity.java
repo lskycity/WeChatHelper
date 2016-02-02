@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTotalMoneyTips = (TextView)findViewById(R.id.tips);
         openButton.setOnClickListener(this);
         mDbHelper = new FetchRecordDbHelper(this);
+
+        TextView openServiceTip = (TextView) findViewById(R.id.open_service_tip);
+        openServiceTip.setText(Html.fromHtml(getString(R.string.open_service_tip)));
 
     }
 
