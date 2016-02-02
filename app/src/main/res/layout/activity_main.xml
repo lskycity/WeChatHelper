@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lucky_money_background"
+    android:background="#e5e5e5"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -11,29 +12,96 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="zhaofeng.wechathelper.MainActivity">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:id="@+id/service_tip_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginBottom="4dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp">
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/open_service_tip" />
+            android:divider="@drawable/divider_linear_layout"
+            android:orientation="vertical"
+            android:showDividers="middle">
 
-        <Button
-            android:id="@+id/open_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/open_service_button" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/open_service_tip"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <ListView
-        android:id="@+id/list"
+            <Button
+                android:id="@+id/open_button"
+                android:minWidth="64dp"
+                android:layout_width="wrap_content"
+                android:textColor="?attr/colorAccent"
+                android:layout_height="48dp"
+                android:layout_margin="8dp"
+                android:text="@string/open_service_button" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp">
 
+        <LinearLayout
+            android:id="@+id/total_money_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/wealth_god"
+                android:layout_width="@dimen/wealth_god_width"
+                android:layout_height="@dimen/wealth_god_height"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/wealth_god_margin"
+                android:src="@drawable/god_of_wealth" />
+
+            <TextView
+                android:id="@+id/tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:singleLine="false"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@android:id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@android:id/empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/no_money_collected" />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

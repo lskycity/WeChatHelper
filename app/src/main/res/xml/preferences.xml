@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/main_menu_setting">
+
+        <SwitchPreference
+            android:key="sound_switch"
+            android:summaryOff="@string/switch_off"
+            android:summaryOn="@string/switch_on"
+            android:title="@string/sound_switch_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/app_info">
+        <PreferenceScreen
+            android:summary="@string/version"
+            android:title="@string/app_info" />
+        <PreferenceScreen android:title="@string/about_us">
+            <intent
+                android:targetClass="zhaofeng.wechathelper.AboutUsActivity"
+                android:targetPackage="zhaofeng.wechathelper" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/disclaimer">
+            <intent
+                android:targetClass="zhaofeng.wechathelper.DisclaimerActivity"
+                android:targetPackage="zhaofeng.wechathelper" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/user_guide">
+            <intent
+                android:targetClass="zhaofeng.wechathelper.UserGuideActivity"
+                android:targetPackage="zhaofeng.wechathelper" />
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

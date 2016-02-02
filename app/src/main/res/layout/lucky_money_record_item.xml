@@ -2,7 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,27 +19,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/record_item_gap"
-            android:textColor="@color/gold"/>
+            android:textColor="#81BEF7"
+            android:textSize="@dimen/list_primary_text_size"/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
         <TextView
-            android:id="@+id/sender"
+            android:id="@+id/time"
             style="@style/MainText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/list_secondary_text_size"/>
     </LinearLayout>
 
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/sender"
         style="@style/MainText"
+        android:textSize="@dimen/list_secondary_text_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/description"
         style="@style/MainText"
+        android:textSize="@dimen/list_secondary_text_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

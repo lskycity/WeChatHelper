@@ -3,14 +3,12 @@ package zhaofeng.wechathelper;
 import android.accessibilityservice.AccessibilityService;
 import android.app.Notification;
 import android.content.Context;
-import android.os.Build;
 import android.os.PowerManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import zhaofeng.wechathelper.utils.Constans;
+import zhaofeng.wechathelper.utils.Constants;
 import zhaofeng.wechathelper.utils.NotificationUtils;
 import zhaofeng.wechathelper.utils.PacketUtils;
 
@@ -64,7 +62,7 @@ public class NotificationFlowHelper {
                 return mState == State.notification;
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 CharSequence className = event.getClassName();
-                if (TextUtils.equals(className, Constans.WECHAT_LAUNCHER)) {
+                if (TextUtils.equals(className, Constants.WECHAT_LAUNCHER)) {
                     if(mState == State.notification) {
                         boolean success = fetchPacketAndClick();
                         changeToState(success ? State.clickedInList : State.invalid);
@@ -73,7 +71,7 @@ public class NotificationFlowHelper {
                         changeToState(State.invalid);
                         return false;
                     }
-                } else if(TextUtils.equals(className, Constans.WECHAT_LUCKY_MONEY_DETAIL)) {
+                } else if(TextUtils.equals(className, Constants.WECHAT_LUCKY_MONEY_DETAIL)) {
                     if (mState == State.opened) {
                         changeToState(State.detail);
                         mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);  //back to chat window
@@ -83,7 +81,7 @@ public class NotificationFlowHelper {
                         changeToState(State.invalid);
                         return false;
                     }
-                } else if(TextUtils.equals(className, Constans.WECHAT_LUCKY_MONEY_RECEIVER)) {
+                } else if(TextUtils.equals(className, Constants.WECHAT_LUCKY_MONEY_RECEIVER)) {
                     if(mState==State.clickedInList) {
                         boolean fetchSuccess = PacketUtils.openPacketInDetail(mService);
                         if (fetchSuccess) {
@@ -134,11 +132,7 @@ public class NotificationFlowHelper {
 
     private boolean isScreenOn() {
         PowerManager powerManager = (PowerManager)mService.getSystemService(Context.POWER_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
-            return powerManager.isInteractive();
-        } else {
-            return powerManager.isScreenOn();
-        }
+        return powerManager.isInteractive();
     }
 
     private void lightScreen(){

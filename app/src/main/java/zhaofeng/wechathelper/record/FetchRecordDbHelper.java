@@ -58,6 +58,6 @@ public class FetchRecordDbHelper extends SQLiteOpenHelper {
                 FetchRecordEntry.COLUMN_NAME_SENDER,
                 FetchRecordEntry.COLUMN_NAME_DESC
         };
-        return db.query(FetchRecordEntry.TABLE_NAME, projection, null, null, null, null, null);
+        return db.query(FetchRecordEntry.TABLE_NAME, projection, null, null, null, null, FetchRecordEntry.COLUMN_NAME_TIME+" DESC");
     }
 }
