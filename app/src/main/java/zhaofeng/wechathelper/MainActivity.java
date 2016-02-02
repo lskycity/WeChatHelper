@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void openSettingsActivity() {
-
+        startActivity(new Intent(this,SettingsActivity.class));
     }
 
     @Override
