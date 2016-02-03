@@ -50,4 +50,9 @@
     <string name="yuanyuan_intro">四体不勤，五谷不分，文不能测字，武不能防身</string>
     <string name="team_email">邮箱：yanzhibaobiao@gmail.com</string>
     <string name="team_wechat">公众号：暂时还没有</string>
+
+    <string name="mail_subject">红包猎手 意见反馈</string>
+    <string name="mail_content">致可爱的YanZhiBaoBiao Team:</string>
+    <string name="mail_chooser_title">发送意见反馈邮件</string>
+    <string name="team_mail_address">yanzhibaobiao@gmail.com</string>
 </resources>
