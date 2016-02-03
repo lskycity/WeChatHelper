@@ -12,7 +12,6 @@ import java.util.Locale;
  * Created by kevinbest on 16/1/30.
  */
 public class Utils {
-    private static final String SHARED_PREFERENCE_NAME = "MONEY_STATISTICS";
     private static SimpleDateFormat FORMATER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
     public static String getTimeString(long time) {
@@ -20,26 +19,26 @@ public class Utils {
     }
 
     public static void saveStringToSharedPreference(Context context, String key, String value) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.commit();
     }
 
     public static void saveFloatToSharedPreference(Context context, String key, float value) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putFloat(key, value);
         editor.commit();
     }
 
     public static String readStringFromSharedPreference(Context context, String key) {
-        SharedPreferences sharedPreference = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreference = context.getSharedPreferences(Constants.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         return sharedPreference == null ? null : sharedPreference.getString(key, null);
     }
 
     public static float readFloatFromSharedPreference(Context context, String key) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         return sharedPreferences == null ? 0.0f : sharedPreferences.getFloat(key, 0.0f);
     }
 
@@ -49,6 +48,13 @@ public class Utils {
     }
 
     public static boolean isMoneySharedPreferenceExist(Context context) {
-        return isSharedPreferenceExist(context, SHARED_PREFERENCE_NAME);
+        return isSharedPreferenceExist(context, Constants.SHARED_PREFERENCE_NAME);
     }
+
+    public static boolean readBooleanSetting(Context context, String key, boolean defaultValue)
+    {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.SETTING_FILE, Context.MODE_PRIVATE);
+        return sharedPreferences == null? defaultValue:sharedPreferences.getBoolean(key,defaultValue);
+    }
+
 }

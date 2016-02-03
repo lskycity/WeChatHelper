@@ -26,9 +26,9 @@
     <string name="no_money_collected">可怜的人儿，还没抢到过红包。。。</string>
 
     <string name="user_guide_question_1">1.无法打开抢红包服务，提示语言不匹配。</string>
-    <string name="user_guide_answer_1">进入语言与输入法设置，找到文字转语音输出，点击首选引擎中item右边的设定，点击语言，选择使用系统语言</string>
+    <string name="user_guide_answer_1">进入语言与输入法设置，找到文字转语音输出，点击首选引擎中选项右边的设定，点击语言，选择使用系统语言</string>
     <string name="user_guide_question_2">2.红包来了不提示，或者不能自动点开红包</string>
-    <string name="user_guide_answer_2">可能的原因有两种，1.语言，微信的语言请设置成中文，我们程序暂时不支持中文（您可以在微信里面设置语言，或者直接改系统语言）。2.您屏蔽了群信息，对于您屏蔽的群信息，我们无法获取到信息。</string>
+    <string name="user_guide_answer_2">可能的原因有两种，1.语言，微信的语言请设置成中文，我们程序暂时不支持英文（您可以在微信里面设置语言，或者直接改系统语言）。2.您屏蔽了群信息，对于您屏蔽的群信息，我们无法获取到信息。</string>
     <string name="user_guide_question_3">3.想在屏幕关的时候自动抢红包怎么办？特别是晚上自动帮我抢红包</string>
     <string name="user_guide_answer_3">在这种情况下，您可以把手机的解锁为无，这样我们在收到红包的时候，就可以帮你自动抢红包了。注意是设置成无，而不是滑动</string>
     <string name="disclaimer_content">APP免责声明\n\n
@@ -39,7 +39,7 @@
     5.本APP相关声明版权及其修改权、更新权和最终解释权均属APP开发团队所有。</string>
 
 
-    <string name="team_intro">来自于宇宙无敌的jabber android team为您倾情奉献，欢迎大家提各种意见，当然，大部分情况我们不会采纳.但是你可以死皮赖脸的发过来，万一我们大发慈悲的采纳了呐^_^</string>
+    <string name="team_intro">来自于宇宙无敌的YanZhiBaoBiao Team为您倾情奉献，欢迎大家提各种意见，当然，大部分情况我们不会采纳.但是你可以死皮赖脸的发过来，万一我们大发慈悲的采纳了呐^_^</string>
     <string name="team_name">关于我们</string>
     <string name="zhaofeng_nickname">Running snail</string>
     <string name="zhaofeng_intro">梦想是要有的，万一要是见鬼了呢～</string>

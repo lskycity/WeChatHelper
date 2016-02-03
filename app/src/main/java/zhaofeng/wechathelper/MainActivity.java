@@ -128,15 +128,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initMoneyData();
         Float total = Utils.readFloatFromSharedPreference(this, Constants.TOTAL_MONEY_KEY);
         mTotalMoneyTips.setText(String.format("红包助手已为你抢到%.2f元.",total));
-//        Fragment oldFragment = getSupportFragmentManager().findFragmentByTag("TotalMoneyTipsFragment");
-//        if(oldFragment != null) {
-//            getSupportFragmentManager().beginTransaction().remove(oldFragment).commitAllowingStateLoss();
-//        }
-//        Bundle bundle = new Bundle();
-//        bundle.putFloat(TotalMoneyTipsFragment.TOTAL_MONEY_AMOUNT, total);
-//        TotalMoneyTipsFragment fragment = new TotalMoneyTipsFragment();
-//        fragment.setArguments(bundle);
-//        fragment.show(getSupportFragmentManager(),"TotalMoneyTipsFragment");
     }
 
     private boolean initMoneyData() {
