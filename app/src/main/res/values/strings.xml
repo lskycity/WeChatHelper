@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">WeChat Helper</string>
-    <string name="fetch_lucky_money_service_description">Help you fetch the Lucky money from WeChat automatically.</string>
+    <string name="app_name">红包猎手</string>
+    <string name="fetch_lucky_money_service_description">本服务帮助您自动抢微信红包</string>
     <string name="open_service_tip"><Data><![CDATA[<font color="#ff0000"><b>注意：</b></font>要开启自动抢红包功能，请打开抢红包服务，进入系统设定，打开辅助功能，点击抢红包服务，打开开关。注意：小米手机的辅助功能在高级设置里面！]]></Data></string>
     <string name="open_service_button">进入辅助功能</string>
 
@@ -32,11 +32,11 @@
     <string name="user_guide_question_3">3.想在屏幕关的时候自动抢红包怎么办？特别是晚上自动帮我抢红包</string>
     <string name="user_guide_answer_3">在这种情况下，您可以把手机的解锁为无，这样我们在收到红包的时候，就可以帮你自动抢红包了。注意是设置成无，而不是滑动</string>
     <string name="disclaimer_content">APP免责声明\n\n
-        1、一切移动客户端用户在下载并浏览APP手机APP软件时均被视为已经仔细阅读本条款并完全同意。凡以任何方式登陆本APP，或直接、间接使用本APP资料者，均被视为自愿接受本应用相关声明和用户服务协议的约束。\n\n
+        1、一切移动客户端用户在下载并浏览我们APP软件时均被视为已经仔细阅读本条款并完全同意。凡以任何方式登陆本APP，或直接、间接使用本APP资料者，均被视为自愿接受本应用相关声明和用户服务协议的约束。\n\n
     2.用户明确并同意其使用APP网络服务所存在的风险将完全由其本人承担；因其使用APP网络服务而产生的一切后果也由其本人承担，APP对此不承担任何责任。\n\n
     3.对于因不可抗力或因黑客攻击、通讯线路中断等APP不能控制的原因造成的网络服务中断或其他缺陷，导致用户不能正常使用APP，APP不承担任何责任。\n\n
     4.本声明未涉及的问题请参见国家有关法律法规，当本声明与国家有关法律法规冲突时，以国家法律法规为准。\n\n
-    5.本网站相关声明版权及其修改权、更新权和最终解释权均属APP手机APP所有。</string>
+    5.本APP相关声明版权及其修改权、更新权和最终解释权均属APP开发团队所有。</string>
 
 
     <string name="team_intro">来自于宇宙无敌的jabber android team为您倾情奉献，欢迎大家提各种意见，当然，大部分情况我们不会采纳.但是你可以死皮赖脸的发过来，万一我们大发慈悲的采纳了呐^_^</string>
