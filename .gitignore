@@ -8,6 +8,7 @@
 .DS_Store
 /build
 /captures
+/app/app-release.apk
 
 # Windows image file caches
 Thumbs.db

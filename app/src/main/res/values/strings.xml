@@ -29,7 +29,7 @@
     <string name="user_guide_question_1">1.无法打开抢红包服务，提示语言不匹配。</string>
     <string name="user_guide_answer_1">进入语言与输入法设置，找到文字转语音输出，点击首选引擎中选项右边的设定，点击语言，选择使用系统语言</string>
     <string name="user_guide_question_2">2.红包来了不提示，或者不能自动点开红包</string>
-    <string name="user_guide_answer_2">可能的原因有两种，1.语言，微信的语言请设置成中文，我们程序暂时不支持英文（您可以在微信里面设置语言，或者直接改系统语言）。2.您屏蔽了群信息，对于您屏蔽的群信息，我们无法获取到信息。</string>
+    <string name="user_guide_answer_2">可能的原因有两种，1.语言，微信的语言请设置成中文，我们程序暂时只支持中文（您可以在微信里面设置语言，或者直接改系统语言）。2.您屏蔽了群信息，对于您屏蔽的群信息，我们无法获取到信息。</string>
     <string name="user_guide_question_3">3.想在屏幕关的时候自动抢红包怎么办？特别是晚上自动帮我抢红包</string>
     <string name="user_guide_answer_3">在这种情况下，您可以把手机的解锁为无，这样我们在收到红包的时候，就可以帮你自动抢红包了。注意是设置成无，而不是滑动</string>
     <string name="disclaimer_content">APP免责声明\n\n
