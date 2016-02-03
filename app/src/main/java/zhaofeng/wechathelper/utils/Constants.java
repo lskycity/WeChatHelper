@@ -21,4 +21,11 @@ public class Constants {
      */
     public static final String WECHAT_LAUNCHER = "com.tencent.mm.ui.LauncherUI";
     public static final String TOTAL_MONEY_KEY = "TOTAL";
+
+    /**
+     * setting key
+     */
+    public static final String SETTING_FILE = "settings";
+    public static final String SOUND_SWITCH_KEY = "sound_switch";
+    public static final String SHARED_PREFERENCE_NAME = "MONEY_STATISTICS";
 }
