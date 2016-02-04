@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.TextUtils;
@@ -16,7 +15,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import zhaofeng.wechathelper.fragment.TotalMoneyTipsFragment;
 import zhaofeng.wechathelper.record.FetchRecordDbHelper;
 import zhaofeng.wechathelper.ui.adapter.LuckyMoneyCursorAdapter;
 import zhaofeng.wechathelper.utils.Constants;
