@@ -28,9 +28,10 @@
                 android:padding="4dp">
 
                 <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="@dimen/team_avatar_width"
+                    android:layout_height="@dimen/team_avatar_height"
                     android:layout_marginStart="0dp"
+                    android:layout_marginLeft="0dp"
                     android:src="@drawable/team"
 
                     />
@@ -172,6 +173,7 @@
                     android:layout_height="@dimen/avatar_height"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="0dp"
+                    android:layout_marginLeft="0dp"
                     android:src="@drawable/yuanyuan"
 
 
@@ -222,19 +224,21 @@
 
                 >
                 <TextView
+                    android:id="@+id/mail_link"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/team_email"
+                    android:textColor="@android:color/holo_blue_bright"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_marginBottom="@dimen/text_margin"
                     />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/team_wechat"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/team_wechat"-->
+                    <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                    <!--/>-->
             </LinearLayout>
 
 

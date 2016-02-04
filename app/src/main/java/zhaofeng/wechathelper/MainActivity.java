@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import zhaofeng.wechathelper.fragment.TotalMoneyTipsFragment;
 import zhaofeng.wechathelper.record.FetchRecordDbHelper;
 import zhaofeng.wechathelper.ui.adapter.LuckyMoneyCursorAdapter;
 import zhaofeng.wechathelper.utils.Constants;
@@ -39,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTotalMoneyTips = (TextView)findViewById(R.id.tips);
         openButton.setOnClickListener(this);
         mDbHelper = new FetchRecordDbHelper(this);
+
+        TextView openServiceTip = (TextView) findViewById(R.id.open_service_tip);
+        openServiceTip.setText(Html.fromHtml(getString(R.string.open_service_tip)));
 
     }
 
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void openAboutActivity() {
-
+        startActivity(new Intent(this,AboutUsActivity.class));
     }
 
     private void openSettingsActivity() {
@@ -124,15 +126,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initMoneyData();
         Float total = Utils.readFloatFromSharedPreference(this, Constants.TOTAL_MONEY_KEY);
         mTotalMoneyTips.setText(String.format("红包助手已为你抢到%.2f元.",total));
-//        Fragment oldFragment = getSupportFragmentManager().findFragmentByTag("TotalMoneyTipsFragment");
-//        if(oldFragment != null) {
-//            getSupportFragmentManager().beginTransaction().remove(oldFragment).commitAllowingStateLoss();
-//        }
-//        Bundle bundle = new Bundle();
-//        bundle.putFloat(TotalMoneyTipsFragment.TOTAL_MONEY_AMOUNT, total);
-//        TotalMoneyTipsFragment fragment = new TotalMoneyTipsFragment();
-//        fragment.setArguments(bundle);
-//        fragment.show(getSupportFragmentManager(),"TotalMoneyTipsFragment");
     }
 
     private boolean initMoneyData() {

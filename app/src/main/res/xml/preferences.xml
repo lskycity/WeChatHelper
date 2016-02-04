@@ -4,6 +4,7 @@
 
         <SwitchPreference
             android:key="sound_switch"
+            android:defaultValue="true"
             android:summaryOff="@string/switch_off"
             android:summaryOn="@string/switch_on"
             android:title="@string/sound_switch_title" />

@@ -14,6 +14,9 @@ public class SettingsActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         setTitle(R.string.main_menu_setting);
         if(savedInstanceState==null)
         {
@@ -21,5 +24,14 @@ public class SettingsActivity extends AppCompatActivity
             transaction.add(R.id.container, new SettingsFragment());
             transaction.commitAllowingStateLoss();
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        if(!super.onSupportNavigateUp()) {
+            supportFinishAfterTransition();
+            return true;
+        }
+        return false;
     }
 }
