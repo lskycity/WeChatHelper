@@ -16,4 +16,6 @@
     <dimen name="text_margin">8dp</dimen>
     <dimen name="avatar_width">100dp</dimen>
     <dimen name="avatar_height">100dp</dimen>
+    <dimen name="team_avatar_width">100dp</dimen>
+    <dimen name="team_avatar_height">100dp</dimen>
 </resources>

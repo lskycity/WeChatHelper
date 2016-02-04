@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void openAboutActivity() {
-
+        startActivity(new Intent(this,AboutUsActivity.class));
     }
 
     private void openSettingsActivity() {

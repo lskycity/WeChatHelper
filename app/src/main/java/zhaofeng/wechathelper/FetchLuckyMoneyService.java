@@ -1,8 +1,10 @@
 package zhaofeng.wechathelper;
 
 import android.accessibilityservice.AccessibilityService;
+import android.annotation.TargetApi;
 import android.database.Cursor;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.text.TextUtils;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -215,9 +217,11 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     public String getAlreadyFetchString()
     {
-        return "你领取了" + getRemoteName() + "的红包";
+//        return "你领取了" + getRemoteName() + "的红包";
+        return "你领取了财神的红包";
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     public CharSequence getRemoteName()
     {
         AccessibilityNodeInfo rootNode = getRootInActiveWindow();
