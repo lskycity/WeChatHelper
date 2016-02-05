@@ -52,13 +52,14 @@ public class NotificationFlowHelper {
         switch (eventType) {
             case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
                 if (NotificationUtils.checkNotificationContains(event, mService.getString(R.string.key_word_notification))) {
-                    if(!isScreenOn()){
-                        lightScreen();
-                    }
+
                     Notification notification = NotificationUtils.getNotification(event);
                     if(notification != null) {
                         boolean success = NotificationUtils.openNotification(notification);
                         changeToState(success ? State.notification : State.invalid);
+                        if(!isScreenOn()){
+                            lightScreen();
+                        }
                     }
                 }
                 return mState == State.notification;

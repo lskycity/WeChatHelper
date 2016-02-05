@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -46,6 +47,9 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event)
     {
+        if(BuildConfig.DEBUG) {
+            Log.v("onAccessibility", "onAccessibilityEvent event type=0x"+Integer.toHexString(event.getEventType())+", class="+event.getClassName());
+        }
 
         if (mNotificationFlowHelper.onAccessibilityEvent(event))
         {
