@@ -18,7 +18,7 @@ import android.widget.TextView;
 import zhaofeng.wechathelper.record.FetchRecordDbHelper;
 import zhaofeng.wechathelper.ui.adapter.LuckyMoneyCursorAdapter;
 import zhaofeng.wechathelper.utils.Constants;
-import zhaofeng.wechathelper.utils.Utils;
+import zhaofeng.wechathelper.utils.SharedPreUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView mListView;
@@ -124,12 +124,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showTotalMoneyCollected() {
         initMoneyData();
-        Float total = Utils.readFloatFromSharedPreference(this, Constants.TOTAL_MONEY_KEY);
+        Float total = SharedPreUtils.readFloatFromSharedPreference(this, Constants.TOTAL_MONEY_KEY);
         mTotalMoneyTips.setText(String.format("红包助手已为你抢到%.2f元.",total));
     }
 
     private boolean initMoneyData() {
-        if (!Utils.isMoneySharedPreferenceExist(this)) {
+        if (!SharedPreUtils.isMoneySharedPreferenceExist(this)) {
             Cursor cursor = mDbHelper.query();
             float total = 0.0f;
             while (cursor.moveToNext()) {
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return false;
                 }
             }
-            Utils.saveFloatToSharedPreference(this, Constants.TOTAL_MONEY_KEY, total);
+            SharedPreUtils.saveFloatToSharedPreference(this, Constants.TOTAL_MONEY_KEY, total);
             return true;
         }
         return true;

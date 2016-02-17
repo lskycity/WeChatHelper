@@ -1,22 +1,18 @@
 package zhaofeng.wechathelper;
 
 import android.accessibilityservice.AccessibilityService;
-import android.annotation.TargetApi;
 import android.database.Cursor;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import java.util.List;
-
 import zhaofeng.wechathelper.record.FetchRecordDbHelper;
 import zhaofeng.wechathelper.record.Record;
 import zhaofeng.wechathelper.utils.Constants;
 import zhaofeng.wechathelper.utils.PacketUtils;
-import zhaofeng.wechathelper.utils.Utils;
+import zhaofeng.wechathelper.utils.SharedPreUtils;
 
 /**
  * Created by liuzhaofeng on 1/6/16.
@@ -34,7 +30,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     private int mListCount = 0;
 
-    private static final double BIG_MONEY = 5.0f;
+    private static final float BIG_MONEY = 5.0f;
 
     @Override
     protected void onServiceConnected()
@@ -116,7 +112,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     private float getTotalMoneyFromSP()
     {
-        return Utils.readFloatFromSharedPreference(this, Constants.TOTAL_MONEY_KEY);
+        return SharedPreUtils.readFloatFromSharedPreference(this, Constants.TOTAL_MONEY_KEY);
     }
 
     private boolean initSharedPreferenceMoneyData()
@@ -137,14 +133,14 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                 return false;
             }
         }
-        Utils.saveFloatToSharedPreference(this, Constants.TOTAL_MONEY_KEY, total);
+        SharedPreUtils.saveFloatToSharedPreference(this, Constants.TOTAL_MONEY_KEY, total);
         return true;
     }
 
     private boolean updateTotalMoneyToSP(String amount)
     {
         // sharedpreference file does not exist, query database to create a new one
-        if (!Utils.isMoneySharedPreferenceExist(this))
+        if (!SharedPreUtils.isMoneySharedPreferenceExist(this))
         {
             return initSharedPreferenceMoneyData();
         }
@@ -169,7 +165,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     private void saveTotalMoneyToSP(float value)
     {
-        Utils.saveFloatToSharedPreference(this, Constants.TOTAL_MONEY_KEY, value);
+        SharedPreUtils.saveFloatToSharedPreference(this, Constants.TOTAL_MONEY_KEY, value);
     }
 
     private void playMoneySound(Record record)
@@ -178,13 +174,13 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         {
             try
             {
-                double receivedMoney = Double.valueOf(record.amount);
+                float receivedMoney = Float.parseFloat(record.amount);
                 MediaPlayer player = null;
-                if (receivedMoney > BIG_MONEY)
+                if (Float.compare(receivedMoney, BIG_MONEY) >= 0)
                 {
                     player = MediaPlayer.create(this, R.raw.money_big);
                 }
-                else if (receivedMoney > 0.0f)
+                else if (Float.compare(receivedMoney, 0f) > 0)
                 {
                     player = MediaPlayer.create(this, R.raw.money_small);
                 }
@@ -195,7 +191,6 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
             }
             catch (NumberFormatException e)
             {
-
             }
         }
     }
@@ -219,42 +214,6 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
     }
 
-    public String getAlreadyFetchString()
-    {
-//        return "你领取了" + getRemoteName() + "的红包";
-        return "你领取了财神的红包";
-    }
-
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-    public CharSequence getRemoteName()
-    {
-        AccessibilityNodeInfo rootNode = getRootInActiveWindow();
-
-        if (rootNode != null)
-        {
-            List<AccessibilityNodeInfo> nodeInfos = rootNode.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/ew");
-            if (nodeInfos.size() <= 0)
-            {
-                return "";
-            }
-            else
-            {
-                return nodeInfos.get(0).getText();
-            }
-        }
-        return "";
-    }
-
-    public boolean isChatGroup(String title)
-    {
-        return title.matches("^.*(\\d+)$");
-    }
-
-    public String getChatGroupName(String title)
-    {
-        return title.substring(0, title.indexOf("("));
-    }
-
     @Override
     public void onInterrupt()
     {
@@ -274,7 +233,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     private boolean isMoneySoundSwitchOn()
     {
-        return Utils.readBooleanSetting(this, Constants.SOUND_SWITCH_KEY, true);
+        return SharedPreUtils.readBooleanSetting(this, Constants.SOUND_SWITCH_KEY, true);
     }
 
 }

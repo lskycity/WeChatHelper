@@ -1,6 +1,5 @@
 package zhaofeng.wechathelper.utils;
 
-import android.accessibilityservice.AccessibilityService;
 import android.text.TextUtils;
 import android.view.accessibility.AccessibilityNodeInfo;
 

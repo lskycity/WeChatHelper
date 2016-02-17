@@ -8,6 +8,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/fetchmoney"
+        android:name=".app.DroidApplication"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -19,10 +20,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SettingsActivity"/>
-        <activity android:name=".AboutUsActivity"/>
-        <activity android:name=".DisclaimerActivity"/>
-        <activity android:name=".UserGuideActivity"/>
+        <activity android:name=".SettingsActivity" android:label="@string/main_menu_setting"/>
+        <activity android:name=".AboutUsActivity" android:label="@string/about_us"/>
+        <activity android:name=".DisclaimerActivity" android:label="@string/disclaimer"/>
+        <activity android:name=".UserGuideActivity" android:label="@string/user_guide"/>
         <service
             android:name="zhaofeng.wechathelper.FetchLuckyMoneyService"
             android:enabled="true"

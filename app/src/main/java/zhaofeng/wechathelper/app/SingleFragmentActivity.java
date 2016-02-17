@@ -1,12 +1,14 @@
-package zhaofeng.wechathelper;
+package zhaofeng.wechathelper.app;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-public abstract class SingleFragmentActivity extends AppCompatActivity
+import zhaofeng.wechathelper.R;
+import zhaofeng.wechathelper.app.BaseActivity;
+
+public abstract class SingleFragmentActivity extends BaseActivity
 {
 
     @Override
@@ -14,9 +16,6 @@ public abstract class SingleFragmentActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_fragment);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         if (savedInstanceState == null)
         {
             FragmentManager fm = getSupportFragmentManager();
@@ -28,12 +27,4 @@ public abstract class SingleFragmentActivity extends AppCompatActivity
 
     protected abstract Fragment createFragment();
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        if(!super.onSupportNavigateUp()) {
-            supportFinishAfterTransition();
-            return true;
-        }
-        return false;
-    }
 }
