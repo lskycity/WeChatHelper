@@ -25,7 +25,5 @@ public class Constants {
     /**
      * setting key
      */
-    public static final String SETTING_FILE = "settings";
     public static final String SOUND_SWITCH_KEY = "sound_switch";
-    public static final String SHARED_PREFERENCE_NAME = "MONEY_STATISTICS";
 }

@@ -112,7 +112,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     private float getTotalMoneyFromSP()
     {
-        return SharedPreUtils.readFloatFromSharedPreference(this, Constants.TOTAL_MONEY_KEY);
+        return SharedPreUtils.getFloat(this, Constants.TOTAL_MONEY_KEY);
     }
 
     private boolean initSharedPreferenceMoneyData()
@@ -133,14 +133,14 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                 return false;
             }
         }
-        SharedPreUtils.saveFloatToSharedPreference(this, Constants.TOTAL_MONEY_KEY, total);
+        SharedPreUtils.putFloat(this, Constants.TOTAL_MONEY_KEY, total);
         return true;
     }
 
     private boolean updateTotalMoneyToSP(String amount)
     {
         // sharedpreference file does not exist, query database to create a new one
-        if (!SharedPreUtils.isMoneySharedPreferenceExist(this))
+        if (SharedPreUtils.getFloat(this, Constants.TOTAL_MONEY_KEY, -1)<0)
         {
             return initSharedPreferenceMoneyData();
         }
@@ -165,7 +165,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     private void saveTotalMoneyToSP(float value)
     {
-        SharedPreUtils.saveFloatToSharedPreference(this, Constants.TOTAL_MONEY_KEY, value);
+        SharedPreUtils.putFloat(this, Constants.TOTAL_MONEY_KEY, value);
     }
 
     private void playMoneySound(Record record)
@@ -233,7 +233,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     private boolean isMoneySoundSwitchOn()
     {
-        return SharedPreUtils.readBooleanSetting(this, Constants.SOUND_SWITCH_KEY, true);
+        return SharedPreUtils.getBoolean(this, Constants.SOUND_SWITCH_KEY, true);
     }
 
 }

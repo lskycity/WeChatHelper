@@ -124,12 +124,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showTotalMoneyCollected() {
         initMoneyData();
-        Float total = SharedPreUtils.readFloatFromSharedPreference(this, Constants.TOTAL_MONEY_KEY);
+        Float total = SharedPreUtils.getFloat(this, Constants.TOTAL_MONEY_KEY);
         mTotalMoneyTips.setText(String.format("红包助手已为你抢到%.2f元.",total));
     }
 
     private boolean initMoneyData() {
-        if (!SharedPreUtils.isMoneySharedPreferenceExist(this)) {
+        if (SharedPreUtils.getFloat(this, Constants.TOTAL_MONEY_KEY, -1)<0) {
             Cursor cursor = mDbHelper.query();
             float total = 0.0f;
             while (cursor.moveToNext()) {
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return false;
                 }
             }
-            SharedPreUtils.saveFloatToSharedPreference(this, Constants.TOTAL_MONEY_KEY, total);
+            SharedPreUtils.putFloat(this, Constants.TOTAL_MONEY_KEY, total);
             return true;
         }
         return true;

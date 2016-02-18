@@ -3,6 +3,7 @@ package zhaofeng.wechathelper.fragment;
 
 import zhaofeng.wechathelper.R;
 import zhaofeng.wechathelper.utils.Constants;
+import zhaofeng.wechathelper.utils.SharedPreUtils;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -23,7 +24,7 @@ public class SettingsFragment extends PreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
-        getPreferenceManager().setSharedPreferencesName(Constants.SETTING_FILE);
+        getPreferenceManager().setSharedPreferencesName(SharedPreUtils.SHARED_PREFERENCE_NAME);
     }
 
 
