@@ -1,4 +1,4 @@
-package zhaofeng.wechathelper.utils;
+package zhaofeng.wechathelper.apputils;
 
 import android.app.Notification;
 import android.app.PendingIntent;

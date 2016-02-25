@@ -6,13 +6,12 @@ import android.content.Context;
 import android.os.Build;
 import android.os.PowerManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import zhaofeng.wechathelper.utils.Constants;
-import zhaofeng.wechathelper.utils.NotificationUtils;
-import zhaofeng.wechathelper.utils.PacketUtils;
+import zhaofeng.wechathelper.apputils.Constants;
+import zhaofeng.wechathelper.apputils.NotificationUtils;
+import zhaofeng.wechathelper.apputils.PacketUtils;
 
 /**
  * Created by liuzhaofeng on 2016/1/28.

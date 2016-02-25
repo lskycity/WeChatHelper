@@ -1,4 +1,4 @@
-package zhaofeng.wechathelper.fragment;
+package zhaofeng.wechathelper.ui;
 
 
 import android.os.Bundle;

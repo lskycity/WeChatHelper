@@ -1,4 +1,4 @@
-package zhaofeng.wechathelper.utils;
+package zhaofeng.wechathelper.apputils;
 
 /**
  * Created by liuzhaofeng on 2016/1/28.

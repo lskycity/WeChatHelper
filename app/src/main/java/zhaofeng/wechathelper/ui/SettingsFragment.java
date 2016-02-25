@@ -1,8 +1,7 @@
-package zhaofeng.wechathelper.fragment;
+package zhaofeng.wechathelper.ui;
 
 
 import zhaofeng.wechathelper.R;
-import zhaofeng.wechathelper.utils.Constants;
 import zhaofeng.wechathelper.utils.SharedPreUtils;
 
 import android.os.Bundle;

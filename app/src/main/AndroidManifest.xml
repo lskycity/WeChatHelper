@@ -20,10 +20,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SettingsActivity" android:label="@string/main_menu_setting"/>
-        <activity android:name=".AboutUsActivity" android:label="@string/about_us"/>
-        <activity android:name=".DisclaimerActivity" android:label="@string/disclaimer"/>
-        <activity android:name=".UserGuideActivity" android:label="@string/user_guide"/>
+        <activity android:name=".ui.SettingsActivity" android:label="@string/main_menu_setting"/>
+        <activity android:name=".app.commonui.AboutUsActivity" android:label="@string/about_us"/>
+        <activity android:name=".app.commonui.DisclaimerActivity" android:label="@string/disclaimer"/>
+        <activity android:name=".ui.UserGuideActivity" android:label="@string/user_guide"/>
         <service
             android:name="zhaofeng.wechathelper.FetchLuckyMoneyService"
             android:enabled="true"

@@ -1,9 +1,8 @@
-package zhaofeng.wechathelper;
+package zhaofeng.wechathelper.app.commonui;
 
 import android.support.v4.app.Fragment;
 
 import zhaofeng.wechathelper.app.SingleFragmentActivity;
-import zhaofeng.wechathelper.fragment.DisclaimerFragment;
 
 public class DisclaimerActivity extends SingleFragmentActivity {
 

@@ -15,9 +15,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import zhaofeng.wechathelper.app.commonui.AboutUsActivity;
 import zhaofeng.wechathelper.record.FetchRecordDbHelper;
+import zhaofeng.wechathelper.ui.SettingsActivity;
 import zhaofeng.wechathelper.ui.adapter.LuckyMoneyCursorAdapter;
-import zhaofeng.wechathelper.utils.Constants;
+import zhaofeng.wechathelper.apputils.Constants;
 import zhaofeng.wechathelper.utils.SharedPreUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {

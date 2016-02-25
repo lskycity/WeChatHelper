@@ -1,9 +1,9 @@
-package zhaofeng.wechathelper;
+package zhaofeng.wechathelper.ui;
 
 import android.support.v4.app.Fragment;
 
 import zhaofeng.wechathelper.app.SingleFragmentActivity;
-import zhaofeng.wechathelper.fragment.UserGuideFragment;
+import zhaofeng.wechathelper.ui.UserGuideFragment;
 
 public class UserGuideActivity extends SingleFragmentActivity {
 

@@ -10,8 +10,8 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import zhaofeng.wechathelper.record.FetchRecordDbHelper;
 import zhaofeng.wechathelper.record.Record;
-import zhaofeng.wechathelper.utils.Constants;
-import zhaofeng.wechathelper.utils.PacketUtils;
+import zhaofeng.wechathelper.apputils.Constants;
+import zhaofeng.wechathelper.apputils.PacketUtils;
 import zhaofeng.wechathelper.utils.SharedPreUtils;
 
 /**
