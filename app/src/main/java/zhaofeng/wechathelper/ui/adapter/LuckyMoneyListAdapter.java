@@ -1,19 +1,17 @@
 package zhaofeng.wechathelper.ui.adapter;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import zhaofeng.wechathelper.R;
 import zhaofeng.wechathelper.record.Record;
-import zhaofeng.wechathelper.utils.Utils;
+import zhaofeng.wechathelper.utils.DateUtils;
 
 /**
  * Created by kevinbest on 16/1/30.
@@ -72,7 +70,7 @@ public class LuckyMoneyListAdapter extends BaseAdapter {
         ViewHolder holder = (ViewHolder)convertView.getTag();
         Record item = (Record)getItem(position);
         holder.desc.setText(item.desc);
-        holder.time.setText(Utils.getTimeString(item.time));
+        holder.time.setText(DateUtils.getTimeString(item.time));
         holder.money.setText(item.amount);
         holder.sender.setText(item.sender);
         return convertView;

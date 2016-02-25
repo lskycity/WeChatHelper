@@ -9,8 +9,7 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import zhaofeng.wechathelper.R;
-import zhaofeng.wechathelper.record.Record;
-import zhaofeng.wechathelper.utils.Utils;
+import zhaofeng.wechathelper.utils.DateUtils;
 
 /**
  * Created by kevinbest on 16/1/30.
@@ -50,7 +49,7 @@ public class LuckyMoneyCursorAdapter extends CursorAdapter {
             String sender = cursor.getString(3);
             String description = cursor.getString(4);
             holder.desc.setText(description);
-            holder.time.setText(Utils.getTimeString(time));
+            holder.time.setText(DateUtils.getTimeString(time));
             holder.money.setText(amount);
             holder.sender.setText(sender);
         }
