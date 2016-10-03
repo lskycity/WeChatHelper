@@ -31,18 +31,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(zhaofeng.wechathelper.R.layout.activity_main);
-        Button openButton = (Button) findViewById(zhaofeng.wechathelper.R.id.open_button);
+        setContentView(R.layout.activity_main);
+        Button openButton = (Button) findViewById(R.id.open_button);
         mListView = (ListView) findViewById(android.R.id.list);
         mAdapter = new LuckyMoneyCursorAdapter(this, null);
         mListView.setAdapter(mAdapter);
         mListView.setEmptyView(findViewById(android.R.id.empty));
-        mTotalMoneyTips = (TextView)findViewById(zhaofeng.wechathelper.R.id.tips);
+        mTotalMoneyTips = (TextView)findViewById(R.id.tips);
         openButton.setOnClickListener(this);
         mDbHelper = new FetchRecordDbHelper(this);
 
-        TextView openServiceTip = (TextView) findViewById(zhaofeng.wechathelper.R.id.open_service_tip);
-        openServiceTip.setText(Html.fromHtml(getString(zhaofeng.wechathelper.R.string.open_service_tip)));
+        TextView openServiceTip = (TextView) findViewById(R.id.open_service_tip);
+        openServiceTip.setText(Html.fromHtml(getString(R.string.open_service_tip)));
 
     }
 
@@ -51,22 +51,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         refreshList();
         showTotalMoneyCollected();
-        ViewGroup serviceTipPanel = (ViewGroup) findViewById(zhaofeng.wechathelper.R.id.service_tip_panel);
+        ViewGroup serviceTipPanel = (ViewGroup) findViewById(R.id.service_tip_panel);
         serviceTipPanel.setVisibility(isAccessibilityEnabled() ? View.GONE : View.VISIBLE);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(zhaofeng.wechathelper.R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == zhaofeng.wechathelper.R.id.menu_about) {
+        if(item.getItemId() == R.id.menu_about) {
             openAboutActivity();
             return true;
-        } else if(item.getItemId() == zhaofeng.wechathelper.R.id.menu_settings) {
+        } else if(item.getItemId() == R.id.menu_settings) {
             openSettingsActivity();
             return true;
         }
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == zhaofeng.wechathelper.R.id.open_button) {
+        if (v.getId() == R.id.open_button) {
             openServiceSetting();
         }
     }

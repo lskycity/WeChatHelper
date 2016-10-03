@@ -6,7 +6,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 import java.util.List;
 
-import zhaofeng.wechathelper.R;
+import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.record.Record;
 
 /**

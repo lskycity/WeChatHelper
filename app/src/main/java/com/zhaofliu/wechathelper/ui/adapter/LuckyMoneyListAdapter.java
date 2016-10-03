@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import zhaofeng.wechathelper.R;
+import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.record.Record;
 import com.zhaofliu.wechathelper.utils.DateUtils;
 

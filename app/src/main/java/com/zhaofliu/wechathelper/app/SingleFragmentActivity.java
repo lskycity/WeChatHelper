@@ -5,7 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import zhaofeng.wechathelper.R;
+import com.zhaofliu.wechathelper.R;
+
 
 public abstract class SingleFragmentActivity extends BaseActivity
 {

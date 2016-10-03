@@ -15,7 +15,6 @@ import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.PacketUtils;
 import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 
-import zhaofeng.wechathelper.BuildConfig;
 
 /**
  * Created by liuzhaofeng on 1/6/16.
@@ -181,11 +180,11 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                 MediaPlayer player = null;
                 if (Float.compare(receivedMoney, BIG_MONEY) >= 0)
                 {
-                    player = MediaPlayer.create(this, zhaofeng.wechathelper.R.raw.money_big);
+                    player = MediaPlayer.create(this, R.raw.money_big);
                 }
                 else if (Float.compare(receivedMoney, 0f) > 0)
                 {
-                    player = MediaPlayer.create(this, zhaofeng.wechathelper.R.raw.money_small);
+                    player = MediaPlayer.create(this, R.raw.money_small);
                 }
                 if (player != null)
                 {

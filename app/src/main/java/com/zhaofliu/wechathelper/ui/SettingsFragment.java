@@ -1,12 +1,13 @@
 package com.zhaofliu.wechathelper.ui;
 
 
-import zhaofeng.wechathelper.R;
+import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.support.v4.app.Fragment;
+
 
 /**
  * A simple {@link Fragment} subclass.

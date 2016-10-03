@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import zhaofeng.wechathelper.R;
+import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.utils.DateUtils;
 
 /**

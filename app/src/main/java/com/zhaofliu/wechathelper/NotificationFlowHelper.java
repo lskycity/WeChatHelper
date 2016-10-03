@@ -50,7 +50,7 @@ public class NotificationFlowHelper {
         int eventType = event.getEventType();
         switch (eventType) {
             case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
-                if (NotificationUtils.checkNotificationContains(event, mService.getString(zhaofeng.wechathelper.R.string.key_word_notification))) {
+                if (NotificationUtils.checkNotificationContains(event, mService.getString(R.string.key_word_notification))) {
 
                     Notification notification = NotificationUtils.getNotification(event);
                     if(notification != null) {

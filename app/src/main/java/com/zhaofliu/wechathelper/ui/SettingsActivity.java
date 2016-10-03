@@ -2,8 +2,7 @@ package com.zhaofliu.wechathelper.ui;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-
-import zhaofeng.wechathelper.R;
+import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.app.BaseActivity;
 
 public class SettingsActivity extends BaseActivity
