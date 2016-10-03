@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="zhaofeng.wechathelper">
+    package="com.zhaofliu.wechathelper">
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
@@ -25,7 +25,7 @@
         <activity android:name=".app.commonui.DisclaimerActivity" android:label="@string/disclaimer"/>
         <activity android:name=".ui.UserGuideActivity" android:label="@string/user_guide"/>
         <service
-            android:name="zhaofeng.wechathelper.FetchLuckyMoneyService"
+            android:name=".FetchLuckyMoneyService"
             android:enabled="true"
             android:exported="true"
             android:label="@string/lucky_service_label"
