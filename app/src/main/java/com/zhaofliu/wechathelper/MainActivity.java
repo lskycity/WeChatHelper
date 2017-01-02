@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public boolean isAccessibilityEnabled() {
         int accessibilityEnabled = 0;
-        final String ACCESSIBILITY_SERVICE_NAME = "zhaofeng.wechathelper/com.zhaofliu.wechathelper.FetchLuckyMoneyService";
+        final String ACCESSIBILITY_SERVICE_NAME = "com.zhaofliu.wechathelper/com.zhaofliu.wechathelper.FetchLuckyMoneyService";
         try {
             accessibilityEnabled = Settings.Secure.getInt(this.getContentResolver(), android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
         } catch (Settings.SettingNotFoundException ignored) {
