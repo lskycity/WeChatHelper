@@ -1,11 +1,9 @@
 package com.zhaofliu.wechathelper.ui;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.JsonReader;
 import android.view.View;
@@ -45,6 +43,7 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
         version.setText(AppUtils.getVersionName(this));
 
         findViewById(R.id.check_version).setOnClickListener(this);
+        findViewById(R.id.forward_to_website).setOnClickListener(this);
 
         download = (Button) findViewById(R.id.new_version_download);
         download.setOnClickListener(this);
@@ -95,6 +94,13 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
             String url = (String) v.getTag();
             try {
                 Intent i = Intent.parseUri(url, 0);
+                startActivity(i);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        } else if(v.getId() == R.id.forward_to_website) {
+            try {
+                Intent i = Intent.parseUri(Constants.WECHAT_VERSION_URL, 0);
                 startActivity(i);
             } catch (URISyntaxException e) {
                 e.printStackTrace();

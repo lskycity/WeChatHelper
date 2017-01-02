@@ -23,6 +23,15 @@
         android:text="@string/check_version"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        style="?attr/borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/forward_to_website"
+        android:text="@string/forward_to_website"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
         style="?attr/borderlessButtonStyle"/>
 
 
