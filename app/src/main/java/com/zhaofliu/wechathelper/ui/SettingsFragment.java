@@ -2,9 +2,11 @@ package com.zhaofliu.wechathelper.ui;
 
 
 import com.zhaofliu.wechathelper.R;
+import com.zhaofliu.wechathelper.utils.AppUtils;
 import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v4.app.Fragment;
 
@@ -25,6 +27,9 @@ public class SettingsFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         getPreferenceManager().setSharedPreferencesName(SharedPreUtils.SHARED_PREFERENCE_NAME);
+        Preference version = getPreferenceScreen().findPreference("app_version");
+        version.setSummary(AppUtils.getVersionName(getActivity()));
+
     }
 
 

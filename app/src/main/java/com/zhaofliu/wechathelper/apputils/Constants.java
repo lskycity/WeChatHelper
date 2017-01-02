@@ -26,4 +26,6 @@ public class Constants {
      * setting key
      */
     public static final String SOUND_SWITCH_KEY = "sound_switch";
+
+    public static final String CHECK_VERSION_URL = "http://www.lskycity.com:5000/wechathelper/version";
 }

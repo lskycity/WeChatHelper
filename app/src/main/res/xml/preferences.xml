@@ -11,8 +11,13 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/app_info">
         <PreferenceScreen
+            android:key="app_version"
             android:summary="@string/version"
-            android:title="@string/app_info" />
+            android:title="@string/version_info" >
+            <intent
+                android:targetClass="com.zhaofliu.wechathelper.ui.CheckVersionActivity"
+                android:targetPackage="com.zhaofliu.wechathelper" />
+        </PreferenceScreen>
         <PreferenceScreen android:title="@string/about_us">
             <intent
                 android:targetClass="com.zhaofliu.wechathelper.app.commonui.AboutUsActivity"

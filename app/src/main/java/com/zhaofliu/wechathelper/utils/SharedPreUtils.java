@@ -10,6 +10,11 @@ import java.util.Set;
  */
 public class SharedPreUtils {
 
+    public static final String KEY_LAST_DATE_CHECK_VERSION = "key_last_date_check_version";
+    public static final String KEY_LAST_DATE_CHECK_VERSION_CODE = "key_last_date_check_version_code";
+    public static final String KEY_LAST_DATE_CHECK_VERSION_NAME = "key_last_date_check_version_name";
+    public static final String KEY_LAST_DATE_CHECK_VERSION_URL = "key_last_date_check_version_url";
+
     public static final String SHARED_PREFERENCE_NAME = "shard_preference_name";
 
     public static void putString(Context context, String key, String value) {

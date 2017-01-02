@@ -15,7 +15,14 @@
     <string name="disclaimer">免责声明</string>
     <string name="about_us">关于我们</string>
     <string name="app_info">应用信息</string>
-    <string name="version">版本号 1.2</string>
+    <string name="version_info">版本信息</string>
+    <string name="check_version">检查新版本</string>
+    <string name="last_check_date">上次检查时间：</string>
+    <string name="no_check_date">没有检查过更新</string>
+    <string name="no_new_version">没有新版本</string>
+    <string name="have_new_version">有新版本%1$s，请下载最新版本</string>
+    <string name="download">下载</string>
+    <string name="version">版本号 1.3</string>
     <string name="lucky_service_label">抢红包服务</string>
     <string name="key_word_wechat_lucky_money">微信红包</string>
     <string name="key_word_notification">[微信红包]</string>

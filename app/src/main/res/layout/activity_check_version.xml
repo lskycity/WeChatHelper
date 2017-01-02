@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:showDividers="middle"
+    android:divider="?dividerHorizontal"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/version_info"
+        android:drawableTop="@mipmap/fetchmoney"
+        android:drawablePadding="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/version_info"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="36dp"/>
+
+    <Button
+        android:id="@+id/check_version"
+        android:text="@string/check_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?attr/borderlessButtonStyle"/>
+
+
+    <LinearLayout
+        android:id="@+id/new_version_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="12dp"
+            android:id="@+id/check_version_information"
+            android:text="@string/last_check_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/new_version_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/version_info"
+            android:layout_gravity="center_horizontal"
+            />
+        <Button
+            android:id="@+id/new_version_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/download"/>
+    </LinearLayout>
+
+
+</LinearLayout>
