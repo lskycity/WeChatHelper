@@ -49,15 +49,15 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
             Log.v("onAccessibility", "onAccessibilityEvent event type=0x"+Integer.toHexString(event.getEventType())+", class="+event.getClassName());
         }
 
-        if (mNotificationFlowHelper.onAccessibilityEvent(event))
-        {
-            isOpenByService = false;
-            if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
-            {
-                mCurrentUI = event.getClassName().toString();
-            }
-            return;
-        }
+//        if (mNotificationFlowHelper.onAccessibilityEvent(event))
+//        {
+//            isOpenByService = false;
+//            if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
+//            {
+//                mCurrentUI = event.getClassName().toString();
+//            }
+//            return;
+//        }
 
         int eventType = event.getEventType();
         switch (eventType)

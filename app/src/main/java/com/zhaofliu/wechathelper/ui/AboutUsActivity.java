@@ -1,4 +1,4 @@
-package com.zhaofliu.wechathelper.app.commonui;
+package com.zhaofliu.wechathelper.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,47 +6,26 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zhaofliu.wechathelper.R;
+import com.zhaofliu.wechathelper.app.BaseActivity;
+import com.zhaofliu.wechathelper.app.SingleFragmentActivity;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class AboutUsFragment extends Fragment implements View.OnClickListener
-{
-    private TextView mMailLink;
+public class AboutUsActivity extends BaseActivity implements View.OnClickListener {
 
-    public AboutUsFragment()
-    {
-        // Required empty public constructor
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_about_us);
+        findViewById(R.id.mail_link).setOnClickListener(this);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        // Inflate the layout for this fragment
-
-        getActivity().setTitle(R.string.about_us);
-        return inflater.inflate(R.layout.fragment_about_us, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState)
-    {
-        super.onViewCreated(view, savedInstanceState);
-        mMailLink = (TextView) view.findViewById(R.id.mail_link);
-        mMailLink.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         switch (v.getId())
         {
             case R.id.mail_link:
@@ -64,13 +43,11 @@ public class AboutUsFragment extends Fragment implements View.OnClickListener
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mail_subject));
         emailIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.mail_content));
 
-        Context context = getActivity();
-
-        PackageManager pManager = context.getPackageManager();
+        PackageManager pManager = getPackageManager();
         List<ResolveInfo> info = pManager.queryIntentActivities(emailIntent, PackageManager.MATCH_DEFAULT_ONLY);
         if(info!=null)
         {
-            context.startActivity(Intent.createChooser(emailIntent, context.getString(R.string.mail_chooser_title)));
+            startActivity(Intent.createChooser(emailIntent, getString(R.string.mail_chooser_title)));
         }
     }
 }

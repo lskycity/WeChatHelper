@@ -1,14 +1,14 @@
-package com.zhaofliu.wechathelper.ui;
+package com.zhaofliu.wechathelper.apputils;
 
 /**
  * Created by zhaofliu on 1/2/17.
  */
 
 public class VersionInfo {
-    String packageName;
-    int versionCode;
-    String versionName;
-    String downloadUrl;
+    public String packageName;
+    public int versionCode;
+    public String versionName;
+    public String downloadUrl;
 
     @Override
     public String toString() {

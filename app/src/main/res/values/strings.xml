@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">红包猎手</string>
-    <string name="fetch_lucky_money_service_description">本服务帮助您自动抢微信红包</string>
+    <string name="fetch_lucky_money_service_description">本服务帮助您自动抢微信红包, 兼容到微信6.3.31</string>
     <string name="open_service_tip"><Data><![CDATA[<font color="#ff0000"><b>注意：</b></font>要开启自动抢红包功能，请打开抢红包服务，进入系统设定，打开辅助功能，点击抢红包服务，打开开关。注意：小米手机的辅助功能在高级设置里面！]]></Data></string>
     <string name="open_service_button">进入辅助功能</string>
     <string name="suggest_action_1">为了您抢红包更加顺利，强烈推荐您先看一下设置里面的常见问题。</string>
@@ -30,6 +30,7 @@
     <string name="key_word_fetch_lucky_money">领取红包</string>
     <string name="key_word_open_lucky_money">拆红包</string>
     <string name="key_word_receive_lucky_money">给你发了一个红包</string>
+    <string name="key_word_loading">正在加载...</string>
     <string name="key_word_receive_lucky_money_from_group">发了一个红包，金额随机</string>
     <string name="key_word_money_unit">元</string>
     <string name="no_money_collected">可怜的人儿，还没抢到过红包。。。</string>

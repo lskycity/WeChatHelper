@@ -2,6 +2,8 @@ package com.zhaofliu.wechathelper.apputils;
 
 import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import java.util.List;
@@ -15,19 +17,65 @@ import com.zhaofliu.wechathelper.record.Record;
 public class PacketUtils {
     public static boolean openPacketInDetail(AccessibilityService service){
         AccessibilityNodeInfo nodeInfo = service.getRootInActiveWindow();
+
+        findLoadingState(service, nodeInfo);
+//        if (nodeInfo != null) {
+//            List<AccessibilityNodeInfo> nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_receive_lucky_money));
+//            if(nodeInfos.size()==0) {
+//                nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_receive_lucky_money_from_group));
+//            }
+//            if(nodeInfos.size()==0) {
+//                return false;
+//            }
+//            AccessibilityNodeInfo textNode = nodeInfos.get(0);
+//            AccessibilityNodeInfo contentNode = textNode.getParent().getParent();
+//            AccessibilityNodeInfo openButtonNode = contentNode.getChild(contentNode.getChildCount()-1);
+//          //  openButtonNode.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+//            return true;
+//        }
+        return openPacketInDetail(service, nodeInfo);
+    }
+
+    public static boolean openPacketInDetail(AccessibilityService service, AccessibilityNodeInfo nodeInfo){
+
+        System.out.println("11111111111 try to open " + nodeInfo);
+
         if (nodeInfo != null) {
             List<AccessibilityNodeInfo> nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_receive_lucky_money));
             if(nodeInfos.size()==0) {
                 nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_receive_lucky_money_from_group));
             }
+
+            System.out.println("11111111111 find size "+nodeInfos.size());
+
             if(nodeInfos.size()==0) {
                 return false;
             }
             AccessibilityNodeInfo textNode = nodeInfos.get(0);
             AccessibilityNodeInfo contentNode = textNode.getParent().getParent();
             AccessibilityNodeInfo openButtonNode = contentNode.getChild(contentNode.getChildCount()-1);
-            openButtonNode.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            if("android.widget.Button".equals(openButtonNode.getClassName())) {
+                System.out.println("11111111111 openButtonNode.getClassName() "+openButtonNode.getClassName());
+                openButtonNode.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+            }
+         //   openButtonNode.performAction(AccessibilityNodeInfo.ACTION_CLICK);
             return true;
+        }
+        return false;
+    }
+
+    public static boolean findLoadingState(final AccessibilityService service, final AccessibilityNodeInfo nodeInfo) {
+        if (nodeInfo != null) {
+            List<AccessibilityNodeInfo> nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_loading));
+            System.out.println("11111111111 find loading "+nodeInfos.size());
+
+            new Handler(){
+                @Override
+                public void handleMessage(Message msg) {
+                    openPacketInDetail(service);
+                }
+            }.sendEmptyMessageDelayed(1, 5000);
+
         }
         return false;
     }

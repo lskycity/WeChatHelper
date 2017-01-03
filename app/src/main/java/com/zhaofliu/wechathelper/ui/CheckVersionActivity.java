@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.JsonReader;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,19 +12,18 @@ import android.widget.TextView;
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.app.BaseActivity;
 import com.zhaofliu.wechathelper.apputils.Constants;
+import com.zhaofliu.wechathelper.apputils.UpgradeUtils;
+import com.zhaofliu.wechathelper.apputils.VersionInfo;
 import com.zhaofliu.wechathelper.utils.AppUtils;
 import com.zhaofliu.wechathelper.utils.DateUtils;
 import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 /**
  * Created by zhaofliu on 1/2/17.
+ * @author zhaofliu
  */
 
 public class CheckVersionActivity extends BaseActivity implements View.OnClickListener {
@@ -113,7 +111,7 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
         @Override
         protected VersionInfo doInBackground(Object... params) {
             try {
-                return getJSONObjectFromURL();
+                return UpgradeUtils.getJSONObjectFromURL();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -127,55 +125,8 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
             SharedPreUtils.putInt(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_CODE, messages.versionCode);
             SharedPreUtils.putString(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_NAME, messages.versionName);
             SharedPreUtils.putString(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_URL, messages.downloadUrl);
-
             setupNewVersionArea(false);
         }
     }
 
-    private VersionInfo getJSONObjectFromURL() throws IOException {
-        HttpURLConnection urlConnection = null;
-
-        URL url = new URL(Constants.CHECK_VERSION_URL);
-
-        urlConnection = (HttpURLConnection) url.openConnection();
-
-        urlConnection.setRequestMethod("GET");
-        urlConnection.setReadTimeout(10000 /* milliseconds */);
-        urlConnection.setConnectTimeout(15000 /* milliseconds */);
-
-        urlConnection.setDoOutput(true);
-
-        urlConnection.connect();
-
-        return readJsonStream(url.openStream());
-    }
-
-    public static VersionInfo readJsonStream(InputStream in) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        try {
-            return readMessage(reader);
-        } finally {
-            reader.close();
-        }
-    }
-
-    public static VersionInfo readMessage(JsonReader reader) throws IOException {
-        VersionInfo info = new VersionInfo();
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String name = reader.nextName();
-            if (name.equals("package_name")) {
-                info.packageName = reader.nextString();
-            } else if (name.equals("version_code")) {
-                info.versionCode = reader.nextInt();
-            } else if (name.equals("version_name")) {
-                info.versionName = reader.nextString();
-            } else {
-                info.downloadUrl = reader.nextString();
-            }
-        }
-        reader.endObject();
-
-        return info;
-    }
 }

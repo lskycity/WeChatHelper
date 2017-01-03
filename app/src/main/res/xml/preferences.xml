@@ -20,12 +20,12 @@
         </PreferenceScreen>
         <PreferenceScreen android:title="@string/about_us">
             <intent
-                android:targetClass="com.zhaofliu.wechathelper.app.commonui.AboutUsActivity"
+                android:targetClass="com.zhaofliu.wechathelper.ui.AboutUsActivity"
                 android:targetPackage="com.zhaofliu.wechathelper" />
         </PreferenceScreen>
         <PreferenceScreen android:title="@string/disclaimer">
             <intent
-                android:targetClass="com.zhaofliu.wechathelper.app.commonui.DisclaimerActivity"
+                android:targetClass="com.zhaofliu.wechathelper.ui.DisclaimerActivity"
                 android:targetPackage="com.zhaofliu.wechathelper" />
         </PreferenceScreen>
         <PreferenceScreen android:title="@string/user_guide">

@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zhaofliu.wechathelper.app.commonui.AboutUsActivity;
+import com.zhaofliu.wechathelper.ui.AboutUsActivity;
 import com.zhaofliu.wechathelper.record.FetchRecordDbHelper;
 import com.zhaofliu.wechathelper.ui.SettingsActivity;
 import com.zhaofliu.wechathelper.ui.adapter.LuckyMoneyCursorAdapter;
