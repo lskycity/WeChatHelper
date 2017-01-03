@@ -63,18 +63,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.menu_about) {
-            openAboutActivity();
-            return true;
-        } else if(item.getItemId() == R.id.menu_settings) {
+        if(item.getItemId() == R.id.menu_settings) {
             openSettingsActivity();
             return true;
         }
         return false;
-    }
-
-    private void openAboutActivity() {
-        startActivity(new Intent(this,AboutUsActivity.class));
     }
 
     private void openSettingsActivity() {
