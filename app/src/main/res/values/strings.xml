@@ -29,7 +29,7 @@
     <string name="no_new_version">没有新版本</string>
     <string name="have_new_version">有新版本%1$s，请下载最新版本</string>
     <string name="download">下载</string>
-    <string name="version">版本号 1.3</string>
+    <string name="current_version_and_have_new_version">%1$s(有版本%2$s)</string>
     <string name="lucky_service_label">抢红包服务</string>
 
     <string name="key_word_wechat">微信</string>

@@ -12,7 +12,7 @@
     <PreferenceCategory android:title="@string/app_info">
         <PreferenceScreen
             android:key="app_version"
-            android:summary="@string/version"
+            android:summary="@string/current_version_and_have_new_version"
             android:title="@string/version_info" >
             <intent
                 android:targetClass="com.zhaofliu.wechathelper.ui.CheckVersionActivity"
