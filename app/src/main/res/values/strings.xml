@@ -8,6 +8,9 @@
     <string name="main_menu_about">关于我们</string>
     <string name="main_menu_setting">设置</string>
 
+    <string name="agree">同意</string>
+    <string name="disagree">不同意</string>
+
     <string name="switch_on">已开启</string>
     <string name="switch_off">已关闭</string>
     <string name="sound_switch_title">开启抢红包音效</string>

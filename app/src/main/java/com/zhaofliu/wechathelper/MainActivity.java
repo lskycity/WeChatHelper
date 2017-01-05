@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.zhaofliu.wechathelper.ui.AboutUsActivity;
 import com.zhaofliu.wechathelper.record.FetchRecordDbHelper;
+import com.zhaofliu.wechathelper.ui.DisclaimerActivity;
 import com.zhaofliu.wechathelper.ui.SettingsActivity;
 import com.zhaofliu.wechathelper.ui.adapter.LuckyMoneyCursorAdapter;
 import com.zhaofliu.wechathelper.apputils.Constants;
@@ -26,6 +27,9 @@ import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private static final int requestAgreementForDisclaim = 121;
+
     private ListView mListView;
     private FetchRecordDbHelper mDbHelper;
     private LuckyMoneyCursorAdapter mAdapter;
@@ -47,6 +51,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView openServiceTip = (TextView) findViewById(R.id.open_service_tip);
         openServiceTip.setText(Html.fromHtml(getString(R.string.open_service_tip)));
 
+        if(DisclaimerActivity.shouldStartDisclaimerActivity(this)) {
+            DisclaimerActivity.startDisclaimerActivity(this, requestAgreementForDisclaim);
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == requestAgreementForDisclaim && resultCode == RESULT_CANCELED) {
+            supportFinishAfterTransition();
+        }
     }
 
     @Override
