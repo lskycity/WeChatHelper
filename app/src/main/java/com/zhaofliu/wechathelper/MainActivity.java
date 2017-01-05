@@ -2,6 +2,7 @@ package com.zhaofliu.wechathelper;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -23,12 +24,14 @@ import com.zhaofliu.wechathelper.ui.SettingsActivity;
 import com.zhaofliu.wechathelper.ui.adapter.LuckyMoneyCursorAdapter;
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.utils.SharedPreUtils;
+import com.zhaofliu.wechathelper.utils.ViewUtils;
 
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int requestAgreementForDisclaim = 121;
+    private static final String PRE_JABBER_APP_PACKAGE_NAME = "zhaofeng.wechathelper";
 
     private ListView mListView;
     private FetchRecordDbHelper mDbHelper;
@@ -51,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView openServiceTip = (TextView) findViewById(R.id.open_service_tip);
         openServiceTip.setText(Html.fromHtml(getString(R.string.open_service_tip)));
 
+        findViewById(R.id.uninstall_old_version_button).setOnClickListener(this);
+
         if(DisclaimerActivity.shouldStartDisclaimerActivity(this)) {
             DisclaimerActivity.startDisclaimerActivity(this, requestAgreementForDisclaim);
         }
@@ -65,13 +70,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    protected boolean isInstalledPreApp() {
+        try {
+            return (null != getPackageManager().getLaunchIntentForPackage(PRE_JABBER_APP_PACKAGE_NAME));
+        } catch (Exception exception) {
+            return false;
+        }
+
+    }
+
+    private void uninstallPrePackage() {
+        Uri packageURI = Uri.parse("package:" + PRE_JABBER_APP_PACKAGE_NAME);
+        Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageURI);
+        startActivity(uninstallIntent);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         refreshList();
         showTotalMoneyCollected();
         ViewGroup serviceTipPanel = (ViewGroup) findViewById(R.id.service_tip_panel);
-        serviceTipPanel.setVisibility(isAccessibilityEnabled() ? View.GONE : View.VISIBLE);
+        ViewUtils.setVisible(serviceTipPanel, !isAccessibilityEnabled());
+
+        ViewGroup uninstallOldVersionTipPanel = (ViewGroup) findViewById(R.id.uninstall_old_version_tip_panel);
+        ViewUtils.setVisible(uninstallOldVersionTipPanel, isInstalledPreApp());
     }
 
     @Override
@@ -97,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.open_button) {
             openServiceSetting();
+        } else if(v.getId() == R.id.uninstall_old_version_button) {
+            uninstallPrePackage();
         }
     }
 

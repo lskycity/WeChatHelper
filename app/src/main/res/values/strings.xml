@@ -5,6 +5,9 @@
     <string name="open_service_button">进入辅助功能</string>
     <string name="suggest_action_1">为了您抢红包更加顺利，强烈推荐您先看一下设置里面的常见问题。</string>
 
+    <string name="uninstall_old_version_tip">我们检测到您安装了老版本的红包猎手（1.2），由于一些原因，我们更改了程序包名，为了避免冲突，您需要手动卸载老版本。</string>
+    <string name="uninstall_old_version">卸载老版本</string>
+
     <string name="main_menu_about">关于我们</string>
     <string name="main_menu_setting">设置</string>
 

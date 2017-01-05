@@ -1,4 +1,6 @@
 <resources>
+    <string name="app_name">Lucky Hunter</string>
+
     <string name="key_word_receive_lucky_money">Send you a red packet</string>
     <string name="key_word_no_lucky_money">Better luck next time!</string>
     <string name="key_word_loading">Loading...</string>
