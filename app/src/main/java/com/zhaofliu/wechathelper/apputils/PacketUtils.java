@@ -60,7 +60,7 @@ public class PacketUtils {
         return false;
     }
 
-    private static boolean checkLoading(AccessibilityService service){
+    public static boolean checkLoading(AccessibilityService service){
         AccessibilityNodeInfo nodeInfo = service.getRootInActiveWindow();
 
         if (nodeInfo != null) {
@@ -110,6 +110,19 @@ public class PacketUtils {
     }
 
 
+    public static boolean isInMainScreen(AccessibilityService service) {
+        AccessibilityNodeInfo rootNode = service.getRootInActiveWindow();
+        if(rootNode == null) {
+            return false;
+        }
+        List<AccessibilityNodeInfo>  titleNodeInfos = rootNode.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_wechat));
+        List<AccessibilityNodeInfo>  backNodeInfos = rootNode.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_back));
+
+        return titleNodeInfos.size()>0 && backNodeInfos.size()==0;
+    }
+
+
+
     public static AccessibilityNodeInfo getLastPacket(AccessibilityService service) {
         AccessibilityNodeInfo rootNode = service.getRootInActiveWindow();
         if(rootNode == null) {
@@ -123,14 +136,26 @@ public class PacketUtils {
         return null;
     }
 
-    public static boolean isChatScreen(AccessibilityService service) {
+    public static CharSequence getChatScreenTitle(AccessibilityService service) {
         AccessibilityNodeInfo rootNode = service.getRootInActiveWindow();
         if(rootNode == null) {
-            return false;
+            return null;
         }
-        List<AccessibilityNodeInfo>  nodeInfos = rootNode.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_chat_info));
+        List<AccessibilityNodeInfo>  chatInfos = rootNode.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_chat_info));
+        List<AccessibilityNodeInfo>  backNodeInfos = rootNode.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_back));
 
-        return nodeInfos.size()>0;
+
+        if(backNodeInfos.size()>0 && chatInfos.size()>0) {
+            try{
+                AccessibilityNodeInfo backNodeInfo = backNodeInfos.get(0).getParent().getParent();
+                AccessibilityNodeInfo titleNode = backNodeInfo.getChild(1).getChild(0);
+                return titleNode.getText();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        return null;
     }
 
     public static boolean isLastNodeInListView(AccessibilityNodeInfo fetchLuckyMoneyNode, int lastCount) {

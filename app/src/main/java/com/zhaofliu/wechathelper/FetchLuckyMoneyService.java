@@ -36,15 +36,22 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     private int mListCount = 0;
 
+    private boolean init = false;
+
     private static final float BIG_MONEY = 5.0f;
 
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
+
+        if(init) {
+            return;
+        }
+
         mNotificationFlowHelper = new NotificationFlowHelper(this);
         mFetchRecordDbHelper = new FetchRecordDbHelper(this);
-
         setService();
+        init = true;
     }
 
     private Handler openHandler = new Handler(){
@@ -56,7 +63,9 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                     && !PacketUtils.checkNoLuckyMoney(FetchLuckyMoneyService.this)
                     ) {
                 openHandler.sendEmptyMessageDelayed(1, 50);
-            } else if(isOpenByService){
+            } else if(isOpenByService &&
+                    (PacketUtils.checkLuckyMoneyOver24Hour(FetchLuckyMoneyService.this)
+                            || PacketUtils.checkNoLuckyMoney(FetchLuckyMoneyService.this))){
                 isOpenByService = false;
                 backToChatWindow();
             }
@@ -64,13 +73,30 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         }
     };
 
+    private Handler defineChatScreen = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if(PacketUtils.isInMainScreen(FetchLuckyMoneyService.this)) {
+                mListCount = 0;
+            }
+//        else {
+//            CharSequence chatTitle = PacketUtils.getChatScreenTitle(FetchLuckyMoneyService.this);
+//            if(chatTitle != null && !mLastestChatUI.equals(chatTitle.toString())) {
+//                mListCount = 0;
+//                mLastestChatUI = chatTitle.toString();
+//            }
+//            }
+        }
+    };
+
     private void setService() {
 
-        final AccessibilityServiceInfo info = new AccessibilityServiceInfo();
+        AccessibilityServiceInfo info = getServiceInfo();
+        if(info == null) {
+            info = new AccessibilityServiceInfo();
+        }
         info.eventTypes = AccessibilityEvent.TYPES_ALL_MASK;
-        info.feedbackType |= AccessibilityServiceInfo.FEEDBACK_SPOKEN;
-        info.feedbackType |= AccessibilityServiceInfo.FEEDBACK_AUDIBLE;
-        info.feedbackType |= AccessibilityServiceInfo.FEEDBACK_HAPTIC;
+        info.feedbackType |= AccessibilityServiceInfo.FEEDBACK_GENERIC;
         info.flags |= AccessibilityServiceInfo.DEFAULT;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             info.flags |= AccessibilityServiceInfo.FLAG_REQUEST_ENHANCED_WEB_ACCESSIBILITY;
@@ -123,10 +149,9 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                 break;
             case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
                 if(Constants.WECHAT_LAUNCHER.equals(mCurrentUI)) {
-                    boolean isChatScreen = PacketUtils.isChatScreen(this);
-                    if(!isChatScreen) {
-                        mListCount = 0;
-                    }
+                    defineChatScreen.removeMessages(1);
+                    defineChatScreen.sendEmptyMessageDelayed(1, 1000);
+
                 }
                 break;
             case AccessibilityEvent.TYPE_VIEW_SCROLLED:
@@ -188,6 +213,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     @Override
     public void onInterrupt() {
+        init = false;
     }
 
     @Override
