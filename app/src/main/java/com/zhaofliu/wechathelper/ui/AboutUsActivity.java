@@ -26,16 +26,14 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.mail_link:
                 sendMail(getString(R.string.team_mail_address));
                 break;
         }
     }
 
-    private void sendMail(String address)
-    {
+    private void sendMail(String address) {
         Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
         emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         emailIntent.setType("message/rfc822");
@@ -45,8 +43,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
 
         PackageManager pManager = getPackageManager();
         List<ResolveInfo> info = pManager.queryIntentActivities(emailIntent, PackageManager.MATCH_DEFAULT_ONLY);
-        if(info!=null)
-        {
+        if (info != null) {
             startActivity(Intent.createChooser(emailIntent, getString(R.string.mail_chooser_title)));
         }
     }

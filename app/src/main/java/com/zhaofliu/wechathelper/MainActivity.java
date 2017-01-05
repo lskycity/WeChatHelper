@@ -124,22 +124,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTotalMoneyTips.setText(String.format(Locale.getDefault(), "红包助手已为你抢到%.2f元.",calculateTotalMoney()));
     }
 
-    private float calculateTotalMoney()
-    {
+    private float calculateTotalMoney() {
         Cursor cursor = mDbHelper.query();
         float total = 0.0f;
-        while (cursor.moveToNext())
-        {
+        while (cursor.moveToNext()) {
             String amount = cursor.getString(1);
-            try
-            {
+            try {
                 float fAmount = Float.valueOf(amount);
                 total += fAmount;
 
-            }
-            catch (NumberFormatException e)
-            {
-                Log.v("calculateTotalMoney", "calculate total money fail, value is noe float, value is "+amount);
+            } catch (NumberFormatException e) {
+                Log.v("calculateTotalMoney", "calculate total money fail, value is noe float, value is " + amount);
             }
         }
         return total;

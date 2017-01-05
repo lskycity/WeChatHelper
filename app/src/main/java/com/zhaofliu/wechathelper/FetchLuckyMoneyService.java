@@ -24,8 +24,7 @@ import com.zhaofliu.wechathelper.utils.SharedPreUtils;
  * @author zhaofliu
  * @since 1/6/16
  */
-public class FetchLuckyMoneyService extends AccessibilityService implements NotificationFlowHelper.FlowListener
-{
+public class FetchLuckyMoneyService extends AccessibilityService implements NotificationFlowHelper.FlowListener {
 
     private NotificationFlowHelper mNotificationFlowHelper;
 
@@ -40,8 +39,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     private static final float BIG_MONEY = 5.0f;
 
     @Override
-    protected void onServiceConnected()
-    {
+    protected void onServiceConnected() {
         super.onServiceConnected();
         mNotificationFlowHelper = new NotificationFlowHelper(this);
         mFetchRecordDbHelper = new FetchRecordDbHelper(this);
@@ -90,24 +88,20 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     }
 
     @Override
-    public void onAccessibilityEvent(AccessibilityEvent event)
-    {
+    public void onAccessibilityEvent(AccessibilityEvent event)  {
         if(BuildConfig.DEBUG) {
             Log.v("onAccessibility", "onAccessibilityEvent event type=0x"+Integer.toHexString(event.getEventType())+", class="+event.getClassName());
         }
 
-        if (mNotificationFlowHelper.onAccessibilityEvent(event))
-        {
-            if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
-            {
+        if (mNotificationFlowHelper.onAccessibilityEvent(event)) {
+            if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
                 mCurrentUI = event.getClassName().toString();
             }
             return;
         }
 
         int eventType = event.getEventType();
-        switch (eventType)
-        {
+        switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 mCurrentUI = event.getClassName().toString();
                 if (TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_RECEIVER)) {
@@ -117,10 +111,8 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                         openHandler.sendEmptyMessageDelayed(1, 50);
                     }
                 }
-                else if (TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_DETAIL))
-                {
-                    if (isOpenByService)
-                    {
+                else if (TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_DETAIL)) {
+                    if (isOpenByService) {
                         saveAmountAndTime();
                         backToChatWindow();
                         isOpenByService = false;
@@ -138,8 +130,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                 }
                 break;
             case AccessibilityEvent.TYPE_VIEW_SCROLLED:
-                if (Constants.WECHAT_LAUNCHER.equals(mCurrentUI) && isListViewScroll(event))
-                {
+                if (Constants.WECHAT_LAUNCHER.equals(mCurrentUI) && isListViewScroll(event)) {
                     int count = event.getItemCount();
                     int addCount = count - mListCount;
                     int listDisplayCount = event.getToIndex()-event.getFromIndex();
@@ -153,84 +144,63 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         }
     }
 
-    private void saveAmountAndTime()
-    {
+    private void saveAmountAndTime() {
         Record record = PacketUtils.getFetchAmountInDetail(this);
-        if (record != null)
-        {
+        if (record != null) {
             playMoneySound(record);
             mFetchRecordDbHelper.insert(record);
         }
     }
 
-    private void playMoneySound(Record record)
-    {
-        if (isMoneySoundSwitchOn())
-        {
-            try
-            {
+    private void playMoneySound(Record record) {
+        if (isMoneySoundSwitchOn()) {
+            try {
                 float receivedMoney = Float.parseFloat(record.amount);
                 MediaPlayer player = null;
-                if (Float.compare(receivedMoney, BIG_MONEY) >= 0)
-                {
+                if (Float.compare(receivedMoney, BIG_MONEY) >= 0) {
                     player = MediaPlayer.create(this, R.raw.money_big);
-                }
-                else if (Float.compare(receivedMoney, 0f) > 0)
-                {
+                } else if (Float.compare(receivedMoney, 0f) > 0) {
                     player = MediaPlayer.create(this, R.raw.money_small);
                 }
-                if (player != null)
-                {
+                if (player != null) {
                     player.start();
                 }
-            }
-            catch (NumberFormatException e)
-            {
+            } catch (NumberFormatException e) {
             }
         }
     }
 
-    private boolean isListViewScroll(AccessibilityEvent event)
-    {
+    private boolean isListViewScroll(AccessibilityEvent event) {
         return TextUtils.equals(event.getClassName(), "android.widget.ListView");
     }
 
-    private boolean checkLastMessageAndOpenLuckyMoney(int lastCount)
-    {
+    private boolean checkLastMessageAndOpenLuckyMoney(int lastCount) {
         AccessibilityNodeInfo packet = PacketUtils.getLastPacket(this);
-        if (packet != null && PacketUtils.isLastNodeInListView(packet, lastCount))
-        {
+        if (packet != null && PacketUtils.isLastNodeInListView(packet, lastCount)) {
             return PacketUtils.clickThePacketNode(this, packet);
         }
         return false;
     }
 
-    private void backToChatWindow()
-    {
+    private void backToChatWindow() {
         performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
     }
 
     @Override
-    public void onInterrupt()
-    {
+    public void onInterrupt() {
     }
 
     @Override
-    public void onNotificationFlowStateChanged(NotificationFlowHelper.State state)
-    {
-        if (state == NotificationFlowHelper.State.detail)
-        {
+    public void onNotificationFlowStateChanged(NotificationFlowHelper.State state) {
+        if (state == NotificationFlowHelper.State.detail) {
             saveAmountAndTime();
-        }
-        else if(state == NotificationFlowHelper.State.clickedInList) {
+        } else if (state == NotificationFlowHelper.State.clickedInList) {
             isOpenByService = true;
-        } else if (state == NotificationFlowHelper.State.notification)
-        {
+        } else if (state == NotificationFlowHelper.State.notification) {
         }
     }
 
-    private boolean isMoneySoundSwitchOn()
-    {
+    private boolean isMoneySoundSwitchOn() {
         return SharedPreUtils.getBoolean(this, Constants.SOUND_SWITCH_KEY, true);
     }
 
