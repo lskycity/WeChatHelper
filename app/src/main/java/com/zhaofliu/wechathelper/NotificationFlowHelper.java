@@ -4,6 +4,8 @@ import android.accessibilityservice.AccessibilityService;
 import android.app.Notification;
 import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.os.PowerManager;
 import android.text.TextUtils;
 import android.view.accessibility.AccessibilityEvent;
@@ -46,6 +48,14 @@ public class NotificationFlowHelper {
         }
     }
 
+    private Handler fetchPacketAndClickHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            boolean success = fetchPacketAndClick();
+            changeToState(success ? State.clickedInList : State.invalid);
+        }
+    };
+
     public boolean onAccessibilityEvent(AccessibilityEvent event) {
         int eventType = event.getEventType();
         switch (eventType) {
@@ -68,6 +78,9 @@ public class NotificationFlowHelper {
                     if(mState == State.notification) {
                         boolean success = fetchPacketAndClick();
                         changeToState(success ? State.clickedInList : State.invalid);
+                        if(!success) {
+                            fetchPacketAndClickHandler.sendEmptyMessageDelayed(1, 100);
+                        }
                         return mState==State.clickedInList;
                     } else {
                         changeToState(State.invalid);
@@ -90,10 +103,9 @@ public class NotificationFlowHelper {
                             changeToState(State.opened);
                         } else {
                             // fetch failed, lucky money dispatch finished, back to chat window
-                            mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);  //back to chat window
                             changeToState(State.invalid);
                         }
-                        return true;
+                        return fetchSuccess;
                     }
                 }
                 return false;

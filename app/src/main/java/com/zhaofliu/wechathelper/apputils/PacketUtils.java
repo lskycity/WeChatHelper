@@ -1,7 +1,9 @@
 package com.zhaofliu.wechathelper.apputils;
 
 import android.accessibilityservice.AccessibilityService;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -15,70 +17,98 @@ import com.zhaofliu.wechathelper.record.Record;
  * Created by liuzhaofeng on 2016/1/28.
  */
 public class PacketUtils {
-    public static boolean openPacketInDetail(AccessibilityService service){
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static boolean openPacketInDetail(final AccessibilityService service){
+
         AccessibilityNodeInfo nodeInfo = service.getRootInActiveWindow();
 
-        findLoadingState(service, nodeInfo);
-//        if (nodeInfo != null) {
-//            List<AccessibilityNodeInfo> nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_receive_lucky_money));
-//            if(nodeInfos.size()==0) {
-//                nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_receive_lucky_money_from_group));
-//            }
-//            if(nodeInfos.size()==0) {
-//                return false;
-//            }
-//            AccessibilityNodeInfo textNode = nodeInfos.get(0);
-//            AccessibilityNodeInfo contentNode = textNode.getParent().getParent();
-//            AccessibilityNodeInfo openButtonNode = contentNode.getChild(contentNode.getChildCount()-1);
-//          //  openButtonNode.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-//            return true;
-//        }
-        return openPacketInDetail(service, nodeInfo);
-    }
-
-    public static boolean openPacketInDetail(AccessibilityService service, AccessibilityNodeInfo nodeInfo){
-
-        System.out.println("11111111111 try to open " + nodeInfo);
-
         if (nodeInfo != null) {
+
+            // try to find open button, english version have open button
+            List<AccessibilityNodeInfo> buttonNodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_button_open));
+
+            if(buttonNodeInfos.size()>0) {
+                AccessibilityNodeInfo buttonNode = buttonNodeInfos.get(0);
+                buttonNode.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                return true;
+            }
+
             List<AccessibilityNodeInfo> nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_receive_lucky_money));
+
             if(nodeInfos.size()==0) {
                 nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_receive_lucky_money_from_group));
             }
-
-            System.out.println("11111111111 find size "+nodeInfos.size());
 
             if(nodeInfos.size()==0) {
                 return false;
             }
             AccessibilityNodeInfo textNode = nodeInfos.get(0);
+
             AccessibilityNodeInfo contentNode = textNode.getParent().getParent();
+
+            if(contentNode == null) {
+                return false;
+            }
+
             AccessibilityNodeInfo openButtonNode = contentNode.getChild(contentNode.getChildCount()-1);
             if("android.widget.Button".equals(openButtonNode.getClassName())) {
-                System.out.println("11111111111 openButtonNode.getClassName() "+openButtonNode.getClassName());
                 openButtonNode.performAction(AccessibilityNodeInfo.ACTION_CLICK);
             }
-         //   openButtonNode.performAction(AccessibilityNodeInfo.ACTION_CLICK);
             return true;
         }
         return false;
     }
 
-    public static boolean findLoadingState(final AccessibilityService service, final AccessibilityNodeInfo nodeInfo) {
+    private static boolean checkLoading(AccessibilityService service){
+        AccessibilityNodeInfo nodeInfo = service.getRootInActiveWindow();
+
         if (nodeInfo != null) {
-            List<AccessibilityNodeInfo> nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_loading));
-            System.out.println("11111111111 find loading "+nodeInfos.size());
 
-            new Handler(){
-                @Override
-                public void handleMessage(Message msg) {
-                    openPacketInDetail(service);
-                }
-            }.sendEmptyMessageDelayed(1, 5000);
-
+            List<AccessibilityNodeInfo> buttonNodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_loading));
+            return buttonNodeInfos.size()>0;
         }
         return false;
     }
+
+    public static boolean checkNoLuckyMoney(AccessibilityService service){
+
+        AccessibilityNodeInfo nodeInfo = service.getRootInActiveWindow();
+        if (nodeInfo != null) {
+
+            List<AccessibilityNodeInfo> nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_no_lucky_money));
+
+            return nodeInfos.size()>0;
+        }
+        return false;
+    }
+
+    public static boolean checkLuckyMoneyOver24Hour(AccessibilityService service){
+
+        AccessibilityNodeInfo nodeInfo = service.getRootInActiveWindow();
+
+        if (nodeInfo != null) {
+            List<AccessibilityNodeInfo> nodeInfos = nodeInfo.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_lucky_money_over_24_hour));
+            return nodeInfos.size()>0;
+        }
+        return false;
+    }
+
+
+    public static void travelNode(AccessibilityNodeInfo nodeInfo, String sp) {
+
+        System.out.println(sp + "1111111111 " + nodeInfo.getClassName());
+
+        int count = nodeInfo.getChildCount();
+        if(count == 0) {
+            return;
+        }
+
+        for(int i=0; i<count; i++) {
+            travelNode(nodeInfo.getChild(i), sp+" ");
+        }
+    }
+
 
     public static AccessibilityNodeInfo getLastPacket(AccessibilityService service) {
         AccessibilityNodeInfo rootNode = service.getRootInActiveWindow();
@@ -91,6 +121,16 @@ public class PacketUtils {
             return nodeInfos.get(count-1);
         }
         return null;
+    }
+
+    public static boolean isChatScreen(AccessibilityService service) {
+        AccessibilityNodeInfo rootNode = service.getRootInActiveWindow();
+        if(rootNode == null) {
+            return false;
+        }
+        List<AccessibilityNodeInfo>  nodeInfos = rootNode.findAccessibilityNodeInfosByText(service.getString(R.string.key_word_chat_info));
+
+        return nodeInfos.size()>0;
     }
 
     public static boolean isLastNodeInListView(AccessibilityNodeInfo fetchLuckyMoneyNode, int lastCount) {

@@ -1,0 +1,8 @@
+<resources>
+    <string name="key_word_receive_lucky_money">Send you a red packet</string>
+    <string name="key_word_no_lucky_money">Better luck next time!</string>
+    <string name="key_word_loading">Loading...</string>
+    <string name="key_word_receive_lucky_money_from_group">Red packet with random amount</string>
+    <string name="key_word_money_unit">￥</string>
+
+</resources>

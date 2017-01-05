@@ -1,23 +1,28 @@
 package com.zhaofliu.wechathelper;
 
 import android.accessibilityservice.AccessibilityService;
-import android.database.Cursor;
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.media.MediaPlayer;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.zhaofliu.wechathelper.NotificationFlowHelper;
-import com.zhaofliu.wechathelper.record.FetchRecordDbHelper;
-import com.zhaofliu.wechathelper.record.Record;
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.PacketUtils;
+import com.zhaofliu.wechathelper.record.FetchRecordDbHelper;
+import com.zhaofliu.wechathelper.record.Record;
 import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 
 
 /**
- * Created by liuzhaofeng on 1/6/16.
+ * this is fetch money service, help to monitor the screen and click lucky money for you.
+ *
+ * @author zhaofliu
+ * @since 1/6/16
  */
 public class FetchLuckyMoneyService extends AccessibilityService implements NotificationFlowHelper.FlowListener
 {
@@ -40,6 +45,48 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         super.onServiceConnected();
         mNotificationFlowHelper = new NotificationFlowHelper(this);
         mFetchRecordDbHelper = new FetchRecordDbHelper(this);
+
+        setService();
+    }
+
+    private Handler openHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            boolean success = PacketUtils.openPacketInDetail(FetchLuckyMoneyService.this);
+            if(!success && TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_RECEIVER)
+                    && !PacketUtils.checkLuckyMoneyOver24Hour(FetchLuckyMoneyService.this)
+                    && !PacketUtils.checkNoLuckyMoney(FetchLuckyMoneyService.this)
+                    ) {
+                openHandler.sendEmptyMessageDelayed(1, 50);
+            } else if(isOpenByService){
+                isOpenByService = false;
+                backToChatWindow();
+            }
+
+        }
+    };
+
+    private void setService() {
+
+        final AccessibilityServiceInfo info = new AccessibilityServiceInfo();
+        info.eventTypes = AccessibilityEvent.TYPES_ALL_MASK;
+        info.feedbackType |= AccessibilityServiceInfo.FEEDBACK_SPOKEN;
+        info.feedbackType |= AccessibilityServiceInfo.FEEDBACK_AUDIBLE;
+        info.feedbackType |= AccessibilityServiceInfo.FEEDBACK_HAPTIC;
+        info.flags |= AccessibilityServiceInfo.DEFAULT;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            info.flags |= AccessibilityServiceInfo.FLAG_REQUEST_ENHANCED_WEB_ACCESSIBILITY;
+            info.flags |= AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS;
+            info.flags |= AccessibilityServiceInfo.FLAG_INCLUDE_NOT_IMPORTANT_VIEWS;
+            info.flags |= AccessibilityServiceInfo.FLAG_REQUEST_FILTER_KEY_EVENTS;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            info.flags |= AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS;
+        }
+        info.notificationTimeout = 100;
+
+        setServiceInfo(info);
+
     }
 
     @Override
@@ -49,30 +96,25 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
             Log.v("onAccessibility", "onAccessibilityEvent event type=0x"+Integer.toHexString(event.getEventType())+", class="+event.getClassName());
         }
 
-//        if (mNotificationFlowHelper.onAccessibilityEvent(event))
-//        {
-//            isOpenByService = false;
-//            if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
-//            {
-//                mCurrentUI = event.getClassName().toString();
-//            }
-//            return;
-//        }
+        if (mNotificationFlowHelper.onAccessibilityEvent(event))
+        {
+            if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED)
+            {
+                mCurrentUI = event.getClassName().toString();
+            }
+            return;
+        }
 
         int eventType = event.getEventType();
         switch (eventType)
         {
-            case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
-                break;
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 mCurrentUI = event.getClassName().toString();
-                if (TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_RECEIVER))
-                {
+                if (TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_RECEIVER)) {
                     boolean success = PacketUtils.openPacketInDetail(this);
-                    if (isOpenByService && !success)
-                    {
-                        backToChatWindow();
-                        isOpenByService = false;
+
+                    if(!success) {
+                        openHandler.sendEmptyMessageDelayed(1, 50);
                     }
                 }
                 else if (TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_DETAIL))
@@ -82,6 +124,16 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                         saveAmountAndTime();
                         backToChatWindow();
                         isOpenByService = false;
+                    }
+                } else {
+                    isOpenByService = false;
+                }
+                break;
+            case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
+                if(Constants.WECHAT_LAUNCHER.equals(mCurrentUI)) {
+                    boolean isChatScreen = PacketUtils.isChatScreen(this);
+                    if(!isChatScreen) {
+                        mListCount = 0;
                     }
                 }
                 break;
@@ -93,7 +145,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                     int listDisplayCount = event.getToIndex()-event.getFromIndex();
                     int diff = Math.min(Math.max(1, addCount), listDisplayCount);
                     if (!mNotificationFlowHelper.isTryToFetchAndClick() && (event.getToIndex() == count - 1)) {
-                        checkLastMessageAndOpenLuckyMoney(diff);
+                        isOpenByService = checkLastMessageAndOpenLuckyMoney(diff);
                     }
                     mListCount = count;
                 }
@@ -107,67 +159,8 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         if (record != null)
         {
             playMoneySound(record);
-            updateTotalMoneyToSP(record.amount);
             mFetchRecordDbHelper.insert(record);
         }
-    }
-
-    private float getTotalMoneyFromSP()
-    {
-        return SharedPreUtils.getFloat(this, Constants.TOTAL_MONEY_KEY);
-    }
-
-    private boolean initSharedPreferenceMoneyData()
-    {
-        Cursor cursor = mFetchRecordDbHelper.query();
-        float total = 0.0f;
-        while (cursor.moveToNext())
-        {
-            String amount = cursor.getString(1);
-            try
-            {
-                float fAmount = Float.valueOf(amount);
-                total += fAmount;
-
-            }
-            catch (NumberFormatException e)
-            {
-                return false;
-            }
-        }
-        SharedPreUtils.putFloat(this, Constants.TOTAL_MONEY_KEY, total);
-        return true;
-    }
-
-    private boolean updateTotalMoneyToSP(String amount)
-    {
-        // sharedpreference file does not exist, query database to create a new one
-        if (SharedPreUtils.getFloat(this, Constants.TOTAL_MONEY_KEY, -1)<0)
-        {
-            return initSharedPreferenceMoneyData();
-        }
-        else
-        {
-            String update_money = amount;
-            try
-            {
-                float money = Float.valueOf(update_money);
-                float current_total_money = money + getTotalMoneyFromSP();
-                saveTotalMoneyToSP(current_total_money);
-                return true;
-
-            }
-            catch (NumberFormatException ex)
-            {
-                return false;
-            }
-        }
-
-    }
-
-    private void saveTotalMoneyToSP(float value)
-    {
-        SharedPreUtils.putFloat(this, Constants.TOTAL_MONEY_KEY, value);
     }
 
     private void playMoneySound(Record record)
@@ -202,13 +195,14 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         return TextUtils.equals(event.getClassName(), "android.widget.ListView");
     }
 
-    private void checkLastMessageAndOpenLuckyMoney(int lastCount)
+    private boolean checkLastMessageAndOpenLuckyMoney(int lastCount)
     {
         AccessibilityNodeInfo packet = PacketUtils.getLastPacket(this);
         if (packet != null && PacketUtils.isLastNodeInListView(packet, lastCount))
         {
-            isOpenByService = PacketUtils.clickThePacketNode(this, packet);
+            return PacketUtils.clickThePacketNode(this, packet);
         }
+        return false;
     }
 
     private void backToChatWindow()
@@ -228,7 +222,9 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         {
             saveAmountAndTime();
         }
-        else if (state == NotificationFlowHelper.State.notification)
+        else if(state == NotificationFlowHelper.State.clickedInList) {
+            isOpenByService = true;
+        } else if (state == NotificationFlowHelper.State.notification)
         {
         }
     }

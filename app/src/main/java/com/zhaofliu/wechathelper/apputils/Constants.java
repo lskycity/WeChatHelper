@@ -20,7 +20,6 @@ public class Constants {
      * main screen or chat screen
      */
     public static final String WECHAT_LAUNCHER = "com.tencent.mm.ui.LauncherUI";
-    public static final String TOTAL_MONEY_KEY = "TOTAL";
 
     /**
      * setting key

@@ -7,6 +7,7 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,8 @@ import com.zhaofliu.wechathelper.ui.SettingsActivity;
 import com.zhaofliu.wechathelper.ui.adapter.LuckyMoneyCursorAdapter;
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.utils.SharedPreUtils;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView mListView;
@@ -118,29 +121,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showTotalMoneyCollected() {
-        initMoneyData();
-        Float total = SharedPreUtils.getFloat(this, Constants.TOTAL_MONEY_KEY);
-        mTotalMoneyTips.setText(String.format("红包助手已为你抢到%.2f元.",total));
+        mTotalMoneyTips.setText(String.format(Locale.getDefault(), "红包助手已为你抢到%.2f元.",calculateTotalMoney()));
     }
 
-    private boolean initMoneyData() {
-        if (SharedPreUtils.getFloat(this, Constants.TOTAL_MONEY_KEY, -1)<0) {
-            Cursor cursor = mDbHelper.query();
-            float total = 0.0f;
-            while (cursor.moveToNext()) {
-                String amount = cursor.getString(1);
-                try {
-                    float fAmount = Float.valueOf(amount);
-                    total += fAmount;
+    private float calculateTotalMoney()
+    {
+        Cursor cursor = mDbHelper.query();
+        float total = 0.0f;
+        while (cursor.moveToNext())
+        {
+            String amount = cursor.getString(1);
+            try
+            {
+                float fAmount = Float.valueOf(amount);
+                total += fAmount;
 
-                } catch (NumberFormatException e) {
-                    return false;
-                }
             }
-            SharedPreUtils.putFloat(this, Constants.TOTAL_MONEY_KEY, total);
-            return true;
+            catch (NumberFormatException e)
+            {
+                Log.v("calculateTotalMoney", "calculate total money fail, value is noe float, value is "+amount);
+            }
         }
-        return true;
+        return total;
     }
 
 }
