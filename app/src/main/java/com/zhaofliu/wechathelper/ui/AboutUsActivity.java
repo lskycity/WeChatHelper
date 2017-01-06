@@ -1,17 +1,13 @@
 package com.zhaofliu.wechathelper.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.TextView;
 
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.app.BaseActivity;
-import com.zhaofliu.wechathelper.app.SingleFragmentActivity;
 
 import java.util.List;
 
@@ -20,7 +16,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_about_us);
+        setContentView(R.layout.activity_about_us);
         findViewById(R.id.mail_link).setOnClickListener(this);
     }
 

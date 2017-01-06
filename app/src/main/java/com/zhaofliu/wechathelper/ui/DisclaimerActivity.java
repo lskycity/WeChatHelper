@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -17,7 +16,6 @@ import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 import com.zhaofliu.wechathelper.utils.ViewUtils;
 
 import static com.zhaofliu.wechathelper.R.layout.activity_disclaimer;
-import static com.zhaofliu.wechathelper.R.layout.fragment_disclaimer;
 
 public class DisclaimerActivity extends BaseActivity implements View.OnClickListener {
 
