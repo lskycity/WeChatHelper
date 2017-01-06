@@ -7,6 +7,7 @@ import android.view.View;
 import com.zhaofliu.wechathelper.MainActivity;
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.app.BaseActivity;
+import com.zhaofliu.wechathelper.apputils.ServiceUtils;
 
 /**
  * Created by zhaofliu on 1/6/17.
@@ -19,8 +20,8 @@ public class OpenAccessibilityActivity extends BaseActivity implements View.OnCl
 
         setContentView(R.layout.activity_open_acc);
 
-        if(!MainActivity.isAccessibilityEnabled(this)) {
-            MainActivity.openServiceSetting(this);
+        if(!ServiceUtils.isAccessibilityEnabled(this)) {
+            ServiceUtils.openServiceSetting(this);
             finish();
         } else {
             findViewById(R.id.user_guide).setOnClickListener(this);

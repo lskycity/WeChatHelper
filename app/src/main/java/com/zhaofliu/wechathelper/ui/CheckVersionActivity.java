@@ -121,6 +121,10 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
         @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(VersionInfo messages) {
+            if(messages == null) {
+                return;
+            }
+
             SharedPreUtils.putString(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION, String.valueOf(System.currentTimeMillis()));
             SharedPreUtils.putInt(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_CODE, messages.versionCode);
             SharedPreUtils.putString(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_NAME, messages.versionName);

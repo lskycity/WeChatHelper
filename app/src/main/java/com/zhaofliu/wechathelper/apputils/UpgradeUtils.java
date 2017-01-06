@@ -1,5 +1,8 @@
 package com.zhaofliu.wechathelper.apputils;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.JsonReader;
 
 import java.io.IOException;
@@ -13,6 +16,8 @@ import java.net.URL;
  */
 
 public class UpgradeUtils {
+    private static final String PRE_JABBER_APP_PACKAGE_NAME = "zhaofeng.wechathelper";
+
     public static VersionInfo getJSONObjectFromURL() throws IOException {
         HttpURLConnection urlConnection = null;
 
@@ -31,7 +36,7 @@ public class UpgradeUtils {
         return readJsonStream(url.openStream());
     }
 
-    public static VersionInfo readJsonStream(InputStream in) throws IOException {
+    private static VersionInfo readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         try {
             return readMessage(reader);
@@ -40,7 +45,7 @@ public class UpgradeUtils {
         }
     }
 
-    public static VersionInfo readMessage(JsonReader reader) throws IOException {
+    private static VersionInfo readMessage(JsonReader reader) throws IOException {
         VersionInfo info = new VersionInfo();
         reader.beginObject();
         while (reader.hasNext()) {
@@ -58,5 +63,20 @@ public class UpgradeUtils {
         reader.endObject();
 
         return info;
+    }
+
+    public static boolean isInstalledPreApp(Context context) {
+        try {
+            return (null != context.getPackageManager().getLaunchIntentForPackage(PRE_JABBER_APP_PACKAGE_NAME));
+        } catch (Exception exception) {
+            return false;
+        }
+
+    }
+
+    public static void uninstallPrePackage(Context context) {
+        Uri packageURI = Uri.parse("package:" + PRE_JABBER_APP_PACKAGE_NAME);
+        Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageURI);
+        context.startActivity(uninstallIntent);
     }
 }
