@@ -143,7 +143,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                         backToChatWindow();
                         isOpenByService = false;
                     }
-                } else {
+                } else if(!TextUtils.equals(mCurrentUI, "com.tencent.mm.ui.base.p")) {
                     isOpenByService = false;
                 }
                 break;
