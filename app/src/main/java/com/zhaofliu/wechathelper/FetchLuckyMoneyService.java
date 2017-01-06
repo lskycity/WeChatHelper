@@ -150,7 +150,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
             case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
                 if(Constants.WECHAT_LAUNCHER.equals(mCurrentUI)) {
                     defineChatScreen.removeMessages(1);
-                    defineChatScreen.sendEmptyMessageDelayed(1, 1000);
+                    defineChatScreen.sendEmptyMessageDelayed(1, 500);
 
                 }
                 break;
