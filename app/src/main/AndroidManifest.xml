@@ -19,6 +19,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
 
         <activity android:name=".ui.SettingsActivity" android:label="@string/main_menu_setting"/>
@@ -26,6 +28,8 @@
         <activity android:name=".ui.AboutUsActivity" android:label="@string/about_us"/>
         <activity android:name=".ui.DisclaimerActivity" android:label="@string/disclaimer"/>
         <activity android:name=".ui.UserGuideActivity" android:label="@string/user_guide"/>
+        <activity android:name=".ui.OpenAccessibilityActivity" />
+
         <service
             android:name=".FetchLuckyMoneyService"
             android:enabled="true"

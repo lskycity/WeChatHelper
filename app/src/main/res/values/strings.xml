@@ -2,6 +2,7 @@
     <string name="app_name">红包猎手</string>
     <string name="fetch_lucky_money_service_description">打开本服务可以帮助您自动抢微信红包，为了您抢红包更加顺利，强烈推荐您先看一下设置里面的常见问题。\n\n欢迎访问网站了解详细 http://www.lskycity.com/wechathelper/index.html</string>
     <string name="open_service_tip"><Data><![CDATA[<font color="#ff0000"><b>注意：</b></font>要开启自动抢红包功能，请打开抢红包服务，进入系统设定，打开辅助功能，点击抢红包服务，打开开关。注意：小米手机的辅助功能在高级设置里面！]]></Data></string>
+    <string name="service_already_open">您已经打开了抢红包服务, 为了您抢红包更加顺利，强烈推荐您先看一下设置里面的常见问题。</string>
     <string name="open_service_button">进入辅助功能</string>
     <string name="suggest_action_1">为了您抢红包更加顺利，强烈推荐您先看一下设置里面的常见问题。</string>
 
@@ -10,6 +11,7 @@
 
     <string name="main_menu_about">关于我们</string>
     <string name="main_menu_setting">设置</string>
+    <string name="main_page">主页</string>
 
     <string name="agree">同意</string>
     <string name="disagree">不同意</string>

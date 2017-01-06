@@ -1,5 +1,6 @@
 package com.zhaofliu.wechathelper;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         refreshList();
         showTotalMoneyCollected();
         ViewGroup serviceTipPanel = (ViewGroup) findViewById(R.id.service_tip_panel);
-        ViewUtils.setVisible(serviceTipPanel, !isAccessibilityEnabled());
+        ViewUtils.setVisible(serviceTipPanel, !isAccessibilityEnabled(this));
 
         ViewGroup uninstallOldVersionTipPanel = (ViewGroup) findViewById(R.id.uninstall_old_version_tip_panel);
         ViewUtils.setVisible(uninstallOldVersionTipPanel, isInstalledPreApp());
@@ -119,27 +120,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.open_button) {
-            openServiceSetting();
+            openServiceSetting(this);
         } else if(v.getId() == R.id.uninstall_old_version_button) {
             uninstallPrePackage();
         }
     }
 
-    private void openServiceSetting() {
+    public static void openServiceSetting(Context context) {
         Intent intent = new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS);
-        startActivity(intent);
+        context.startActivity(intent);
     }
 
-    public boolean isAccessibilityEnabled() {
+    public static boolean isAccessibilityEnabled(Context context) {
         int accessibilityEnabled = 0;
         final String ACCESSIBILITY_SERVICE_NAME = "com.zhaofliu.wechathelper/com.zhaofliu.wechathelper.FetchLuckyMoneyService";
         try {
-            accessibilityEnabled = Settings.Secure.getInt(this.getContentResolver(), android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
+            accessibilityEnabled = Settings.Secure.getInt(context.getContentResolver(), android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
         } catch (Settings.SettingNotFoundException ignored) {
         }
 
         if (accessibilityEnabled == 1) {
-            String settingValue = Settings.Secure.getString(getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+            String settingValue = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
             if (settingValue != null) {
                 TextUtils.SimpleStringSplitter splitter = new TextUtils.SimpleStringSplitter(':');
                 splitter.setString(settingValue);
