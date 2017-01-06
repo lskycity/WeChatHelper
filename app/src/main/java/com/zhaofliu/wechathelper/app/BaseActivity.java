@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by liuzhaofeng on 2016/2/13.
+ * base activity for common thing.
+ *
+ * @author zhaofliu
+ * @since 2016/2/13
  */
 public class BaseActivity extends AppCompatActivity {
 
