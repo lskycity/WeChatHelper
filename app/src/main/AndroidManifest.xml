@@ -28,6 +28,7 @@
         <activity android:name=".ui.AboutUsActivity" android:label="@string/about_us"/>
         <activity android:name=".ui.DisclaimerActivity" android:label="@string/disclaimer"/>
         <activity android:name=".ui.UserGuideActivity" android:label="@string/user_guide"/>
+        <activity android:name=".ui.FeedbackActivity" android:label="@string/feedback"/>
         <activity android:name=".ui.OpenAccessibilityActivity" />
 
         <service
