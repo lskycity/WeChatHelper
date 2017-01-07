@@ -14,9 +14,12 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.NotificationUtils;
 import com.zhaofliu.wechathelper.apputils.PacketUtils;
+import com.zhaofliu.wechathelper.ui.OpenAccessibilityActivity;
+import com.zhaofliu.wechathelper.utils.AppUtils;
 
 /**
  * Created by liuzhaofeng on 2016/1/28.
+ *
  */
 public class NotificationFlowHelper {
 
@@ -56,6 +59,19 @@ public class NotificationFlowHelper {
         }
     };
 
+    private Handler tryUnlockSwipeScreenHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+
+            //after 2000 ms, the state still is notification, so may be have swipe screen
+            if(mState == State.notification && !AppUtils.isDeviceProtected(mService)) {
+                OpenAccessibilityActivity.startForUnlockScreen(mService);
+
+            }
+
+        }
+    };
+
     public boolean onAccessibilityEvent(AccessibilityEvent event) {
         int eventType = event.getEventType();
         switch (eventType) {
@@ -68,6 +84,9 @@ public class NotificationFlowHelper {
                         changeToState(success ? State.notification : State.invalid);
                         if(!isScreenOn()){
                             lightScreen();
+//                            if(success) {
+//                                tryUnlockSwipeScreenHandler.sendEmptyMessageDelayed(1, 2000);
+//                            }
                         }
                     }
                 }
