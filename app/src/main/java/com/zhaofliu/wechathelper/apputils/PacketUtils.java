@@ -15,6 +15,7 @@ import com.zhaofliu.wechathelper.record.Record;
 
 /**
  * Created by liuzhaofeng on 2016/1/28.
+ *
  */
 public class PacketUtils {
 
@@ -107,6 +108,16 @@ public class PacketUtils {
         for(int i=0; i<count; i++) {
             travelNode(nodeInfo.getChild(i), sp+" ");
         }
+    }
+
+    public static void travelParent(AccessibilityNodeInfo nodeInfo, String sp) {
+
+        AccessibilityNodeInfo parent = nodeInfo.getParent();
+        if(parent != null) {
+            travelParent(parent, sp);
+        }
+
+        System.out.println(sp + "1111111111 " + nodeInfo.getClassName());
     }
 
 
