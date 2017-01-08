@@ -143,7 +143,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                         backToChatWindow();
                         isOpenByService = false;
                     }
-                } else if(!TextUtils.equals(mCurrentUI, "com.tencent.mm.ui.base.p")) {
+                } else if(!TextUtils.equals(mCurrentUI, Constants.WECHAT_FETCH_LUCKY_MONEY_TRANSITION)) {
                     isOpenByService = false;
                 }
                 break;
@@ -165,6 +165,9 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                     }
                     mListCount = count;
                 }
+                break;
+            case AccessibilityEvent.TYPE_VIEW_CLICKED:
+            default:
                 break;
         }
     }
