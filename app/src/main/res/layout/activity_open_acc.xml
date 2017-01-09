@@ -5,10 +5,12 @@
     android:padding="24dp">
 
     <TextView
+        android:id="@+id/display_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/service_already_open"
-        android:layout_marginBottom="40dp"/>
+        android:layout_marginBottom="40dp"
+        android:textAppearance="?android:textAppearanceMedium"/>
 
     <Button
         android:id="@+id/user_guide"

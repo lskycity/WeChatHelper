@@ -4,7 +4,12 @@
     <string name="open_service_tip"><Data><![CDATA[<font color="#ff0000"><b>注意：</b></font>要开启自动抢红包功能，请打开抢红包服务，进入系统设定，打开辅助功能，点击抢红包服务，打开开关。注意：小米手机的辅助功能在高级设置里面！]]></Data></string>
     <string name="service_already_open">您已经打开了抢红包服务, 为了您抢红包更加顺利，强烈推荐您先看一下设置里面的常见问题。</string>
     <string name="open_service_button">进入辅助功能</string>
-    <string name="suggest_action_1">为了您抢红包更加顺利，强烈推荐您先看一下设置里面的常见问题。</string>
+
+    <string name="open_notification_service_tip">为了帮助您在微信在后台的情况抢红包，请允许红包猎手访问您的通知，这样才能帮助您在后台的时候，或者手机息屏情况（仅限无密码的情况下）下抢红包。</string>
+    <string name="open_notification_button">打开通知权限</string>
+    <string name="unlocking_screen">正在解锁屏幕...</string>
+
+
 
     <string name="uninstall_old_version_tip">我们检测到您安装了老版本的红包猎手（1.2），由于一些原因，我们更改了程序包名，为了避免冲突，您需要手动卸载老版本。</string>
     <string name="uninstall_old_version">卸载老版本</string>

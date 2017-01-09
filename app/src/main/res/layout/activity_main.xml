@@ -47,6 +47,39 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
+        android:id="@+id/notification_service_tip_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/divider_linear_layout"
+            android:orientation="vertical"
+            android:showDividers="middle">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/open_notification_service_tip"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <Button
+                android:id="@+id/open_notification_button"
+                android:minWidth="64dp"
+                android:layout_width="wrap_content"
+                android:textColor="?attr/colorAccent"
+                android:layout_height="48dp"
+                android:layout_margin="8dp"
+                android:text="@string/open_notification_button" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
         android:id="@+id/uninstall_old_version_tip_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

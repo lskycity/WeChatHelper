@@ -44,7 +44,8 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     protected void onServiceConnected() {
         super.onServiceConnected();
 
-        if(init) {
+        if(init && mNotificationFlowHelper != null) {
+            mNotificationFlowHelper.serviceState = true;
             return;
         }
 
@@ -52,6 +53,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         mFetchRecordDbHelper = new FetchRecordDbHelper(this);
         setService();
         init = true;
+        mNotificationFlowHelper.serviceState = true;
     }
 
     private Handler openHandler = new Handler(){
@@ -79,13 +81,6 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
             if(PacketUtils.isInMainScreen(FetchLuckyMoneyService.this)) {
                 mListCount = 0;
             }
-//        else {
-//            CharSequence chatTitle = PacketUtils.getChatScreenTitle(FetchLuckyMoneyService.this);
-//            if(chatTitle != null && !mLastestChatUI.equals(chatTitle.toString())) {
-//                mListCount = 0;
-//                mLastestChatUI = chatTitle.toString();
-//            }
-//            }
         }
     };
 
@@ -217,6 +212,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     @Override
     public void onInterrupt() {
         init = false;
+        mNotificationFlowHelper.serviceState = false;
     }
 
     @Override

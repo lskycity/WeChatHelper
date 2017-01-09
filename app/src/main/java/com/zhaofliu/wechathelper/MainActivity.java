@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mListView.setEmptyView(findViewById(android.R.id.empty));
         mTotalMoneyTips = (TextView)findViewById(R.id.tips);
         openButton.setOnClickListener(this);
+
+        findViewById(R.id.open_notification_button).setOnClickListener(this);
+
         mDbHelper = new FetchRecordDbHelper(this);
 
         TextView openServiceTip = (TextView) findViewById(R.id.open_service_tip);
@@ -73,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ViewGroup serviceTipPanel = (ViewGroup) findViewById(R.id.service_tip_panel);
         ViewUtils.setVisible(serviceTipPanel, !ServiceUtils.isAccessibilityEnabled(this));
 
+        ViewGroup notificationServiceTipPanel = (ViewGroup) findViewById(R.id.notification_service_tip_panel);
+        ViewUtils.setVisible(notificationServiceTipPanel, !ServiceUtils.isNotificationAccessed(this));
+
         ViewGroup uninstallOldVersionTipPanel = (ViewGroup) findViewById(R.id.uninstall_old_version_tip_panel);
         ViewUtils.setVisible(uninstallOldVersionTipPanel, UpgradeUtils.isInstalledPreApp(this));
     }
@@ -96,12 +102,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(new Intent(this, SettingsActivity.class));
     }
 
+    private void openNotificationSettingsActivity() {
+        startActivity(new Intent(this, SettingsActivity.class));
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.open_button) {
-            ServiceUtils.openServiceSetting(this);
+            ServiceUtils.openAccServiceSetting(this);
         } else if(v.getId() == R.id.uninstall_old_version_button) {
             UpgradeUtils.uninstallPrePackage(this);
+        } else if(v.getId() == R.id.open_notification_button) {
+            ServiceUtils.openNotificationServiceSetting(this);
         }
     }
 

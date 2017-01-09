@@ -17,11 +17,23 @@ import com.zhaofliu.wechathelper.apputils.PacketUtils;
 import com.zhaofliu.wechathelper.ui.OpenAccessibilityActivity;
 import com.zhaofliu.wechathelper.utils.AppUtils;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by liuzhaofeng on 2016/1/28.
  *
  */
 public class NotificationFlowHelper {
+
+    private static WeakReference<NotificationFlowHelper> instance;
+
+    private static void setInstance(NotificationFlowHelper ins) {
+        instance = new WeakReference<NotificationFlowHelper>(ins);
+    }
+
+    private static NotificationFlowHelper getInstance() {
+        return instance != null ? instance.get():null;
+    }
 
     public enum State{
         invalid,
@@ -38,6 +50,7 @@ public class NotificationFlowHelper {
     private AccessibilityService mService;
     private State mState = State.invalid;
     private PowerManager.WakeLock mWakeLock = null;
+    /*package*/ boolean serviceState = false;
 
     private FlowListener mFlowListener;
     private static final int WAKE_TIME_IN_SECONDS = 5;
@@ -49,6 +62,7 @@ public class NotificationFlowHelper {
         if(service instanceof FlowListener) {
             mFlowListener = (FlowListener) service;
         }
+        setInstance(this);
     }
 
     private Handler fetchPacketAndClickHandler = new Handler(){
@@ -62,36 +76,67 @@ public class NotificationFlowHelper {
     private Handler tryUnlockSwipeScreenHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-
-            //after 2000 ms, the state still is notification, so may be have swipe screen
+            //after 1000 ms, the state still is notification, so may be have swipe screen
             if(mState == State.notification && !AppUtils.isDeviceProtected(mService)) {
                 OpenAccessibilityActivity.startForUnlockScreen(mService);
-
             }
 
         }
     };
 
+
+    public static void onNotificationPostedFromNotificationListener(Notification notification) {
+        NotificationFlowHelper instance = getInstance();
+        if(instance != null && instance.serviceState) {
+            instance.onNotificationPosted(notification);
+        }
+    }
+
+    private String lastWord = "";
+    private long lastOpenTime = 0;
+
+    private void onNotificationPosted(Notification notification) {
+        if(notification==null) {
+            return;
+        }
+
+        CharSequence tickerText = notification.tickerText;
+
+        if(tickerText==null) {
+            return;
+        }
+
+        if(tickerText.toString().contains(mService.getString(R.string.key_word_notification))) {
+            if(!TextUtils.equals(lastWord, tickerText) || (System.currentTimeMillis()-lastOpenTime)>1000) {
+                boolean success = NotificationUtils.openNotification(notification);
+                changeToState(success ? State.notification : State.invalid);
+
+                if(!isScreenOn()){
+                    lightScreen();
+                }
+
+                if(success) {
+                    tryUnlockSwipeScreenHandler.sendEmptyMessageDelayed(1, 1000);
+                }
+            }
+        }
+
+        lastWord = tickerText.toString();
+        lastOpenTime = System.currentTimeMillis();
+
+    }
+
     public boolean onAccessibilityEvent(AccessibilityEvent event) {
         int eventType = event.getEventType();
         switch (eventType) {
             case AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED:
-                if (NotificationUtils.checkNotificationContains(event, mService.getString(R.string.key_word_notification))) {
-
-                    Notification notification = NotificationUtils.getNotification(event);
-                    if(notification != null) {
-                        boolean success = NotificationUtils.openNotification(notification);
-                        changeToState(success ? State.notification : State.invalid);
-                        if(!isScreenOn()){
-                            lightScreen();
-//                            if(success) {
-//                                tryUnlockSwipeScreenHandler.sendEmptyMessageDelayed(1, 2000);
-//                            }
-                        }
-                    }
+                Notification notification = NotificationUtils.getNotification(event);
+                if(notification != null) {
+                    onNotificationPosted(notification);
                 }
                 return mState == State.notification;
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
+                tryUnlockSwipeScreenHandler.removeMessages(1);
                 CharSequence className = event.getClassName();
                 if (TextUtils.equals(className, Constants.WECHAT_LAUNCHER)) {
                     if(mState == State.notification) {

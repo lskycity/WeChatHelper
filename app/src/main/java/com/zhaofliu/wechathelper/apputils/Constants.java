@@ -7,7 +7,7 @@ public class Constants {
     /**
      * wechat package name
      */
-    static final String WECHAT_PACKAGENAME = "com.tencent.mm";
+    public static final String WECHAT_PACKAGENAME = "com.tencent.mm";
     /**
      * open detail
      */

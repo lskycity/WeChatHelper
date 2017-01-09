@@ -2,15 +2,30 @@ package com.zhaofliu.wechathelper.apputils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 /**
  * Created by zhaofliu on 1/6/17.
+ *
  */
 
 public class ServiceUtils {
-    public static void openServiceSetting(Context context) {
+
+    public static void openNotificationServiceSetting(Context context) {
+        Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+        context.startActivity(intent);
+    }
+
+    public static boolean isNotificationAccessed(Context context) {
+        String notificationListenerString = Settings.Secure.getString(context.getContentResolver(),"enabled_notification_listeners");
+        return Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR2 && notificationListenerString != null && notificationListenerString.contains(context.getPackageName());
+    }
+
+
+    public static void openAccServiceSetting(Context context) {
         Intent intent = new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS);
         context.startActivity(intent);
     }

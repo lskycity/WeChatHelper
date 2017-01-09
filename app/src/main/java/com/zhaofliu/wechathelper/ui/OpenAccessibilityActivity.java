@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.zhaofliu.wechathelper.MainActivity;
 import com.zhaofliu.wechathelper.R;
@@ -44,18 +46,32 @@ public class OpenAccessibilityActivity extends BaseActivity implements View.OnCl
 
         setContentView(R.layout.activity_open_acc);
 
+        TextView tv = (TextView) findViewById(R.id.display_text);
+        Button userGuide = (Button) findViewById(R.id.user_guide);
+        Button manPage = (Button) findViewById(R.id.main_page);
+
+
         if(!ServiceUtils.isAccessibilityEnabled(this)) {
-            ServiceUtils.openServiceSetting(this);
+            ServiceUtils.openAccServiceSetting(this);
             finish();
         } else {
-            findViewById(R.id.user_guide).setOnClickListener(this);
-            findViewById(R.id.main_page).setOnClickListener(this);
+            userGuide.setOnClickListener(this);
+            manPage.setOnClickListener(this);
         }
 
         boolean unlockFlag = getIntent().getBooleanExtra(KEY_UNLOCK, false);
         if(unlockFlag) {
+            tv.setText(R.string.unlocking_screen);
+            userGuide.setVisibility(View.GONE);
+            manPage.setVisibility(View.GONE);
+
+            if(getSupportActionBar()!=null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+            }
+
             AppUtils.unlockScreen(this, true);
-            finishHandler.sendEmptyMessageDelayed(1, 2000);
+            finishHandler.sendEmptyMessageDelayed(1, 1000);
         }
     }
 
