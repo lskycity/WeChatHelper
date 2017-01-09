@@ -45,6 +45,8 @@
             style="?buttonBarNegativeButtonStyle"
             android:text="@string/disagree"/>
         <Button
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
             android:id="@+id/agree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
