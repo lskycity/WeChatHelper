@@ -6,10 +6,10 @@ something I think need improve
 3.or send the password and unlock the screen
 4.turn screen off if we get the lucky money
 5.add setting for enable and disable the sound   ---finished
-6.remove the notification when user want to rm.
+6.remove the notification when user want to rm.  ---negative, we can not do too much thing for user
 7.mark as read
 
 
-1. add click the item from main screen, go to chat, and then not try click the item, if the screen not display lucky money
-2. add NotificationListenerService
-3. try to swipe the screen, is not have password
+8. add click the item from main screen, go to chat, and then not try click the item, if the screen not display lucky money  --negative, can not find the text from text, and it's not a big deal
+9. add NotificationListenerService          ---finished
+10. try to swipe the screen, if device have no password
