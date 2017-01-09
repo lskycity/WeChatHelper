@@ -12,4 +12,4 @@ something I think need improve
 
 8. add click the item from main screen, go to chat, and then not try click the item, if the screen not display lucky money  --negative, can not find the text from text, and it's not a big deal
 9. add NotificationListenerService          ---finished
-10. try to swipe the screen, if device have no password
+10. try to swipe the screen, if device have no password  ---finished
