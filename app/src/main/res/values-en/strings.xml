@@ -1,9 +1,19 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Lucky Hunter</string>
+    <string name="key_word_wechat">WeChat</string>
+
+    <string name="key_word_chat_info">Chat Info</string>
+    <string name="key_word_emoji">Sticker Gallery</string>
+    <string name="key_word_back">Back</string>
+    <string name="key_word_switch_to_speak">Switch to "Hold to Talk</string>
+    <string name="key_word_switch_to_keypad">Switch to keyboard</string>
+    <string name="key_word_press_speak">Hold to Talk</string>
+    <string name="key_word_more">Show more function buttons</string>
+    <string name="key_word_send">Send</string>
 
     <string name="key_word_receive_lucky_money">Send you a red packet</string>
     <string name="key_word_no_lucky_money">Better luck next time!</string>
-    <string name="key_word_loading">Loading...</string>
+    <string name="key_word_loading" tools:ignore="TypographyEllipsis">Loading...</string>
     <string name="key_word_receive_lucky_money_from_group">Red packet with random amount</string>
     <string name="key_word_money_unit">￥</string>
 
