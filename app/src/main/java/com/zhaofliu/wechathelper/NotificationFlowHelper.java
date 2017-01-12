@@ -16,6 +16,7 @@ import com.zhaofliu.wechathelper.apputils.NotificationUtils;
 import com.zhaofliu.wechathelper.apputils.PacketUtils;
 import com.zhaofliu.wechathelper.ui.OpenAccessibilityActivity;
 import com.zhaofliu.wechathelper.utils.AppUtils;
+import com.zhaofliu.wechathelper.utils.DeviceUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -28,7 +29,7 @@ public class NotificationFlowHelper {
     private static WeakReference<NotificationFlowHelper> instance;
 
     private static void setInstance(NotificationFlowHelper ins) {
-        instance = new WeakReference<NotificationFlowHelper>(ins);
+        instance = new WeakReference<>(ins);
     }
 
     private static NotificationFlowHelper getInstance() {
@@ -68,6 +69,8 @@ public class NotificationFlowHelper {
     private Handler fetchPacketAndClickHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
+
+
             boolean success = fetchPacketAndClick();
             changeToState(success ? State.clickedInList : State.invalid);
         }
@@ -116,7 +119,7 @@ public class NotificationFlowHelper {
                 }
 
                 if(success) {
-                    tryUnlockSwipeScreenHandler.sendEmptyMessageDelayed(1, 1000);
+                    tryUnlockSwipeScreenHandler.sendEmptyMessageDelayed(1, 3000);
                 }
             }
         }
@@ -153,7 +156,9 @@ public class NotificationFlowHelper {
                 } else if(TextUtils.equals(className, Constants.WECHAT_LUCKY_MONEY_DETAIL)) {
                     if (mState == State.opened) {
                         changeToState(State.detail);
-                        mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);  //back to chat window
+                        if(!DeviceUtils.isSamsungDevice()) {
+                            mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);  //back to chat window
+                        }
                         changeToState(State.invalid);
                         return true;
                     } else {
@@ -172,6 +177,8 @@ public class NotificationFlowHelper {
                         return fetchSuccess;
                     }
                 }
+                return false;
+            case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
                 return false;
             default:
                 if(mState == State.notification) {
