@@ -34,6 +34,8 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     private boolean isOpenByService = false;
 
+    private boolean isOpenedSuccess = false;
+
     private int mListCount = 0;
 
     private boolean init = false;
@@ -60,6 +62,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         @Override
         public void handleMessage(Message msg) {
             boolean success = PacketUtils.openPacketInDetail(FetchLuckyMoneyService.this);
+            isOpenedSuccess = success;
             if(!success && TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_RECEIVER)
                     && !PacketUtils.checkLuckyMoneyOver24Hour(FetchLuckyMoneyService.this)
                     && !PacketUtils.checkNoLuckyMoney(FetchLuckyMoneyService.this)
@@ -127,14 +130,16 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                 mCurrentUI = event.getClassName().toString();
                 if (TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_RECEIVER)) {
                     boolean success = PacketUtils.openPacketInDetail(this);
-
+                    isOpenedSuccess = success;
                     if(!success) {
                         openHandler.sendEmptyMessageDelayed(1, 50);
                     }
                 }
                 else if (TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_DETAIL)) {
                     if (isOpenByService) {
-                        saveAmountAndTime();
+                        if(isOpenedSuccess) {
+                            saveAmountAndTime();
+                        }
                         backToChatWindow();
                         isOpenByService = false;
                     }
@@ -219,6 +224,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     public void onNotificationFlowStateChanged(NotificationFlowHelper.State state) {
         if (state == NotificationFlowHelper.State.detail) {
             saveAmountAndTime();
+            isOpenByService = false;
         } else if (state == NotificationFlowHelper.State.clickedInList) {
             isOpenByService = true;
         } else if (state == NotificationFlowHelper.State.notification) {
