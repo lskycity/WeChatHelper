@@ -1,0 +1,7 @@
+1.3.6 support
+
+1.Huawei p9 good
+2.Xiaomi 4  good
+3.Samsung s7  lock screen, have some issue
+4.Nexus 5X  some time can not back to chat, but it's not block fetch lucky money
+
