@@ -1,7 +1,12 @@
 package com.zhaofliu.wechathelper.utils;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Build;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,24 +69,6 @@ public final class DeviceUtils {
 
     public static final String SONY_XPERIA_Z1_LTE_TD = "L39t";
 
-    public static final List<String> DEVICES_BLUETOOTH_INCOMING_WORKAROUND = new ArrayList<String>();
-
-    public static final List<String> DEVICES_SONY_Z1_SERIES = Arrays.asList(SONY_XPERIA_Z1, SONY_XPERIA_Z1_LTE, SONY_XPERIA_Z1_LTE_NORTH_AMERICA, SONY_XPERIA_Z1_LTE_BRAZIL, SONY_XPERIA_Z1S, SONY_XPERIA_Z1_LTE_KDDI,
-            SONY_XPERIA_Z1_LTE_NTT_DOCOMO, SONY_XPERIA_Z1_LTE_TD);
-
-    public static final List<String> DEVICES_STREAM_BLUETOOTH_SCO = Arrays.asList(LG_G2, GOOGLE_NEXUS_4, GOOGLE_NEXUS_4);
-
-    static {
-        DEVICES_BLUETOOTH_INCOMING_WORKAROUND.add(SONY_XPERIA_A);
-        DEVICES_BLUETOOTH_INCOMING_WORKAROUND.addAll(DEVICES_SONY_Z1_SERIES);
-        DEVICES_BLUETOOTH_INCOMING_WORKAROUND.addAll(Arrays.asList(SONY_XPERIA_Z, SONY_XPERIA_Z_LTE, LG_G2, GOOGLE_NEXUS_4));
-    }
-
-    public static boolean needsWorkaround4Bluetooth() {
-        String deviceName = android.os.Build.DEVICE;
-        String manufacture = android.os.Build.BRAND;
-        return BRAND.SONY.equalsIgnoreCase(manufacture) || DEVICES_BLUETOOTH_INCOMING_WORKAROUND.contains(deviceName);
-    }
 
     private DeviceUtils() {
     }
@@ -90,22 +77,6 @@ public final class DeviceUtils {
         public static final String SONY = "SONY";
         public static final String LGE = "LGE";
         public static final String SAMSUNG = "SAMSUNG";
-    }
-
-    public static boolean isCallToastANRDevice() {
-        final String[] NOTE4_MODELS = new String[]
-                {"SM-N910A", "SAMSUNG-SM-N910A", "SM-N9100", "SM-N9106W", "SM-N9108V", "SM-N9108W", "SM-N9109W", "SM-N910C", "SCL24", "SC-01G", "SM-N910F", "SM-N910FD",
-                        "SM-N910FQ", "SM-N910G", "SM-N910H", "SM-N910K", "SM-N910L", "SM-N910P", "SM-N910R4", "SM-N910S", "SM-N910T", "SM-N910T1",
-                        "SM-N910U", "SM-N910V", "SM-N910W8", "SM-N910X"};
-
-        String model = android.os.Build.MODEL;
-
-        for (String note4 : NOTE4_MODELS) {
-            if (model.contains(note4)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public static boolean isANRDevice() {
@@ -193,5 +164,59 @@ public final class DeviceUtils {
         String model = Build.MODEL;
         return model.startsWith(MC_DEVICE_PREFIX);
     }
+
+    /**
+     * getSerialNumber
+     * @return result is same to getSerialNumber1()
+     */
+    public static String getSerialNumber(){
+        String serial = null;
+        try {
+            Class<?> c =Class.forName("android.os.SystemProperties");
+            Method get =c.getMethod("get", String.class);
+            serial = (String)get.invoke(c, "ro.serialno");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return serial;
+    }
+
+    @SuppressLint("HardwareIds")
+    public static String getIMEI(Context context) {
+        return ((TelephonyManager)context.getSystemService(
+                Context.TELEPHONY_SERVICE)).getDeviceId();
+    }
+
+
+    @SuppressLint("HardwareIds")
+    public static String getAndroidId(Context context) {
+        try{
+            return android.provider.Settings.Secure.getString(
+                    context.getContentResolver(),
+                    android.provider.Settings.Secure.ANDROID_ID);
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    public static String getSerialNumber1() {
+        return android.os.Build.SERIAL;
+    }
+
+
+    public static String getDeviceId(Context context) {
+        String deviceId = getAndroidId(context);
+
+        if(TextUtils.isEmpty(deviceId)) {
+            deviceId = getSerialNumber1();
+        }
+
+        if(TextUtils.isEmpty(deviceId)) {
+            deviceId = "";
+        }
+        return deviceId;
+    }
+
 
 }

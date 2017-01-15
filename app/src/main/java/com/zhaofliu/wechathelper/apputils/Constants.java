@@ -50,5 +50,6 @@ public class Constants {
     public static final String SOUND_SWITCH_KEY = "sound_switch";
 
     public static final String CHECK_VERSION_URL = "http://www.lskycity.com:5000/wechathelper/version";
+    public static final String POST_FEEDBACK_URL = "http://www.lskycity.com:5000/wechathelper/feedback";
     public static final String WECHAT_VERSION_URL = "http://www.lskycity.com/wechathelper";
 }

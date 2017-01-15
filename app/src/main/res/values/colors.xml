@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="gold">#FFD700</color>
     <color name="lucky_money_background">#81BEF7</color>
+    <color name="text_color">#ff333333</color>
 </resources>

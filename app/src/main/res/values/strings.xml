@@ -89,6 +89,12 @@
     <string name="team_email">邮箱：yanzhibaobiao@gmail.com</string>
     <string name="team_wechat">公众号：暂时还没有</string>
 
+    <string name="fetch_my_feedback">我的反馈</string>
+    <string name="no_feedback">您没有发送过反馈。</string>
+    <string name="send_feedback_empty">发送的字符为空, 请重新填写再发。</string>
+    <string name="send_feedback_success">发送反馈成功。</string>
+    <string name="send_feedback_fail">发送反馈失败，请过段时间再试，或者去官方网站查看下载最新版。</string>
+
     <string name="mail_subject">红包猎手 意见反馈</string>
     <string name="mail_content">致可爱的YanZhiBaoBiao Team:</string>
     <string name="mail_chooser_title">发送意见反馈邮件</string>

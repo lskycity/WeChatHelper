@@ -33,8 +33,7 @@
                 android:targetClass="com.zhaofliu.wechathelper.ui.UserGuideActivity"
                 android:targetPackage="com.zhaofliu.wechathelper" />
         </PreferenceScreen>
-        <PreferenceScreen android:title="@string/feedback"
-            android:enabled="false">
+        <PreferenceScreen android:title="@string/feedback">
             <intent
                 android:targetClass="com.zhaofliu.wechathelper.ui.FeedbackActivity"
                 android:targetPackage="com.zhaofliu.wechathelper" />
