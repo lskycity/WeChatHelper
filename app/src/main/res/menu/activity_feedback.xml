@@ -4,6 +4,7 @@
     <item android:id="@+id/menu_fetch"
         android:icon="@drawable/ic_data_download"
         android:title="@string/fetch_my_feedback"
+        android:visible="false"
         app:showAsAction="always"/>
 
     <item android:id="@+id/menu_send"
