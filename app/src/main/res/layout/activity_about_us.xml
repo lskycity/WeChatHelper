@@ -39,7 +39,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:weightSum="1"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/avatar_margin"
                     android:layout_marginRight="@dimen/avatar_margin"
@@ -52,10 +51,10 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:text="@string/team_intro"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:layout_weight="0.6" />
+                        />
 
                 </LinearLayout>
 
@@ -210,7 +209,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:visibility="gone"
             app:cardCornerRadius="2dp"
             app:cardElevation="2dp">
 
@@ -228,18 +226,18 @@
                     android:id="@+id/mail_link"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/team_email"
+                    android:text="@string/thx_title"
                     android:textColor="@android:color/holo_blue_bright"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_marginBottom="@dimen/text_margin"
                     />
 
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/team_wechat"-->
-                <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
-                <!--/>-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/thx_msg"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
             </LinearLayout>
 
 

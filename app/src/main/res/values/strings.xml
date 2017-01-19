@@ -65,11 +65,11 @@
     <string name="no_money_collected">可怜的人儿，还没抢到过红包。。。</string>
 
     <string name="user_guide_question_1">1.无法打开抢红包服务，提示语言不匹配。</string>
-    <string name="user_guide_answer_1">进入语言与输入法设置，找到文字转语音输出，点击首选引擎中选项右边的设定，点击语言，选择使用系统语言</string>
+    <string name="user_guide_answer_1">进入语言与输入法设置，找到文字转语音输出，点击首选引擎中选项右边的设定，点击语言，选择使用系统语言。</string>
     <string name="user_guide_question_2">2.红包来了不提示，或者不能自动点开红包</string>
-    <string name="user_guide_answer_2">可能的原因有两种，1.语言，微信的语言请设置成中文，我们程序暂时只支持中文（您可以在微信里面设置语言，或者直接改系统语言）。2.您屏蔽了群信息，对于您屏蔽的群信息，我们无法获取到信息。3.有的手机（比如华为，小米等）会不停的杀死后台程序，请将本程序放在受保护的程序列表中</string>
+    <string name="user_guide_answer_2">可能的原因有两种，1.语言，我们程序暂时只支持中文, 请将系统语言设置为中文。2.您屏蔽了群信息，对于您屏蔽的群信息，我们无法获取到信息。3.有的手机（比如华为，小米等）会不停的杀死后台程序，在华为手机上面请将本应用放在受保护的程序列表，在小米手机上，在最近列表中下拉锁住本应用。</string>
     <string name="user_guide_question_3">3.想在屏幕关的时候自动抢红包怎么办？特别是晚上自动帮我抢红包</string>
-    <string name="user_guide_answer_3">在这种情况下，您可以把手机的解锁为无，这样我们在收到红包的时候，就可以帮你自动抢红包了。注意是设置成无，而不是滑动</string>
+    <string name="user_guide_answer_3">在这种情况下，您可以把手机的解锁为无，这样我们在收到红包的时候，就可以帮你自动抢红包了。注意是设置成无，而不是滑动，部分手机支持滑动。</string>
     <string name="disclaimer_content">APP免责声明\n\n
         1、一切移动客户端用户在下载并浏览我们APP软件时均被视为已经仔细阅读本条款并完全同意。凡以任何方式登陆本APP，或直接、间接使用本APP资料者，均被视为自愿接受本应用相关声明和用户服务协议的约束。\n\n
     2.用户明确并同意其使用APP网络服务所存在的风险将完全由其本人承担；因其使用APP网络服务而产生的一切后果也由其本人承担，APP对此不承担任何责任。\n\n
@@ -78,7 +78,7 @@
     5.本APP相关声明版权及其修改权、更新权和最终解释权均属APP开发团队所有。</string>
 
 
-    <string name="team_intro">来自于宇宙无敌的YanZhiBaoBiao Team为您倾情奉献，欢迎大家提各种意见，当然，大部分情况我们不会采纳.但是你可以死皮赖脸的发过来，万一我们大发慈悲的采纳了呐^_^</string>
+    <string name="team_intro">来自于宇宙无敌的YanZhiBaoBiao工作室为您倾情奉献，欢迎大家提各种反馈，当然，你也可以通过反馈发来表扬.^_^</string>
     <string name="team_name">关于我们</string>
     <string name="zhaofeng_nickname">Running snail</string>
     <string name="zhaofeng_intro">梦想是要有的，万一要是见鬼了呢～</string>
@@ -86,17 +86,15 @@
     <string name="xianpeng_intro">作为颜值担当，每天后面都跟着那么多妹子，真是烦死了。</string>
     <string name="yuanyuan_nickname">圆圆</string>
     <string name="yuanyuan_intro">四体不勤，五谷不分，文不能测字，武不能防身</string>
-    <string name="team_email">邮箱：yanzhibaobiao@gmail.com</string>
-    <string name="team_wechat">公众号：暂时还没有</string>
 
     <string name="fetch_my_feedback">我的反馈</string>
     <string name="no_feedback">您没有发送过反馈。</string>
     <string name="send_feedback_empty">发送的字符为空, 请重新填写再发。</string>
-    <string name="send_feedback_success">发送反馈成功。</string>
+    <string name="send_feedback_success">发送反馈成功，感谢您的反馈。</string>
     <string name="send_feedback_fail">发送反馈失败，请过段时间再试，或者去官方网站查看下载最新版。</string>
 
-    <string name="mail_subject">红包猎手 意见反馈</string>
-    <string name="mail_content">致可爱的YanZhiBaoBiao Team:</string>
-    <string name="mail_chooser_title">发送意见反馈邮件</string>
-    <string name="team_mail_address">yanzhibaobiao@gmail.com</string>
+    <string name="thx_title">特别感谢</string>
+    <string name="thx_msg">感谢帮忙测试的android team成员，感谢你们帮忙在年会测试我们的应用，感谢Aileen帮忙设计新的应用logo，感谢lwh帮忙制作反馈系统的后台。</string>
+
+
 </resources>
