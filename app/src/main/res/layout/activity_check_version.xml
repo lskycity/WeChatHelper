@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/version_info"
-        android:drawableTop="@mipmap/fetchmoney"
+        android:drawableTop="@mipmap/app_logo"
         android:drawablePadding="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
