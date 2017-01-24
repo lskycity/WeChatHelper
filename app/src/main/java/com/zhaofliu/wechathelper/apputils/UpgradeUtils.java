@@ -3,6 +3,7 @@ package com.zhaofliu.wechathelper.apputils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.JsonReader;
 
 import java.io.IOException;
@@ -16,7 +17,8 @@ import java.net.URL;
  */
 
 public class UpgradeUtils {
-    private static final String PRE_JABBER_APP_PACKAGE_NAME = "zhaofeng.wechathelper";
+    private static final String APP_ORIGINAL_PACKAGE_NAME = "com.zhaofliu.wechathelper";
+    private static final String APP_WANDOUJIA_PACKAGE_NAME = "zhaofeng.wechathelper";
 
     public static VersionInfo getJSONObjectFromURL() throws IOException {
         HttpURLConnection urlConnection = null;
@@ -56,8 +58,10 @@ public class UpgradeUtils {
                 info.versionCode = reader.nextInt();
             } else if (name.equals("version_name")) {
                 info.versionName = reader.nextString();
-            } else {
+            } else if(name.equals("url")){
                 info.downloadUrl = reader.nextString();
+            } else if(name.equals("url_wandoujia")) {
+                info.urlForWandoujia = reader.nextString();
             }
         }
         reader.endObject();
@@ -65,17 +69,27 @@ public class UpgradeUtils {
         return info;
     }
 
-    public static boolean isInstalledPreApp(Context context) {
+    public static boolean isWandoujiaVersion(Context context) {
+        return TextUtils.equals(context.getPackageName(), APP_WANDOUJIA_PACKAGE_NAME);
+    }
+
+    public static boolean isInstalledWandoujiaVersion(Context context) {
         try {
-            return (null != context.getPackageManager().getLaunchIntentForPackage(PRE_JABBER_APP_PACKAGE_NAME));
+            return (null != context.getPackageManager().getLaunchIntentForPackage(APP_WANDOUJIA_PACKAGE_NAME));
         } catch (Exception exception) {
             return false;
         }
-
     }
 
+    public static boolean isInstalledOriginalVersion(Context context) {
+        try {
+            return (null != context.getPackageManager().getLaunchIntentForPackage(APP_ORIGINAL_PACKAGE_NAME));
+        } catch (Exception exception) {
+            return false;
+        }
+    }
     public static void uninstallPrePackage(Context context) {
-        Uri packageURI = Uri.parse("package:" + PRE_JABBER_APP_PACKAGE_NAME);
+        Uri packageURI = Uri.parse("package:" + APP_WANDOUJIA_PACKAGE_NAME);
         Intent uninstallIntent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageURI);
         context.startActivity(uninstallIntent);
     }

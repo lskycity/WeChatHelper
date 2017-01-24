@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="acc_setting"
+        android:enabled="true"
+        android:icon="@drawable/ic_accessibility_black_18dp"
+        android:shortcutShortLabel="@string/open_service_button"
+        android:shortcutLongLabel="@string/open_service_button"
+        android:shortcutDisabledMessage="@string/open_service_button">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="zhaofeng.wechathelper"
+            android:targetClass="com.zhaofliu.wechathelper.ui.OpenAccessibilityActivity" />
+        <!-- If your shortcut is associated with multiple intents, include them
+             here. The last intent in the list determines what the user sees when
+             they launch this shortcut. -->
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="app_setting"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings_black_18dp"
+        android:shortcutShortLabel="@string/main_menu_setting"
+        android:shortcutLongLabel="@string/main_menu_setting"
+        android:shortcutDisabledMessage="@string/main_menu_setting">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="zhaofeng.wechathelper"
+            android:targetClass="com.zhaofliu.wechathelper.ui.SettingsActivity" />
+        <!-- If your shortcut is associated with multiple intents, include them
+             here. The last intent in the list determines what the user sees when
+             they launch this shortcut. -->
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+</shortcuts>

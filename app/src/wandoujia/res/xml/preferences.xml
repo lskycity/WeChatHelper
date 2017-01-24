@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/main_menu_setting">
+
+        <SwitchPreference
+            android:key="sound_switch"
+            android:defaultValue="true"
+            android:summaryOff="@string/switch_off"
+            android:summaryOn="@string/switch_on"
+            android:title="@string/sound_switch_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/app_info">
+        <PreferenceScreen
+            android:key="app_version"
+            android:summary="@string/current_version_and_have_new_version"
+            android:title="@string/version_info" >
+            <intent
+                android:targetClass="com.zhaofliu.wechathelper.ui.CheckVersionActivity"
+                android:targetPackage="zhaofeng.wechathelper" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/about_us">
+            <intent
+                android:targetClass="com.zhaofliu.wechathelper.ui.AboutUsActivity"
+                android:targetPackage="zhaofeng.wechathelper" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/disclaimer">
+            <intent
+                android:targetClass="com.zhaofliu.wechathelper.ui.DisclaimerActivity"
+                android:targetPackage="zhaofeng.wechathelper" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/user_guide">
+            <intent
+                android:targetClass="com.zhaofliu.wechathelper.ui.UserGuideActivity"
+                android:targetPackage="zhaofeng.wechathelper" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/feedback">
+            <intent
+                android:targetClass="com.zhaofliu.wechathelper.ui.FeedbackActivity"
+                android:targetPackage="zhaofeng.wechathelper" />
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

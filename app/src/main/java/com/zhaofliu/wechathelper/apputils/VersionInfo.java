@@ -9,6 +9,7 @@ public class VersionInfo {
     public int versionCode;
     public String versionName;
     public String downloadUrl;
+    public String urlForWandoujia;
 
     @Override
     public String toString() {

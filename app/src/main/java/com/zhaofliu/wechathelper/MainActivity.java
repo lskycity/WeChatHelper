@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ViewUtils.setVisible(notificationServiceTipPanel, !ServiceUtils.isNotificationAccessed(this));
 
         ViewGroup uninstallOldVersionTipPanel = (ViewGroup) findViewById(R.id.uninstall_old_version_tip_panel);
-        ViewUtils.setVisible(uninstallOldVersionTipPanel, UpgradeUtils.isInstalledPreApp(this));
+        ViewUtils.setVisible(uninstallOldVersionTipPanel, !UpgradeUtils.isWandoujiaVersion(this) && UpgradeUtils.isInstalledWandoujiaVersion(this));
     }
 
     @Override

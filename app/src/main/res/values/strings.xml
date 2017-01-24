@@ -9,8 +9,8 @@
     <string name="open_notification_button">打开通知权限</string>
     <string name="unlocking_screen">正在解锁屏幕…</string>
 
-    <string name="uninstall_old_version_tip">我们检测到您安装了老版本的红包猎手（1.2），由于一些原因，我们更改了程序包名，为了避免冲突，您需要手动卸载老版本。</string>
-    <string name="uninstall_old_version">卸载老版本</string>
+    <string name="uninstall_old_version_tip">我们检测到您安装了另一个版本的红包猎手（豌豆荚版），由于一些原因，我们更改了程序包名，为了避免冲突，您需要手动卸载其中一个版本。</string>
+    <string name="uninstall_old_version">卸载豌豆荚版本</string>
 
     <string name="main_menu_about">关于我们</string>
     <string name="main_menu_setting">设置</string>
