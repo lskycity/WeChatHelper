@@ -9,8 +9,8 @@
     <string name="open_notification_button">打开通知权限</string>
     <string name="unlocking_screen">正在解锁屏幕…</string>
 
-    <string name="uninstall_old_version_tip">我们检测到您安装了另一个版本的红包猎手（豌豆荚版），由于一些原因，我们更改了程序包名，为了避免冲突，您需要手动卸载其中一个版本。</string>
-    <string name="uninstall_old_version">卸载豌豆荚版本</string>
+    <string name="uninstall_old_version_tip">我们检测到您安装了另一个版本的红包猎手（老版本或者豌豆荚版），由于一些原因，我们更改了程序包名，为了避免冲突，您需要手动卸载其中一个版本。</string>
+    <string name="uninstall_old_version">卸载另一版本</string>
 
     <string name="main_menu_about">关于我们</string>
     <string name="main_menu_setting">设置</string>
@@ -68,7 +68,7 @@
     <string name="user_guide_question_1">1.无法打开抢红包服务，提示语言不匹配。</string>
     <string name="user_guide_answer_1">进入语言与输入法设置，找到文字转语音输出，点击首选引擎中选项右边的设定，点击语言，选择使用系统语言。</string>
     <string name="user_guide_question_2">2.红包来了不提示，或者不能自动点开红包</string>
-    <string name="user_guide_answer_2">可能的原因有两种，1.语言，我们程序暂时只支持中文, 请将系统语言设置为中文。2.您屏蔽了群信息，对于您屏蔽的群信息，我们无法获取到信息。3.有的手机（比如华为，小米等）会不停的杀死后台程序，在华为手机上面请将本应用放在受保护的程序列表，在小米手机上，在最近列表中下拉锁住本应用。</string>
+    <string name="user_guide_answer_2">可能的原因有：1.语言，我们程序暂时只支持中文, 请将系统语言设置为中文。2.您屏蔽了群信息，对于您屏蔽的群信息，我们无法获取到信息。3.有的手机（比如华为，小米等）会不停的杀死后台程序，在华为手机上面请将本应用放在受保护的程序列表，在小米手机上，在最近列表中下拉锁住本应用。4.通知使用权没有真正的打开，你需要去系统里面找到通知使用权，先关闭再打开。</string>
     <string name="user_guide_question_3">3.想在屏幕关的时候自动抢红包怎么办？特别是晚上自动帮我抢红包</string>
     <string name="user_guide_answer_3">在这种情况下，您可以把手机的解锁为无，这样我们在收到红包的时候，就可以帮你自动抢红包了。注意是设置成无，而不是滑动，部分手机支持滑动。</string>
     <string name="disclaimer_content">APP免责声明\n\n
