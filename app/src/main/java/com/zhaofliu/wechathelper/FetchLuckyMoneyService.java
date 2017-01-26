@@ -42,6 +42,8 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     private static final float BIG_MONEY = 5.0f;
 
+    private long timeForClickedInNoChatScreen = 0;
+
     @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
@@ -160,13 +162,17 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
                     int addCount = count - mListCount;
                     int listDisplayCount = event.getToIndex()-event.getFromIndex();
                     int diff = Math.min(Math.max(1, addCount), listDisplayCount);
-                    if (!mNotificationFlowHelper.isTryToFetchAndClick() && (event.getToIndex() == count - 1)) {
+                    long currentTime = System.currentTimeMillis();
+                    if (!mNotificationFlowHelper.isTryToFetchAndClick() && (event.getToIndex() == count - 1) && (currentTime-timeForClickedInNoChatScreen)>500) {
                         isOpenByService = checkLastMessageAndOpenLuckyMoney(diff);
                     }
                     mListCount = count;
                 }
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
+                if(PacketUtils.getChatScreenTitle(FetchLuckyMoneyService.this) == null) {
+                    timeForClickedInNoChatScreen = System.currentTimeMillis();
+                }
             default:
                 break;
         }
