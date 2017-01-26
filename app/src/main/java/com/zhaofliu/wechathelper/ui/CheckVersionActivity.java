@@ -29,7 +29,7 @@ import java.net.URISyntaxException;
 public class CheckVersionActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView lastDateTextView;
-    TextView newVersionTipText;
+    private TextView newVersionTipText;
     private Button download;
 
     @Override
@@ -130,7 +130,7 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
             SharedPreUtils.putString(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION, String.valueOf(System.currentTimeMillis()));
             SharedPreUtils.putInt(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_CODE, messages.versionCode);
             SharedPreUtils.putString(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_NAME, messages.versionName);
-            SharedPreUtils.putString(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_URL, UpgradeUtils.isWandoujiaVersion(CheckVersionActivity.this)?messages.urlForWandoujia:messages.downloadUrl);
+            SharedPreUtils.putString(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_URL, messages.downloadUrl);
             setupNewVersionArea(false);
         }
     }
