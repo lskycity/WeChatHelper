@@ -91,6 +91,7 @@
     <string name="fetch_my_feedback">我的反馈</string>
     <string name="no_feedback">您没有发送过反馈。</string>
     <string name="send_feedback_empty">发送的字符为空, 请重新填写再发。</string>
+    <string name="sending_feedback">正在发送您的反馈…</string>
     <string name="send_feedback_success">发送反馈成功，感谢您的反馈。</string>
     <string name="send_feedback_fail">发送反馈失败，请过段时间再试，或者去官方网站查看下载最新版。</string>
 

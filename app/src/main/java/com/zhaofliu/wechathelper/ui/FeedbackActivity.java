@@ -48,6 +48,8 @@ public class FeedbackActivity extends BaseActivity implements TextWatcher {
     private EditText feedback;
     private TextView textCount;
 
+    private long clickTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,6 +131,12 @@ public class FeedbackActivity extends BaseActivity implements TextWatcher {
     }
 
     private void sendFeedback(String content) {
+        long currentTime = System.currentTimeMillis();
+        if(currentTime-clickTime<2000) {
+            return;
+        }
+
+        clickTime = currentTime;
 
         if(TextUtils.isEmpty(content.trim())) {
             Toast.makeText(FeedbackActivity.this, R.string.send_feedback_empty, Toast.LENGTH_LONG).show();
@@ -152,6 +160,8 @@ public class FeedbackActivity extends BaseActivity implements TextWatcher {
         });
 
         HunterApplication.get().getRequestQueue().add(request);
+        Toast.makeText(FeedbackActivity.this, R.string.sending_feedback, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
