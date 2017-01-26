@@ -15,7 +15,6 @@ import com.zhaofliu.wechathelper.utils.AppUtils;
 import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 import com.zhaofliu.wechathelper.utils.ViewUtils;
 
-import static com.zhaofliu.wechathelper.R.layout.activity_disclaimer;
 
 public class DisclaimerActivity extends BaseActivity implements View.OnClickListener {
 
@@ -34,7 +33,7 @@ public class DisclaimerActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(activity_disclaimer);
+        setContentView(R.layout.activity_disclaimer);
 
         LinearLayout buttonBar = (LinearLayout) findViewById(R.id.buttonBar);
         Button agreeButton = (Button) findViewById(R.id.agree);
