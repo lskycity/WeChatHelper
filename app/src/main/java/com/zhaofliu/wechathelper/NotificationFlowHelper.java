@@ -217,12 +217,9 @@ public class NotificationFlowHelper {
 
     private boolean isScreenOn() {
         PowerManager powerManager = (PowerManager) mService.getSystemService(Context.POWER_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH)
-        {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
             return powerManager.isInteractive();
-        }
-        else
-        {
+        } else {
             return powerManager.isScreenOn();
         }
     }
