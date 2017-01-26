@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.JsonReader;
 
+import com.zhaofliu.wechathelper.BuildConfig;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -58,10 +60,8 @@ public class UpgradeUtils {
                 info.versionCode = reader.nextInt();
             } else if (name.equals("version_name")) {
                 info.versionName = reader.nextString();
-            } else if(name.equals("url")){
+            } else if(name.equals(BuildConfig.KEY_DOWNLOAD_URL)){
                 info.downloadUrl = reader.nextString();
-            } else if(name.equals("url_wandoujia")) {
-                info.urlForWandoujia = reader.nextString();
             }
         }
         reader.endObject();
@@ -70,7 +70,7 @@ public class UpgradeUtils {
     }
 
     public static boolean isWandoujiaVersion(Context context) {
-        return TextUtils.equals(context.getPackageName(), APP_WANDOUJIA_PACKAGE_NAME);
+        return TextUtils.equals(BuildConfig.APPLICATION_ID, APP_WANDOUJIA_PACKAGE_NAME);
     }
 
     public static boolean isInstalledWandoujiaVersion(Context context) {

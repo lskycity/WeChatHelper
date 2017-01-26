@@ -26,10 +26,16 @@ android {
 
         original {
             applicationId "com.zhaofliu.wechathelper"
+            buildConfigField 'boolean', 'IS_ORIGINAL', 'true'
+            buildConfigField 'String', 'KEY_DOWNLOAD_URL', '"url"'
+
         }
 
         wandoujia {
             applicationId "zhaofeng.wechathelper"
+            buildConfigField 'boolean', 'IS_ORIGINAL', 'false'
+            buildConfigField 'String', 'KEY_DOWNLOAD_URL', '"url_wandoujia"'
+
         }
     }
 }
