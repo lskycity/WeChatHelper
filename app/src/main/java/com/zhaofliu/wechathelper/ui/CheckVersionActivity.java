@@ -1,32 +1,34 @@
 package com.zhaofliu.wechathelper.ui;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.app.BaseActivity;
+import com.zhaofliu.wechathelper.app.HunterApplication;
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.UpgradeUtils;
 import com.zhaofliu.wechathelper.apputils.VersionInfo;
 import com.zhaofliu.wechathelper.utils.AppUtils;
-import com.zhaofliu.wechathelper.utils.DateUtils;
-import com.zhaofliu.wechathelper.utils.SharedPreUtils;
+import com.zhaofliu.wechathelper.utils.IntentUtils;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by zhaofliu on 1/2/17.
  * @author zhaofliu
  */
 
-public class CheckVersionActivity extends BaseActivity implements View.OnClickListener {
+public class CheckVersionActivity extends BaseActivity implements View.OnClickListener, View.OnLongClickListener {
 
     private TextView lastDateTextView;
     private TextView newVersionTipText;
@@ -45,6 +47,7 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
 
         download = (Button) findViewById(R.id.new_version_download);
         download.setOnClickListener(this);
+        download.setOnLongClickListener(this);
 
         lastDateTextView = (TextView) findViewById(R.id.check_version_information);
         newVersionTipText = (TextView) findViewById(R.id.new_version_text);
@@ -54,20 +57,17 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
 
     @SuppressLint("SetTextI18n")
     private void setupNewVersionArea(boolean firstSetup) {
-        String lastDate = SharedPreUtils.getString(this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION);
-        if(!TextUtils.isEmpty(lastDate)) {
-            lastDateTextView.setText(getString(R.string.last_check_date) + DateUtils.getTimeString(Long.valueOf(lastDate)));
-            int versionCode = SharedPreUtils.getInt(this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_CODE);
-            if(versionCode > AppUtils.getVersionCode(this)) {
+        VersionInfo versionInfo = UpgradeUtils.getVersionInfoFromSharedPreference(this);
+        if(!TextUtils.isEmpty(versionInfo.checkTime)) {
+            lastDateTextView.setText(getString(R.string.last_check_date) + versionInfo.getFormatCheckTime());
+            if(versionInfo.versionCode > AppUtils.getVersionCode(this)) {
+
                 newVersionTipText.setVisibility(View.VISIBLE);
+
                 download.setVisibility(View.VISIBLE);
+                download.setTag(versionInfo.downloadUrl);
 
-                String versionName = SharedPreUtils.getString(this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_NAME);
-
-                newVersionTipText.setText(getString(R.string.have_new_version, versionName));
-
-                String downloadUrl = SharedPreUtils.getString(this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_URL);
-                download.setTag(downloadUrl);
+                newVersionTipText.setText(getString(R.string.have_new_version, versionInfo.versionName));
 
             } else if(firstSetup) {
                 newVersionTipText.setVisibility(View.GONE);
@@ -87,52 +87,44 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.check_version) {
-            new FetchDataTask().execute();
+            fetchLatestVersion();
         } else if(v.getId() == R.id.new_version_download) {
-            String url = (String) v.getTag();
-            try {
-                Intent i = Intent.parseUri(url, 0);
-                startActivity(i);
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            IntentUtils.startUrl(this, (String) v.getTag());
         } else if(v.getId() == R.id.forward_to_website) {
-            try {
-                Intent i = Intent.parseUri(Constants.WECHAT_VERSION_URL, 0);
-                startActivity(i);
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+            IntentUtils.startUrl(this, Constants.WECHAT_VERSION_URL);
         }
     }
 
-    class FetchDataTask extends AsyncTask<Object, Object, VersionInfo> {
-
-        @Override
-        protected VersionInfo doInBackground(Object... params) {
-            try {
-                return UpgradeUtils.getJSONObjectFromURL();
-            } catch (IOException e) {
-                e.printStackTrace();
+    private void fetchLatestVersion() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Constants.CHECK_VERSION_URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                try {
+                    VersionInfo versionInfo = UpgradeUtils.getVersionInfo(jsonObject);
+                    UpgradeUtils.putToSharedPre(CheckVersionActivity.this, versionInfo);
+                    setupNewVersionArea(false);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-            return null;
-        }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
 
-        @SuppressLint("SetTextI18n")
-        @Override
-        protected void onPostExecute(VersionInfo messages) {
-            if(messages == null) {
-                return;
             }
+        });
 
-            SharedPreUtils.putString(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION, String.valueOf(System.currentTimeMillis()));
-            SharedPreUtils.putInt(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_CODE, messages.versionCode);
-            SharedPreUtils.putString(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_NAME, messages.versionName);
-            SharedPreUtils.putString(CheckVersionActivity.this, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_URL, messages.downloadUrl);
-            setupNewVersionArea(false);
-        }
+        HunterApplication.get().getRequestQueue().add(jsonObjectRequest);
+
     }
 
+
+    @Override
+    public boolean onLongClick(View v) {
+        if(v.getId() == R.id.new_version_download) {
+            Toast.makeText(this, (String)v.getTag(), Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return false;
+    }
 }
