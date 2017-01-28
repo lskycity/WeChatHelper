@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.zhaofliu.wechathelper.BuildConfig;
 import com.zhaofliu.wechathelper.utils.AppUtils;
 import com.zhaofliu.wechathelper.utils.DeviceUtils;
 
@@ -24,6 +25,7 @@ public class Feedback {
     public String deviceMode;
     public String deviceVersion;
     public String feedbackTime;
+    public String applicationId;
 
     public static Feedback obtain(JSONObject jsonObject) {
         Feedback object = new Feedback();
@@ -35,6 +37,7 @@ public class Feedback {
             object.deviceMode = jsonObject.getString("device_mode");
             object.deviceVersion = jsonObject.getString("device_version");
             object.feedbackTime = jsonObject.getString("feedback_time");
+            object.applicationId = jsonObject.getString("application_id");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -49,6 +52,7 @@ public class Feedback {
         object.deviceBrand = Build.BRAND;
         object.deviceMode = Build.MODEL;
         object.deviceVersion = String.valueOf(Build.VERSION.SDK_INT);
+        object.applicationId = BuildConfig.APPLICATION_ID;
         return object;
     }
 
@@ -60,6 +64,7 @@ public class Feedback {
         map.put("device_brand", deviceBrand);
         map.put("device_mode", deviceMode);
         map.put("device_version", deviceVersion);
+        map.put("application_id", applicationId);
         return new JSONObject(map);
     }
 
@@ -72,6 +77,7 @@ public class Feedback {
                 ", deviceBrand='" + deviceBrand + '\'' +
                 ", deviceMode='" + deviceMode + '\'' +
                 ", deviceVersion='" + deviceVersion + '\'' +
+                ", applicationId='" + applicationId + '\'' +
                 '}';
     }
 }
