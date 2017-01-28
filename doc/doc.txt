@@ -11,8 +11,9 @@ something I think need improve
 
 
 8. add click the item from main screen, go to chat, and then not try click the item, if the screen not display lucky money  --negative, can not find the text from main screen, and it's not a big deal
-9. add NotificationListenerService          ---finished.
+9. add NotificationListenerService.          ---finished.
 10. try to swipe the screen, if device have no password  ---finished.
 11. add go to user guide in feedback.
 12. add step in user guide.
-13. add qq red packet
+13. add response to user.
+14. add qq red packet.
