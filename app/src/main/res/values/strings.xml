@@ -41,7 +41,7 @@
     <string name="have_new_version">有新版本%1$s，请下载最新版本</string>
     <string name="download">下载</string>
     <string name="let_your_friend_download">扫一扫，让朋友也下载</string>
-    <string name="share_to_friend">分享链接给朋友</string>
+    <string name="share_to_friend">分享红包猎手链接给朋友</string>
     <string name="current_version_and_have_new_version">%1$s(有版本%2$s)</string>
     <string name="lucky_service_label">抢红包服务</string>
 
