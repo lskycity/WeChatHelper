@@ -59,6 +59,16 @@
         android:paddingRight="8dp"
         android:background="?attr/selectableItemBackground"/>
 
+    <Button
+        android:id="@+id/share_to_friend"
+        android:text="@string/share_to_friend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:background="?attr/selectableItemBackground"/>
+
 
     <LinearLayout
         android:id="@+id/new_version_tip"

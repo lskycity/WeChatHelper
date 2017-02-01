@@ -44,6 +44,7 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
 
         findViewById(R.id.check_version).setOnClickListener(this);
         findViewById(R.id.forward_to_website).setOnClickListener(this);
+        findViewById(R.id.share_to_friend).setOnClickListener(this);
 
         download = (Button) findViewById(R.id.new_version_download);
         download.setOnClickListener(this);
@@ -92,6 +93,8 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
             IntentUtils.startUrl(this, (String) v.getTag());
         } else if(v.getId() == R.id.forward_to_website) {
             IntentUtils.startUrl(this, Constants.WECHAT_VERSION_URL);
+        } else if(v.getId() == R.id.share_to_friend) {
+            IntentUtils.shareText(this, getString(R.string.share_to_friend), Constants.WECHAT_VERSION_URL);
         }
     }
 
