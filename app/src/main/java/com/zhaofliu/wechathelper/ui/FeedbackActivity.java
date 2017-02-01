@@ -1,15 +1,19 @@
 package com.zhaofliu.wechathelper.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.UnderlineSpan;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,15 +28,12 @@ import com.zhaofliu.wechathelper.app.BaseActivity;
 import com.zhaofliu.wechathelper.app.HunterApplication;
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.Feedback;
-import com.zhaofliu.wechathelper.utils.AppUtils;
 import com.zhaofliu.wechathelper.utils.DeviceUtils;
-import com.zhaofliu.wechathelper.utils.HttpUtils;
+import com.zhaofliu.wechathelper.utils.IntentUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
 
 /**
  * collect feedback from user
@@ -41,7 +42,7 @@ import java.util.HashMap;
  * @since 1/6/17
  */
 
-public class FeedbackActivity extends BaseActivity implements TextWatcher {
+public class FeedbackActivity extends BaseActivity implements TextWatcher, View.OnClickListener {
 
     private static final int MAX_TEXT_COUNT = 125;
 
@@ -57,6 +58,25 @@ public class FeedbackActivity extends BaseActivity implements TextWatcher {
         feedback = (EditText) findViewById(R.id.feedback_content);
         feedback.addTextChangedListener(this);
         textCount = (TextView) findViewById(R.id.text_count);
+        TextView checkUserGuide = (TextView) findViewById(R.id.check_user_guide);
+
+        //link the check user guide activity.
+        String checkUserGuideString = getString(R.string.check_normal_question_if_cannot_work);
+        Spannable spannable = new SpannableString(checkUserGuideString);
+        spannable.setSpan(new UnderlineSpan(), 0, checkUserGuideString.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        checkUserGuide.setText(spannable);
+        checkUserGuide.setOnClickListener(this);
+
+        TextView checkNewVersion = (TextView) findViewById(R.id.check_new_version);
+
+        //link the check user guide activity.
+        String checkNewVersionString = getString(R.string.check_new_version);
+        Spannable checkNewVersionSpannable = new SpannableString(checkNewVersionString);
+        checkNewVersionSpannable.setSpan(new UnderlineSpan(), 0, checkNewVersionString.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        checkNewVersion.setText(checkNewVersionSpannable);
+
+        checkNewVersion.setOnClickListener(this);
+
     }
 
     @Override
@@ -182,6 +202,16 @@ public class FeedbackActivity extends BaseActivity implements TextWatcher {
             textCount.setTextColor(Color.RED);
         } else {
             textCount.setTextColor(getResources().getColor(R.color.text_color));
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.check_user_guide) {
+            Intent intent = new Intent(this, UserGuideActivity.class);
+            startActivity(intent);
+        } else if(v.getId() == R.id.check_new_version) {
+            IntentUtils.startUrl(this, Constants.WECHAT_VERSION_URL);
         }
     }
 }

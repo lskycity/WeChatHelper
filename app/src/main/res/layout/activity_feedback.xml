@@ -15,14 +15,45 @@
         android:minLines="4"
         android:gravity="top|start"
         android:maxLength="125"
-        android:inputType="textMultiLine"/>
+        android:inputType="textMultiLine">
+        <requestFocus/>
+    </EditText>
 
     <TextView
         android:id="@+id/text_count"
+        android:layout_gravity="end"
         android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0/125"
         tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/check_user_guide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#00A1E0"
+        android:textColorLink="#00A1E0"
+        android:padding="8dp"
+        android:text="@string/check_normal_question_if_cannot_work"/>
+
+    <TextView
+        android:id="@+id/check_new_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#00A1E0"
+        android:textColorLink="#00A1E0"
+        android:padding="8dp"
+        android:text="@string/check_new_version"/>
+
+    <TextView
+        android:id="@+id/pay_for_free"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#00A1E0"
+        android:textColorLink="#00A1E0"
+        android:padding="8dp"
+        android:visibility="gone"
+        android:text="@string/pay_for_free"/>
 
 </LinearLayout>
