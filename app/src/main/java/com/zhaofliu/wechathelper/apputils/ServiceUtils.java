@@ -4,8 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
 import android.widget.Toast;
+
+import com.zhaofliu.wechathelper.BuildConfig;
+import com.zhaofliu.wechathelper.FetchLuckyMoneyService;
+
+import java.util.Set;
 
 /**
  * Created by zhaofliu on 1/6/17.
@@ -20,8 +26,8 @@ public class ServiceUtils {
     }
 
     public static boolean isNotificationAccessed(Context context) {
-        String notificationListenerString = Settings.Secure.getString(context.getContentResolver(),"enabled_notification_listeners");
-        return Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR2 && notificationListenerString != null && notificationListenerString.contains(context.getPackageName());
+        Set<String>  packageNames = NotificationManagerCompat.getEnabledListenerPackages(context);
+        return packageNames.contains(context.getPackageName());
     }
 
 
@@ -32,7 +38,7 @@ public class ServiceUtils {
 
     public static boolean isAccessibilityEnabled(Context context) {
         int accessibilityEnabled = 0;
-        final String ACCESSIBILITY_SERVICE_NAME = "com.zhaofliu.wechathelper/com.zhaofliu.wechathelper.FetchLuckyMoneyService";
+        final String ACCESSIBILITY_SERVICE_NAME = BuildConfig.APPLICATION_ID+"/"+ FetchLuckyMoneyService.class.getName();
         try {
             accessibilityEnabled = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED);
         } catch (Settings.SettingNotFoundException ignored) {
