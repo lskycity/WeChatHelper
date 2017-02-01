@@ -13,7 +13,8 @@
         android:orientation="horizontal"
         android:showDividers="middle"
         android:divider="?dividerVertical"
-        android:padding="24dp">
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp">
 
         <TextView
             android:id="@+id/version_info"

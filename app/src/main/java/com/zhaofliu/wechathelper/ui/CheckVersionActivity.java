@@ -34,13 +34,14 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
     private TextView newVersionTipText;
     private Button download;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_version);
 
         TextView version = (TextView) findViewById(R.id.version_info);
-        version.setText(AppUtils.getVersionName(this));
+        version.setText(AppUtils.getVersionName(this)+getString(R.string.publish_version_info));
 
         findViewById(R.id.check_version).setOnClickListener(this);
         findViewById(R.id.forward_to_website).setOnClickListener(this);

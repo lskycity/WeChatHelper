@@ -1,0 +1,4 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="publish_version_info">(豌豆荚版)</string>
+
+</resources>
