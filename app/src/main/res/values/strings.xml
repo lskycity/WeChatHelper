@@ -65,12 +65,24 @@
     <string name="key_word_money_unit">元</string>
     <string name="no_money_collected">可怜的人儿，还没抢到过红包。。。</string>
 
-    <string name="user_guide_question_1">1.无法打开抢红包服务，提示语言不匹配。</string>
+    <string name="user_guide_question_0">0.抢红包之前需要什么准备工作？</string>
+    <string name="user_guide_answer_0">本应用需要打开一个服务和一个权限，一个是抢红包服务，在辅助功能里面（有的叫无障碍，英文Accessibility），一个是通知访问权，请务必确保这两个权限打开，在本程序的主页会有两个按钮把你带到相应的界面，找到抢红包服务，打开即可。
+        如果你在主界面看不到两个按钮，说明已经打开了。
+    </string>
+    <string name="user_guide_question_1">1.无法打开抢红包服务，提示语言不匹配？</string>
     <string name="user_guide_answer_1">进入语言与输入法设置，找到文字转语音输出，点击首选引擎中选项右边的设定，点击语言，选择使用系统语言。</string>
-    <string name="user_guide_question_2">2.红包来了不提示，或者不能自动点开红包</string>
-    <string name="user_guide_answer_2">可能的原因有：1.语言，我们程序暂时只支持中文, 请将系统语言设置为中文。2.您屏蔽了群信息，对于您屏蔽的群信息，我们无法获取到信息。3.有的手机（比如华为，小米等）会不停的杀死后台程序，在华为手机上面请将本应用放在受保护的程序列表，在小米手机上，在最近列表中下拉锁住本应用。4.通知使用权没有真正的打开，你需要去系统里面找到通知使用权，先关闭再打开。</string>
-    <string name="user_guide_question_3">3.想在屏幕关的时候自动抢红包怎么办？特别是晚上自动帮我抢红包</string>
-    <string name="user_guide_answer_3">在这种情况下，您可以把手机的解锁为无，这样我们在收到红包的时候，就可以帮你自动抢红包了。注意是设置成无，而不是滑动，部分手机支持滑动。</string>
+    <string name="user_guide_question_2">2.红包来了不提示，或者不能自动点开红包是什么原因？</string>
+    <string name="user_guide_answer_2">可能的原因有：\n\n
+        1.本应用暂时只支持抢微信红包，不支持QQ红包。\n\n
+        2.本应用暂时只支持简体中文, 请将系统语言设置为中文。（以后可能会扩展英文和繁体中文）\n\n
+        3.有的手机（比如华为，小米等）会不停的杀死后台程序，在华为手机上面请将本应用放在受保护的程序列表，在小米手机上，在最近列表中下拉锁住本应用。\n\n
+        4.您可能屏蔽了群信息，对于您屏蔽的群信息，我们无法获取到信息。您可以选择继续屏蔽群消息或者取消屏蔽群消息\n\n
+        5.如果以上没有解决您的问题，您可能需要重启通知使用权，您需要去系统里面找到通知使用权，先关闭再打开。\n\n
+        6.如果还是没有解决您的问题，请发反馈给我们。</string>
+    <string name="user_guide_question_3">3.想在屏幕关的时候自动抢红包怎么办？特别是晚上自动帮我抢红包。</string>
+    <string name="user_guide_answer_3">在这种情况下，您可以把手机的解锁为无，这样我们在收到红包的时候，就可以帮你自动抢红包了。注意是设置成无，而不是滑动，部分手机支持滑动。注意，在有屏幕锁定密码的情况下，本应用暂时不支持锁屏情况下抢红包。</string>
+
+
     <string name="disclaimer_content">APP免责声明\n\n
         1、一切移动客户端用户在下载并浏览我们APP软件时均被视为已经仔细阅读本条款并完全同意。凡以任何方式登陆本APP，或直接、间接使用本APP资料者，均被视为自愿接受本应用相关声明和用户服务协议的约束。\n\n
     2.用户明确并同意其使用APP网络服务所存在的风险将完全由其本人承担；因其使用APP网络服务而产生的一切后果也由其本人承担，APP对此不承担任何责任。\n\n
@@ -94,6 +106,10 @@
     <string name="sending_feedback">正在发送您的反馈…</string>
     <string name="send_feedback_success">发送反馈成功，感谢您的反馈。</string>
     <string name="send_feedback_fail">发送反馈失败，请过段时间再试，或者去官方网站查看下载最新版。</string>
+
+    <string name="check_normal_question_if_cannot_work">抢红包出现问题？点击查看常见问题</string>
+    <string name="check_new_version">太久没更新？去网站查看新版本</string>
+    <string name="pay_for_free">抢了大红包，打赏个一块二块。</string>
 
     <string name="thx_title">特别感谢</string>
     <string name="thx_msg">感谢帮忙测试的android team成员，感谢你们帮忙在年会测试我们的应用，感谢Aileen帮忙设计新的应用logo，感谢lwh帮忙制作反馈系统的后台。</string>
