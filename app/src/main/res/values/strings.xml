@@ -1,7 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">红包猎手</string>
-    <string name="fetch_lucky_money_service_description">打开本服务可以帮助您自动抢微信红包，为了您抢红包更加顺利，强烈推荐您先看一下设置里面的常见问题。\n\n欢迎访问网站了解详细 http://www.lskycity.com/wechathelper/index.html</string>
-    <string name="open_service_tip"><Data><![CDATA[<font color="#ff0000"><b>注意：</b></font>要开启自动抢红包功能，请打开抢红包服务，进入系统设定，打开辅助功能，点击抢红包服务，打开开关。注意：小米手机的辅助功能在高级设置里面！]]></Data></string>
+    <string name="fetch_lucky_money_service_description">打开本服务可以帮助您自动抢微信红包，为了您抢红包更加顺利，强烈推荐您先看一下设置里面的常见问题。\n\n
+        为了保证抢红包功能正常使用，请将红包猎手应用放入清理工具白名单中。如果你的手机是华为，请把本应用设置为受保护的应用，如果你的手机是小米，建议锁住该应用，以防止抢红包服务被杀死。\n\n
+        欢迎访问网站了解详细 http://www.lskycity.com/wechathelper/index.html</string>
+    <string name="open_service_tip"><Data><![CDATA[<font color="#ff0000"><b>注意：</b></font>要开启自动抢红包功能，请打开抢红包服务，进入系统设定，打开辅助功能(有的叫无障碍)，点击抢红包服务，打开开关。注意：小米手机的辅助功能在高级设置里面！]]></Data></string>
     <string name="service_already_open">您已经打开了抢红包服务, 为了您抢红包更加顺利，强烈推荐您先看一下设置里面的常见问题。</string>
     <string name="open_service_button">进入辅助功能</string>
 
@@ -22,6 +24,8 @@
     <string name="switch_on">已开启</string>
     <string name="switch_off">已关闭</string>
     <string name="sound_switch_title">开启抢红包音效</string>
+    <string name="auto_check_version_switch_title">自动检查更新</string>
+    <string name="auto_check_version_switch_summary">一周检查一次</string>
     <string name="user_guide">常见问题</string>
     <string name="feedback">反馈</string>
     <string name="disclaimer">免责声明</string>

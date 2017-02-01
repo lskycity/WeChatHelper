@@ -8,6 +8,13 @@
             android:summaryOff="@string/switch_off"
             android:summaryOn="@string/switch_on"
             android:title="@string/sound_switch_title" />
+
+        <!--<SwitchPreference-->
+            <!--android:key="auto_check_version_switch"-->
+            <!--android:defaultValue="true"-->
+            <!--android:title="@string/auto_check_version_switch_title"-->
+            <!--android:summary="@string/auto_check_version_switch_summary" />-->
+
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/app_info">
         <PreferenceScreen

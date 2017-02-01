@@ -1,9 +1,12 @@
 package com.zhaofliu.wechathelper.apputils;
 
+import android.text.TextUtils;
+
 import com.zhaofliu.wechathelper.utils.DateUtils;
 
 /**
  * Created by zhaofliu on 1/2/17.
+ *
  */
 
 public class VersionInfo {
@@ -35,8 +38,12 @@ public class VersionInfo {
         checkTime = String.valueOf(System.currentTimeMillis());
     }
 
+    public long getCheckTime() {
+        return TextUtils.isEmpty(checkTime)? 0 : Long.parseLong(checkTime);
+    }
+
     public String getFormatCheckTime() {
-        return DateUtils.getTimeString(Long.valueOf(checkTime));
+        return DateUtils.getTimeString(Long.parseLong(checkTime));
     }
 
 }

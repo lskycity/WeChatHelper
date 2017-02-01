@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.zhaofliu.wechathelper.BuildConfig;
+import com.zhaofliu.wechathelper.app.HunterApplication;
 import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 
 import org.json.JSONException;
@@ -18,6 +22,7 @@ import org.json.JSONObject;
 public class UpgradeUtils {
     private static final String APP_ORIGINAL_PACKAGE_NAME = "com.zhaofliu.wechathelper";
     private static final String APP_WANDOUJIA_PACKAGE_NAME = "zhaofeng.wechathelper";
+    private static final long CHECK_VERSION_TIME_GAP = 1000 * 60 * 60 * 24 * 7; //a week
 
 //    public static VersionInfo getJSONObjectFromURL() throws IOException {
 //        HttpURLConnection urlConnection = null;
@@ -118,5 +123,37 @@ public class UpgradeUtils {
         SharedPreUtils.putInt(context, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_CODE, versionInfo.versionCode);
         SharedPreUtils.putString(context, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_NAME, versionInfo.versionName);
         SharedPreUtils.putString(context, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_URL, versionInfo.downloadUrl);
+    }
+
+    public static void checkVersionIfTimeOut() {
+
+        if(!SharedPreUtils.getBoolean(HunterApplication.get(), Constants.AUTO_CHECK_VERSION_SWITCH_KEY, true)) {
+            return;
+        }
+
+        long currentTime = System.currentTimeMillis();
+        VersionInfo versionInfo = getVersionInfoFromSharedPreference(HunterApplication.get());
+        if( currentTime-versionInfo.getCheckTime() > CHECK_VERSION_TIME_GAP) {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Constants.CHECK_VERSION_URL, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject jsonObject) {
+                    try {
+                        VersionInfo versionInfo = UpgradeUtils.getVersionInfo(jsonObject);
+                        UpgradeUtils.putToSharedPre(HunterApplication.get(), versionInfo);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+
+                }
+            });
+
+            HunterApplication.get().getRequestQueue().add(jsonObjectRequest);
+        }
+
     }
 }

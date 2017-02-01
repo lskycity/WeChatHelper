@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final int requestAgreementForDisclaim = 121;
 
-    private ListView mListView;
     private FetchRecordDbHelper mDbHelper;
     private LuckyMoneyCursorAdapter mAdapter;
     private TextView mTotalMoneyTips;
@@ -38,10 +37,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button openButton = (Button) findViewById(R.id.open_button);
-        mListView = (ListView) findViewById(android.R.id.list);
+
+        ListView mListView = (ListView) findViewById(android.R.id.list);
         mAdapter = new LuckyMoneyCursorAdapter(this, null);
         mListView.setAdapter(mAdapter);
         mListView.setEmptyView(findViewById(android.R.id.empty));
+
         mTotalMoneyTips = (TextView)findViewById(R.id.tips);
         openButton.setOnClickListener(this);
 
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(DisclaimerActivity.shouldStartDisclaimerActivity(this)) {
             DisclaimerActivity.startDisclaimerActivity(this, requestAgreementForDisclaim);
         }
+
+        UpgradeUtils.checkVersionIfTimeOut();
 
     }
 
