@@ -8,8 +8,8 @@ android {
         applicationId "com.zhaofliu.wechathelper"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 211
-        versionName "2.1.1"
+        versionCode 220
+        versionName "2.2.0"
     }
     buildTypes {
         release {
