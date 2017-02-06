@@ -1,0 +1,26 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="key_word_wechat">微信</string>
+    <string name="key_word_wechat_lucky_money">微信红包</string>
+    <string name="key_word_notification">[微信红包]</string>
+    <string name="key_word_fetch_lucky_money">领取红包</string>
+
+    <string name="key_word_chat_info">聊天信息</string>
+    <string name="key_word_emoji">表情</string>
+    <string name="key_word_back">返回</string>
+    <string name="key_word_switch_to_speak">切换到按住说话</string>
+    <string name="key_word_switch_to_keypad">切换到键盘</string>
+    <string name="key_word_press_speak">按住 说话</string>
+    <string name="key_word_more">更多功能按钮，已折叠</string>
+    <string name="key_word_send">发送</string>
+
+    <string name="key_word_button_open">Open</string>
+    <string name="key_word_receive_lucky_money">给你发了一个红包</string>
+    <string name="key_word_lucky_money_over_24_hour">该红包已超过24小时。如已领取，可在“我的红包”中查看</string>
+    <string name="key_word_no_lucky_money">手慢了，红包派完了</string>
+    <string name="key_word_loading" tools:ignore="TypographyEllipsis">正在加载...</string>
+    <string name="key_word_receive_lucky_money_from_group">发了一个红包，金额随机</string>
+    <string name="key_word_money_unit">元</string>
+    <string name="no_money_collected">可怜的人儿，还没抢到过红包。。。</string>
+
+</resources>
