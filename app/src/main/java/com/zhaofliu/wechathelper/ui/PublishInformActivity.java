@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -63,6 +64,7 @@ public class PublishInformActivity extends BaseActivity {
 
         TextView content = (TextView) findViewById(R.id.content);
         content.setText(inform.content);
+        content.setAutoLinkMask(Linkify.ALL);
     }
 
     class InformReceiver extends BroadcastReceiver {
