@@ -2,6 +2,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/main_menu_setting">
 
+        <PreferenceScreen
+            android:key="publish_inform"
+            android:title="@string/publish_inform" >
+            <intent
+                android:targetClass="com.zhaofliu.wechathelper.ui.PublishInformActivity"
+                android:targetPackage="zhaofeng.wechathelper" />
+        </PreferenceScreen>
+
         <SwitchPreference
             android:key="sound_switch"
             android:defaultValue="true"

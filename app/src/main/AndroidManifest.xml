@@ -31,6 +31,7 @@
         <activity android:name=".ui.FeedbackActivity" android:label="@string/feedback"/>
         <activity android:name=".ui.OpenAccessibilityActivity" android:excludeFromRecents="true"/>
         <activity android:name=".ui.ShareActivity" android:excludeFromRecents="true"/>
+        <activity android:name=".ui.PublishInformActivity" android:label="@string/publish_inform"/>
 
         <service
             android:name=".FetchLuckyMoneyService"

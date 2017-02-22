@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">红包猎手</string>
+    <string name="package_name">com.zhaofliu.wechathelper</string>
     <string name="fetch_lucky_money_service_description">打开本服务可以帮助您自动抢微信红包，为了您抢红包更加顺利，强烈推荐您先看一下设置里面的常见问题。\n\n
         为了保证抢红包功能正常使用，请将红包猎手应用放入清理工具白名单中。如果你的手机是华为，请把本应用设置为受保护的应用，如果你的手机是小米，建议锁住该应用，以防止抢红包服务被杀死。\n\n
         欢迎访问网站了解详细 http://www.lskycity.com/wechathelper/index.html</string>
@@ -20,6 +21,11 @@
 
     <string name="agree">同意</string>
     <string name="disagree">不同意</string>
+
+    <string name="publish_inform">公告发布</string>
+
+    <string name="refresh">更新</string>
+    <string name="refreshing">正在更新…</string>
 
     <string name="switch_on">已开启</string>
     <string name="switch_off">已关闭</string>

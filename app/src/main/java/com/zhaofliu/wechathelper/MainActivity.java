@@ -1,8 +1,11 @@
 package com.zhaofliu.wechathelper;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.zhaofliu.wechathelper.apputils.InformCheck;
 import com.zhaofliu.wechathelper.apputils.ServiceUtils;
 import com.zhaofliu.wechathelper.apputils.UpgradeUtils;
 import com.zhaofliu.wechathelper.record.FetchRecordDbHelper;
@@ -26,7 +30,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final int requestAgreementForDisclaim = 121;
+    private static final int REQUEST_AGREEMENT_FOR_DISCLAIM = 121;
 
     private FetchRecordDbHelper mDbHelper;
     private LuckyMoneyCursorAdapter mAdapter;
@@ -56,7 +60,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.uninstall_old_version_button).setOnClickListener(this);
 
         if(DisclaimerActivity.shouldStartDisclaimerActivity(this)) {
-            DisclaimerActivity.startDisclaimerActivity(this, requestAgreementForDisclaim);
+            DisclaimerActivity.startDisclaimerActivity(this, REQUEST_AGREEMENT_FOR_DISCLAIM);
+        } else {
+            if(InformCheck.shouldCheckInform(this)) {
+                InformCheck.checkInform();
+            }
         }
 
         UpgradeUtils.checkVersionIfTimeOut();
@@ -66,7 +74,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == requestAgreementForDisclaim && resultCode == RESULT_CANCELED) {
+        if(requestCode == REQUEST_AGREEMENT_FOR_DISCLAIM && resultCode == RESULT_OK) {
+            if(InformCheck.shouldCheckInform(this)) {
+                InformCheck.checkInform();
+            }
+
+        } else if(requestCode == REQUEST_AGREEMENT_FOR_DISCLAIM) {
             supportFinishAfterTransition();
         }
     }
@@ -144,6 +157,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         return total;
+    }
+
+    class InformReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            InformCheck.Inform inform = InformCheck.getInformFromSharedPreference(MainActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage(inform.content);
+            builder.setNegativeButton(android.R.string.cancel, null);
+            builder.show();
+
+
+        }
     }
 
 }

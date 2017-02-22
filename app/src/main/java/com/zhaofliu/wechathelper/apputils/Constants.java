@@ -50,7 +50,12 @@ public class Constants {
     public static final String SOUND_SWITCH_KEY = "sound_switch";
     public static final String AUTO_CHECK_VERSION_SWITCH_KEY = "auto_check_version_switch";
 
+    public static final String SHARED_KEY_INFORM_ID = "shared_key_inform_id";
+    public static final String SHARED_KEY_INFORM_CONTENT = "shared_key_inform_content";
+    public static final String SHARED_KEY_INFORM_CHECK_TIME = "shared_key_inform_check_time";
+
     public static final String CHECK_VERSION_URL = "http://www.lskycity.com/wechathelper/latestversion.json";
     public static final String POST_FEEDBACK_URL = "http://www.lskycity.com:5000/wechathelper/feedback";
     public static final String WECHAT_VERSION_URL = "http://www.lskycity.com/wechathelper";
+    public static final String INFORM_URL = "http://www.lskycity.com/wechathelper/inform.json";
 }
