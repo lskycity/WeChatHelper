@@ -44,9 +44,8 @@ public class InformCheck {
 
                     putToSharedPre(HunterApplication.get(), info);
 
-                    if(TextUtils.isEmpty(latest.id) || !TextUtils.equals(latest.id, info.id)) {
+                    if(!TextUtils.equals(latest.content, info.content)) {
                         sendBroadcast();
-
                     }
 
                 } catch (JSONException e) {
