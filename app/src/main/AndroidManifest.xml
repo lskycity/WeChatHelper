@@ -32,6 +32,8 @@
         <activity android:name=".ui.OpenAccessibilityActivity" android:excludeFromRecents="true"/>
         <activity android:name=".ui.ShareActivity" android:excludeFromRecents="true"/>
         <activity android:name=".ui.PublishInformActivity" android:label="@string/publish_inform"/>
+        <activity android:name=".ui.ServiceForegroundSettingActivity" android:label="@string/service_foreground_title"/>
+
 
         <service
             android:name=".FetchLuckyMoneyService"

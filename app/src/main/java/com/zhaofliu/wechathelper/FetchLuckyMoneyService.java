@@ -2,6 +2,12 @@ package com.zhaofliu.wechathelper;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
@@ -15,6 +21,7 @@ import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.PacketUtils;
 import com.zhaofliu.wechathelper.record.FetchRecordDbHelper;
 import com.zhaofliu.wechathelper.record.Record;
+import com.zhaofliu.wechathelper.ui.ServiceForegroundSettingActivity;
 import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 
 
@@ -29,6 +36,8 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     private NotificationFlowHelper mNotificationFlowHelper;
 
     private FetchRecordDbHelper mFetchRecordDbHelper;
+
+    private ForegroundReceiver foregroundReceiver;
 
     private String mCurrentUI = "";
 
@@ -58,6 +67,31 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         setService();
         init = true;
         mNotificationFlowHelper.serviceState = true;
+
+        if(SharedPreUtils.getBoolean(this, Constants.SHARED_KEY_SERVICE_FOREGROUND, true)) {
+            showForegroundNotification();
+        }
+
+        IntentFilter filter = new IntentFilter(Constants.KEY_SERVICE_FOREGROUND_STATE_CHANGED);
+        registerReceiver(foregroundReceiver = new ForegroundReceiver(), filter);
+    }
+
+    //start foreground notification.
+    private void showForegroundNotification() {
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setSmallIcon(R.mipmap.app_logo);
+        builder.setContentTitle(getString(R.string.app_name));
+        builder.setContentText(getString(R.string.foreground_notification_description));
+
+        final Intent notificationIntent = new Intent(this, ServiceForegroundSettingActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        builder.setContentIntent(pendingIntent);
+
+        startForeground(0x11, builder.build());
+    }
+
+    private void dismissForegroundNotification() {
+        stopForeground(true);
     }
 
     private Handler openHandler = new Handler(){
@@ -224,6 +258,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     public void onInterrupt() {
         init = false;
         mNotificationFlowHelper.serviceState = false;
+        unregisterReceiver(foregroundReceiver);
     }
 
     @Override
@@ -241,4 +276,17 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         return SharedPreUtils.getBoolean(this, Constants.SOUND_SWITCH_KEY, true);
     }
 
+    private class ForegroundReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            boolean foreground = intent.getBooleanExtra(Constants.KEY_SERVICE_FOREGROUND, false);
+            if(foreground) {
+                showForegroundNotification();
+            } else {
+                dismissForegroundNotification();
+            }
+
+        }
+    }
 }

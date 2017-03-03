@@ -10,6 +10,14 @@
                 android:targetPackage="@string/package_name" />
         </PreferenceScreen>
 
+        <PreferenceScreen
+            android:title="@string/service_foreground_title"
+            android:summary="@string/service_foreground_summary">
+            <intent
+                android:targetClass="com.zhaofliu.wechathelper.ui.ServiceForegroundSettingActivity"
+                android:targetPackage="@string/package_name" />
+        </PreferenceScreen>
+
         <SwitchPreference
             android:key="sound_switch"
             android:defaultValue="true"
@@ -31,27 +39,27 @@
             android:title="@string/version_info" >
             <intent
                 android:targetClass="com.zhaofliu.wechathelper.ui.CheckVersionActivity"
-                android:targetPackage="com.zhaofliu.wechathelper" />
+                android:targetPackage="@string/package_name" />
         </PreferenceScreen>
         <PreferenceScreen android:title="@string/about_us">
             <intent
                 android:targetClass="com.zhaofliu.wechathelper.ui.AboutUsActivity"
-                android:targetPackage="com.zhaofliu.wechathelper" />
+                android:targetPackage="@string/package_name" />
         </PreferenceScreen>
         <PreferenceScreen android:title="@string/disclaimer">
             <intent
                 android:targetClass="com.zhaofliu.wechathelper.ui.DisclaimerActivity"
-                android:targetPackage="com.zhaofliu.wechathelper" />
+                android:targetPackage="@string/package_name" />
         </PreferenceScreen>
         <PreferenceScreen android:title="@string/user_guide">
             <intent
                 android:targetClass="com.zhaofliu.wechathelper.ui.UserGuideActivity"
-                android:targetPackage="com.zhaofliu.wechathelper" />
+                android:targetPackage="@string/package_name" />
         </PreferenceScreen>
         <PreferenceScreen android:title="@string/feedback">
             <intent
                 android:targetClass="com.zhaofliu.wechathelper.ui.FeedbackActivity"
-                android:targetPackage="com.zhaofliu.wechathelper" />
+                android:targetPackage="@string/package_name" />
         </PreferenceScreen>
 
     </PreferenceCategory>
