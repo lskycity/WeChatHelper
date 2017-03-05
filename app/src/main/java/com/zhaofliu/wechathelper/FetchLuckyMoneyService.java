@@ -37,7 +37,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
 
     private FetchRecordDbHelper mFetchRecordDbHelper;
 
-    private ForegroundReceiver foregroundReceiver;
+//    private ForegroundReceiver foregroundReceiver;
 
     private String mCurrentUI = "";
 
@@ -68,12 +68,12 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         init = true;
         mNotificationFlowHelper.serviceState = true;
 
-        if(SharedPreUtils.getBoolean(this, Constants.SHARED_KEY_SERVICE_FOREGROUND, true)) {
+        if(SharedPreUtils.getBoolean(this, Constants.SHARED_KEY_SERVICE_FOREGROUND, false)) {
             showForegroundNotification();
         }
 
-        IntentFilter filter = new IntentFilter(Constants.KEY_SERVICE_FOREGROUND_STATE_CHANGED);
-        registerReceiver(foregroundReceiver = new ForegroundReceiver(), filter);
+//        IntentFilter filter = new IntentFilter(Constants.KEY_SERVICE_FOREGROUND_STATE_CHANGED);
+//        registerReceiver(foregroundReceiver = new ForegroundReceiver(), filter);
     }
 
     //start foreground notification.
@@ -258,7 +258,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     public void onInterrupt() {
         init = false;
         mNotificationFlowHelper.serviceState = false;
-        unregisterReceiver(foregroundReceiver);
+//        unregisterReceiver(foregroundReceiver);
     }
 
     @Override

@@ -10,13 +10,13 @@
                 android:targetPackage="@string/package_name" />
         </PreferenceScreen>
 
-        <PreferenceScreen
-            android:title="@string/service_foreground_title"
-            android:summary="@string/service_foreground_summary">
-            <intent
-                android:targetClass="com.zhaofliu.wechathelper.ui.ServiceForegroundSettingActivity"
-                android:targetPackage="@string/package_name" />
-        </PreferenceScreen>
+        <!--<PreferenceScreen-->
+            <!--android:title="@string/service_foreground_title"-->
+            <!--android:summary="@string/service_foreground_summary">-->
+            <!--<intent-->
+                <!--android:targetClass="com.zhaofliu.wechathelper.ui.ServiceForegroundSettingActivity"-->
+                <!--android:targetPackage="@string/package_name" />-->
+        <!--</PreferenceScreen>-->
 
         <SwitchPreference
             android:key="sound_switch"
