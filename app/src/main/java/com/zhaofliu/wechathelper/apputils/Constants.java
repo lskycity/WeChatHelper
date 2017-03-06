@@ -57,6 +57,7 @@ public class Constants {
     public static final String SHARED_KEY_SERVICE_FOREGROUND = "shared_key_service_foreground";
     public static final String KEY_SERVICE_FOREGROUND_STATE_CHANGED = "key_service_foreground_changed";
     public static final String KEY_SERVICE_FOREGROUND = "key_service_foreground";
+    public static final String KEY_RANDOM_DELAY_TIME = "key_random_delay_time";
 
     public static final String CHECK_VERSION_URL = "http://www.lskycity.com/wechathelper/latestversion.json";
     public static final String POST_FEEDBACK_URL = "http://www.lskycity.com:5000/wechathelper/feedback";

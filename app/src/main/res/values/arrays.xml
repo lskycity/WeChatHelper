@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="random_delays_entries" >
+        <item>不延迟</item>
+        <item>1s</item>
+        <item>2s</item>
+        <item>3s</item>
+        <item>5s</item>
+        <item>7s</item>
+    </string-array>
+
+    <string-array name="random_delays_entry_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>7</item>
+    </string-array>
+
+</resources>

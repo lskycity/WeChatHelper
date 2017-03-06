@@ -10,6 +10,7 @@ import android.os.PowerManager;
 import android.text.TextUtils;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.Toast;
 
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.NotificationUtils;
@@ -143,10 +144,19 @@ public class NotificationFlowHelper {
                 CharSequence className = event.getClassName();
                 if (TextUtils.equals(className, Constants.WECHAT_LAUNCHER)) {
                     if(mState == State.notification) {
-                        boolean success = fetchPacketAndClick();
-                        changeToState(success ? State.clickedInList : State.invalid);
-                        if(!success) {
-                            fetchPacketAndClickHandler.sendEmptyMessageDelayed(1, 100);
+
+                        boolean success;
+                        int delay = PacketUtils.getRandomDelayTime();
+                        if(delay == 0) {
+                            success = fetchPacketAndClick();
+                            changeToState(success ? State.clickedInList : State.invalid);
+                            if(!success) {
+                                fetchPacketAndClickHandler.sendEmptyMessageDelayed(1, 100);
+                            }
+                        } else {
+                            Toast.makeText(mService, "Random delay " + delay+"ms", Toast.LENGTH_LONG).show();
+                            changeToState(State.invalid);
+                            fetchPacketAndClickHandler.sendEmptyMessageDelayed(1, delay);
                         }
                         return mState==State.clickedInList;
                     } else {

@@ -40,6 +40,10 @@
 
     <string name="switch_on">已开启</string>
     <string name="switch_off">已关闭</string>
+
+    <string name="random_delay">随机延迟</string>
+    <string name="no_delay">不延迟</string>
+
     <string name="sound_switch_title">开启抢红包音效</string>
     <string name="auto_check_version_switch_title">自动检查更新</string>
     <string name="auto_check_version_switch_summary">一周检查一次</string>

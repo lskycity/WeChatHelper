@@ -31,6 +31,13 @@
             <!--android:title="@string/auto_check_version_switch_title"-->
             <!--android:summary="@string/auto_check_version_switch_summary" />-->
 
+        <ListPreference
+            android:key="random_delay"
+            android:title="@string/random_delay"
+            android:summary="@string/no_delay"
+            android:entries="@array/random_delays_entries"
+            android:entryValues="@array/random_delays_entry_values"/>
+
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/app_info">
         <PreferenceScreen

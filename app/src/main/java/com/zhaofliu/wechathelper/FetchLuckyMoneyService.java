@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.Toast;
 
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.PacketUtils;
@@ -165,10 +166,20 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 mCurrentUI = event.getClassName().toString();
                 if (TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_RECEIVER)) {
-                    boolean success = PacketUtils.openPacketInDetail(this);
-                    isOpenedSuccess = success;
-                    if(!success) {
-                        openHandler.sendEmptyMessageDelayed(1, 50);
+
+                    int delay = PacketUtils.getRandomDelayTime();
+
+                    if(delay == 0) {
+
+                        boolean success = PacketUtils.openPacketInDetail(this);
+                        isOpenedSuccess = success;
+                        if(!success) {
+                            openHandler.sendEmptyMessageDelayed(1, 50);
+                        }
+                    } else {
+                        Toast.makeText(this, "Random delay " + delay+"ms", Toast.LENGTH_LONG).show();
+                        openHandler.sendEmptyMessageDelayed(1, 50 + delay);
+
                     }
                 }
                 else if (TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_DETAIL)) {

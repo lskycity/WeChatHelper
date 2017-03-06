@@ -11,7 +11,9 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import java.util.List;
 
 import com.zhaofliu.wechathelper.R;
+import com.zhaofliu.wechathelper.app.HunterApplication;
 import com.zhaofliu.wechathelper.record.Record;
+import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 
 /**
  * Created by liuzhaofeng on 2016/1/28.
@@ -241,6 +243,16 @@ public class PacketUtils {
 
         }
         return null;
+    }
+
+    /**
+     * get Random Delay Time according setting
+     *
+     *
+     * */
+    public static int getRandomDelayTime() {
+        int delay = SharedPreUtils.getInt(HunterApplication.get(), Constants.KEY_RANDOM_DELAY_TIME, 0);
+        return (int)(Math.random()*delay*1000);
     }
 
 }
