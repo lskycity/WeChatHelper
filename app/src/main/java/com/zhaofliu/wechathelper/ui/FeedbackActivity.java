@@ -58,8 +58,8 @@ public class FeedbackActivity extends BaseActivity implements TextWatcher, View.
         feedback = (EditText) findViewById(R.id.feedback_content);
         feedback.addTextChangedListener(this);
         textCount = (TextView) findViewById(R.id.text_count);
-        TextView checkUserGuide = (TextView) findViewById(R.id.check_user_guide);
 
+        TextView checkUserGuide = (TextView) findViewById(R.id.check_user_guide);
         //link the check user guide activity.
         String checkUserGuideString = getString(R.string.check_normal_question_if_cannot_work);
         Spannable spannable = new SpannableString(checkUserGuideString);
@@ -68,14 +68,19 @@ public class FeedbackActivity extends BaseActivity implements TextWatcher, View.
         checkUserGuide.setOnClickListener(this);
 
         TextView checkNewVersion = (TextView) findViewById(R.id.check_new_version);
-
         //link the check user guide activity.
         String checkNewVersionString = getString(R.string.check_new_version);
         Spannable checkNewVersionSpannable = new SpannableString(checkNewVersionString);
         checkNewVersionSpannable.setSpan(new UnderlineSpan(), 0, checkNewVersionString.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
         checkNewVersion.setText(checkNewVersionSpannable);
-
         checkNewVersion.setOnClickListener(this);
+
+        TextView gotoProtectPage = (TextView) findViewById(R.id.go_to_protect);
+        String gotoProtectPageString = getString(R.string.tip_add_white_list);
+        Spannable gotoProtectPageSpannable = new SpannableString(gotoProtectPageString);
+        gotoProtectPageSpannable.setSpan(new UnderlineSpan(), 0, gotoProtectPageString.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        gotoProtectPage.setText(gotoProtectPageSpannable);
+        gotoProtectPage.setOnClickListener(this);
 
     }
 
@@ -212,6 +217,8 @@ public class FeedbackActivity extends BaseActivity implements TextWatcher, View.
             startActivity(intent);
         } else if(v.getId() == R.id.check_new_version) {
             IntentUtils.startUrl(this, Constants.WECHAT_VERSION_URL);
+        } else if(v.getId() == R.id.go_to_protect) {
+            IntentUtils.startUrl(this, Constants.PROTECT_URL);
         }
     }
 }

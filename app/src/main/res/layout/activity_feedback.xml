@@ -29,6 +29,15 @@
         tools:ignore="HardcodedText" />
 
     <TextView
+        android:id="@+id/go_to_protect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#00A1E0"
+        android:textColorLink="#00A1E0"
+        android:padding="8dp"
+        android:text="@string/tip_add_white_list"/>
+
+    <TextView
         android:id="@+id/check_user_guide"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

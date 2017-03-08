@@ -134,6 +134,7 @@
     <string name="send_feedback_success">发送反馈成功，感谢您的反馈。</string>
     <string name="send_feedback_fail">发送反馈失败，请过段时间再试，或者去官方网站查看下载最新版。</string>
 
+    <string name="tip_add_white_list">应用经常被系统杀掉？把本应用加入白名单吧。</string>
     <string name="check_normal_question_if_cannot_work">抢红包出现问题？点击查看常见问题</string>
     <string name="check_new_version">太久没更新？去网站查看新版本</string>
     <string name="pay_for_free">抢了大红包，打赏个一块二块。</string>

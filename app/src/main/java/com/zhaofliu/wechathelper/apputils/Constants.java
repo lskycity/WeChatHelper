@@ -63,4 +63,5 @@ public class Constants {
     public static final String POST_FEEDBACK_URL = "http://www.lskycity.com:5000/wechathelper/feedback";
     public static final String WECHAT_VERSION_URL = "http://www.lskycity.com/wechathelper";
     public static final String INFORM_URL = "http://www.lskycity.com/wechathelper/inform.json";
+    public static final String PROTECT_URL = "http://www.lskycity.com/wechathelper/protect.html";
 }
