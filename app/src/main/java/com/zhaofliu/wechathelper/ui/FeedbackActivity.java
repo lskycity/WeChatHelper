@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.Spannable;
@@ -206,7 +207,7 @@ public class FeedbackActivity extends BaseActivity implements TextWatcher, View.
         if(s.length() == MAX_TEXT_COUNT) {
             textCount.setTextColor(Color.RED);
         } else {
-            textCount.setTextColor(getResources().getColor(R.color.text_color));
+            textCount.setTextColor(ResourcesCompat.getColor(getResources(), R.color.text_color, getTheme()));
         }
     }
 

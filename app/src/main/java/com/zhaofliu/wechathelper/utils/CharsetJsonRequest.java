@@ -13,9 +13,10 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Created by zhaofliu on 2/6/17.
+ *
  */
-
 public class CharsetJsonRequest extends JsonObjectRequest {
+
     public CharsetJsonRequest(int method, String url, JSONObject jsonRequest, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         super(method, url, jsonRequest, listener, errorListener);
     }

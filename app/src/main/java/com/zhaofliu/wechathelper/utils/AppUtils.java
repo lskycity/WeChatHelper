@@ -6,12 +6,8 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
 import android.view.Window;
 import android.view.WindowManager;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by zhaofliu on 1/2/17.
