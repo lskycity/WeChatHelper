@@ -63,8 +63,9 @@ public class PublishInformActivity extends BaseActivity {
         InformCheck.Inform inform = InformCheck.getInformFromSharedPreference(this);
 
         TextView content = (TextView) findViewById(R.id.content);
-        content.setText(inform.content);
         content.setAutoLinkMask(Linkify.ALL);
+        content.setText(inform.content);
+
     }
 
     class InformReceiver extends BroadcastReceiver {
