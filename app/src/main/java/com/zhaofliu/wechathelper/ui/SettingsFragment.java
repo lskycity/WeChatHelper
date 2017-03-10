@@ -42,7 +42,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         ListPreference randomPreference = (ListPreference) getPreferenceScreen().findPreference("random_delay");
 
         randomPreference.setOnPreferenceChangeListener(this);
-        String randomValue = SharedPreUtils.getString(getActivity(), randomPreference.getKey());
+        String randomValue = SharedPreUtils.getString(getActivity(), randomPreference.getKey(), "0");
         randomPreference.setValue(randomValue);
         randomPreference.setSummary(randomPreference.getEntry());
     }
