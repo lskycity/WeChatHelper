@@ -3,10 +3,9 @@ package com.zhaofliu.wechathelper.apputils;
 import android.content.Context;
 import android.os.Build;
 
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.lskycity.support.utils.AppUtils;
+import com.lskycity.support.utils.DeviceUtils;
 import com.zhaofliu.wechathelper.BuildConfig;
-import com.zhaofliu.wechathelper.utils.AppUtils;
-import com.zhaofliu.wechathelper.utils.DeviceUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;

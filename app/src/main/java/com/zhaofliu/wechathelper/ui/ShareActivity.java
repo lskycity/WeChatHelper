@@ -6,11 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.lskycity.support.utils.IntentUtils;
 import com.zhaofliu.wechathelper.MainActivity;
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.app.BaseActivity;
 import com.zhaofliu.wechathelper.apputils.Constants;
-import com.zhaofliu.wechathelper.utils.IntentUtils;
 
 
 /**

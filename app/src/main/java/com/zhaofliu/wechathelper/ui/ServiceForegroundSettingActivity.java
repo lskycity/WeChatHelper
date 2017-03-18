@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.widget.CompoundButton;
 
+import com.lskycity.support.utils.SharedPreUtils;
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.app.BaseActivity;
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.ServiceUtils;
-import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 
 /**
  * Created by zhaofliu on 2/22/17.

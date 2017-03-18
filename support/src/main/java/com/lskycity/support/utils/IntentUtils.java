@@ -1,4 +1,4 @@
-package com.zhaofliu.wechathelper.utils;
+package com.lskycity.support.utils;
 
 import android.content.Context;
 import android.content.Intent;

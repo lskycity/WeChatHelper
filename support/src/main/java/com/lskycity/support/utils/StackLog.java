@@ -4,12 +4,13 @@
  * UILog.java
  *
  */
-package com.zhaofliu.wechathelper.utils;
+package com.lskycity.support.utils;
 
 
 import android.util.Log;
 
-import com.zhaofliu.wechathelper.BuildConfig;
+import com.lskycity.support.BuildConfig;
+
 
 /**
  * for debug, this can print a method call stack

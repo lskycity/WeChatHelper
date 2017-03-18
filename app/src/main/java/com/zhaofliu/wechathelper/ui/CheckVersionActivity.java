@@ -11,14 +11,14 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.lskycity.support.utils.AppUtils;
+import com.lskycity.support.utils.IntentUtils;
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.app.BaseActivity;
 import com.zhaofliu.wechathelper.app.HunterApplication;
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.UpgradeUtils;
 import com.zhaofliu.wechathelper.apputils.VersionInfo;
-import com.zhaofliu.wechathelper.utils.AppUtils;
-import com.zhaofliu.wechathelper.utils.IntentUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;

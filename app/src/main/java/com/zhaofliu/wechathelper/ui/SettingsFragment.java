@@ -8,10 +8,10 @@ import android.preference.PreferenceFragment;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
+import com.lskycity.support.utils.AppUtils;
+import com.lskycity.support.utils.SharedPreUtils;
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.apputils.Constants;
-import com.zhaofliu.wechathelper.utils.AppUtils;
-import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 
 
 /**
@@ -33,9 +33,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         Preference version = getPreferenceScreen().findPreference("app_version");
         version.setSummary(AppUtils.getVersionName(getActivity()));
 
-        int versionCode = SharedPreUtils.getInt(getActivity(), SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_CODE);
+        int versionCode = SharedPreUtils.getInt(getActivity(), Constants.KEY_LAST_DATE_CHECK_VERSION_CODE);
         if(versionCode > AppUtils.getVersionCode(getActivity())) {
-            String versionName = SharedPreUtils.getString(getActivity(), SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_NAME);
+            String versionName = SharedPreUtils.getString(getActivity(), Constants.KEY_LAST_DATE_CHECK_VERSION_NAME);
             version.setSummary(getString(R.string.current_version_and_have_new_version, AppUtils.getVersionName(getActivity()), versionName));
         }
 

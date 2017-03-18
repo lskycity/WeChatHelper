@@ -2,7 +2,8 @@ package com.zhaofliu.wechathelper.apputils;
 
 import android.text.TextUtils;
 
-import com.zhaofliu.wechathelper.utils.DateUtils;
+import com.lskycity.support.utils.DateUtils;
+
 
 /**
  * Created by zhaofliu on 1/2/17.

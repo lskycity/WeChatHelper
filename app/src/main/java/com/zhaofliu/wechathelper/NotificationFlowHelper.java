@@ -12,12 +12,12 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
+import com.lskycity.support.utils.AppUtils;
+import com.lskycity.support.utils.DeviceUtils;
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.NotificationUtils;
 import com.zhaofliu.wechathelper.apputils.PacketUtils;
 import com.zhaofliu.wechathelper.ui.OpenAccessibilityActivity;
-import com.zhaofliu.wechathelper.utils.AppUtils;
-import com.zhaofliu.wechathelper.utils.DeviceUtils;
 
 import java.lang.ref.WeakReference;
 

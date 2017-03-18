@@ -64,4 +64,11 @@ public class Constants {
     public static final String WECHAT_VERSION_URL = "http://www.lskycity.com/wechathelper";
     public static final String INFORM_URL = "http://www.lskycity.com/wechathelper/inform.json";
     public static final String PROTECT_URL = "http://www.lskycity.com/wechathelper/protect.html";
+
+
+    public static final String KEY_LAST_DATE_CHECK_VERSION = "key_last_date_check_version";
+    public static final String KEY_LAST_DATE_CHECK_VERSION_CODE = "key_last_date_check_version_code";
+    public static final String KEY_LAST_DATE_CHECK_VERSION_NAME = "key_last_date_check_version_name";
+    public static final String KEY_LAST_DATE_CHECK_VERSION_URL = "key_last_date_check_version_url";
+    public static final String KEY_LATEST_APP_VERSION_CODE = "key_latest_app_version_code";
 }

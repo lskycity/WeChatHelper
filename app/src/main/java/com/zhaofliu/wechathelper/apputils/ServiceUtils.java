@@ -2,11 +2,9 @@ package com.zhaofliu.wechathelper.apputils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.zhaofliu.wechathelper.BuildConfig;
 import com.zhaofliu.wechathelper.FetchLuckyMoneyService;

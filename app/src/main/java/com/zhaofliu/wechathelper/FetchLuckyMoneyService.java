@@ -18,12 +18,12 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
 
+import com.lskycity.support.utils.SharedPreUtils;
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.PacketUtils;
 import com.zhaofliu.wechathelper.record.FetchRecordDbHelper;
 import com.zhaofliu.wechathelper.record.Record;
 import com.zhaofliu.wechathelper.ui.ServiceForegroundSettingActivity;
-import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 
 
 /**

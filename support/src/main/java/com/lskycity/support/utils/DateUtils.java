@@ -1,4 +1,4 @@
-package com.zhaofliu.wechathelper.utils;
+package com.lskycity.support.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

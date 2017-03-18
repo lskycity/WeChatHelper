@@ -24,13 +24,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.lskycity.support.utils.DeviceUtils;
+import com.lskycity.support.utils.IntentUtils;
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.app.BaseActivity;
 import com.zhaofliu.wechathelper.app.HunterApplication;
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.Feedback;
-import com.zhaofliu.wechathelper.utils.DeviceUtils;
-import com.zhaofliu.wechathelper.utils.IntentUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.zhaofliu.wechathelper.utils;
+package com.lskycity.support.utils;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

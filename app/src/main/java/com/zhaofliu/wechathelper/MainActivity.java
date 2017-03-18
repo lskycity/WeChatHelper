@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.lskycity.support.utils.ViewUtils;
 import com.zhaofliu.wechathelper.apputils.InformCheck;
 import com.zhaofliu.wechathelper.apputils.ServiceUtils;
 import com.zhaofliu.wechathelper.apputils.UpgradeUtils;
@@ -25,7 +26,6 @@ import com.zhaofliu.wechathelper.record.FetchRecordDbHelper;
 import com.zhaofliu.wechathelper.ui.DisclaimerActivity;
 import com.zhaofliu.wechathelper.ui.SettingsActivity;
 import com.zhaofliu.wechathelper.ui.adapter.LuckyMoneyCursorAdapter;
-import com.zhaofliu.wechathelper.utils.ViewUtils;
 
 import java.util.Locale;
 

@@ -4,16 +4,14 @@ import android.accessibilityservice.AccessibilityService;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import java.util.List;
-
+import com.lskycity.support.utils.SharedPreUtils;
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.app.HunterApplication;
 import com.zhaofliu.wechathelper.record.Record;
-import com.zhaofliu.wechathelper.utils.SharedPreUtils;
+
+import java.util.List;
 
 /**
  * Created by liuzhaofeng on 2016/1/28.

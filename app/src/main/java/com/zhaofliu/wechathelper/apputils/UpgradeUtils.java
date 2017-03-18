@@ -8,15 +8,16 @@ import android.text.TextUtils;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.lskycity.support.utils.SharedPreUtils;
 import com.zhaofliu.wechathelper.BuildConfig;
 import com.zhaofliu.wechathelper.app.HunterApplication;
-import com.zhaofliu.wechathelper.utils.SharedPreUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Created by zhaofliu on 1/3/17.
+ *
  */
 
 public class UpgradeUtils {
@@ -86,10 +87,10 @@ public class UpgradeUtils {
     public static VersionInfo getVersionInfoFromSharedPreference(Context context) {
         VersionInfo info = new VersionInfo();
         info.packageName = BuildConfig.APPLICATION_ID;
-        info.versionCode = SharedPreUtils.getInt(context, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_CODE);
-        info.versionName = SharedPreUtils.getString(context, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_NAME);
-        info.downloadUrl = SharedPreUtils.getString(context, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_URL);
-        info.checkTime = SharedPreUtils.getString(context, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION);
+        info.versionCode = SharedPreUtils.getInt(context, Constants.KEY_LAST_DATE_CHECK_VERSION_CODE);
+        info.versionName = SharedPreUtils.getString(context, Constants.KEY_LAST_DATE_CHECK_VERSION_NAME);
+        info.downloadUrl = SharedPreUtils.getString(context, Constants.KEY_LAST_DATE_CHECK_VERSION_URL);
+        info.checkTime = SharedPreUtils.getString(context, Constants.KEY_LAST_DATE_CHECK_VERSION);
         return info;
     }
 
@@ -119,10 +120,10 @@ public class UpgradeUtils {
     }
 
     public static void putToSharedPre(Context context, VersionInfo versionInfo) {
-        SharedPreUtils.putString(context, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION, versionInfo.checkTime);
-        SharedPreUtils.putInt(context, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_CODE, versionInfo.versionCode);
-        SharedPreUtils.putString(context, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_NAME, versionInfo.versionName);
-        SharedPreUtils.putString(context, SharedPreUtils.KEY_LAST_DATE_CHECK_VERSION_URL, versionInfo.downloadUrl);
+        SharedPreUtils.putString(context, Constants.KEY_LAST_DATE_CHECK_VERSION, versionInfo.checkTime);
+        SharedPreUtils.putInt(context, Constants.KEY_LAST_DATE_CHECK_VERSION_CODE, versionInfo.versionCode);
+        SharedPreUtils.putString(context, Constants.KEY_LAST_DATE_CHECK_VERSION_NAME, versionInfo.versionName);
+        SharedPreUtils.putString(context, Constants.KEY_LAST_DATE_CHECK_VERSION_URL, versionInfo.downloadUrl);
     }
 
     public static void checkVersionIfTimeOut() {

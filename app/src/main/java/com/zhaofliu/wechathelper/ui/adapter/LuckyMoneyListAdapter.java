@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import com.lskycity.support.utils.DateUtils;
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.record.Record;
-import com.zhaofliu.wechathelper.utils.DateUtils;
 
 /**
  * Created by kevinbest on 16/1/30.

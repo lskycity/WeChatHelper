@@ -9,17 +9,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.lskycity.support.utils.AppUtils;
+import com.lskycity.support.utils.SharedPreUtils;
+import com.lskycity.support.utils.ViewUtils;
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.app.BaseActivity;
-import com.zhaofliu.wechathelper.utils.AppUtils;
-import com.zhaofliu.wechathelper.utils.SharedPreUtils;
-import com.zhaofliu.wechathelper.utils.ViewUtils;
+import com.zhaofliu.wechathelper.apputils.Constants;
 
 
 public class DisclaimerActivity extends BaseActivity implements View.OnClickListener {
 
     public static boolean shouldStartDisclaimerActivity(Context context) {
-        int versionCode = SharedPreUtils.getInt(context, SharedPreUtils.KEY_LATEST_APP_VERSION_CODE);
+        int versionCode = SharedPreUtils.getInt(context, Constants.KEY_LATEST_APP_VERSION_CODE);
         int currentCode = AppUtils.getVersionCode(context);
         return currentCode > versionCode;
     }
@@ -42,7 +43,7 @@ public class DisclaimerActivity extends BaseActivity implements View.OnClickList
         agreeButton.setOnClickListener(this);
         disagreeButton.setOnClickListener(this);
 
-        int versionCode = SharedPreUtils.getInt(this, SharedPreUtils.KEY_LATEST_APP_VERSION_CODE);
+        int versionCode = SharedPreUtils.getInt(this, Constants.KEY_LATEST_APP_VERSION_CODE);
         int currentCode = AppUtils.getVersionCode(this);
         ViewUtils.setVisible(buttonBar, (currentCode > versionCode));
 
@@ -54,7 +55,7 @@ public class DisclaimerActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
-        int versionCode = SharedPreUtils.getInt(this, SharedPreUtils.KEY_LATEST_APP_VERSION_CODE);
+        int versionCode = SharedPreUtils.getInt(this, Constants.KEY_LATEST_APP_VERSION_CODE);
         int currentCode = AppUtils.getVersionCode(this);
         if(versionCode == currentCode) {
             super.onBackPressed();
@@ -64,7 +65,7 @@ public class DisclaimerActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.agree) {
-            SharedPreUtils.putInt(this, SharedPreUtils.KEY_LATEST_APP_VERSION_CODE, AppUtils.getVersionCode(this));
+            SharedPreUtils.putInt(this, Constants.KEY_LATEST_APP_VERSION_CODE, AppUtils.getVersionCode(this));
             setResult(RESULT_OK);
             supportFinishAfterTransition();
         } else if(v.getId() == R.id.disagree){
