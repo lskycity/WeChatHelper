@@ -2,7 +2,7 @@
  * Copyright (c) 2016 Cisco. All rights reserved.
  *
  */
-package com.cisco.jabber.widget;
+package com.lskycity.support.widget;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;

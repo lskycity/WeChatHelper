@@ -1,5 +1,31 @@
 apply plugin: 'com.android.library'
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'support'
+
+    publishedGroupId = 'com.lskycity.support'
+    libraryName = 'support'
+    artifact = 'support'
+
+    libraryDescription = 'A common utils on Android'
+
+    siteUrl = 'https://github.com/lskycity/WeChatHelper'
+    gitUrl = 'https://github.com/lskycity/WeChatHelper.git'
+
+    libraryVersion = '1.1.1'
+
+    developerId = 'lskycity'
+    developerName = 'lskycity'
+    developerEmail = 'lskycity@foxmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -20,12 +46,14 @@ android {
         }
     }
 }
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.android.support:support-v4:25.2.0'
     testCompile 'junit:junit:4.12'
 }
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

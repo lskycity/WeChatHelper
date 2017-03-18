@@ -9,7 +9,6 @@ package com.lskycity.support.utils;
 
 import android.util.Log;
 
-import com.lskycity.support.BuildConfig;
 
 
 /**
@@ -24,17 +23,14 @@ public class StackLog
 
     public static void print(String currentTagForLog)
     {
-        if(BuildConfig.DEBUG)
+        th.fillInStackTrace();
+        StackTraceElement[] stacks = th.getStackTrace();
+        Log.v(StackLog.class.getSimpleName(), currentTagForLog + "---------->");
+        String currentEntry = currentTagForLog + " -- ";
+        for(StackTraceElement stack : stacks)
         {
-            th.fillInStackTrace();
-            StackTraceElement[] stacks = th.getStackTrace();
-            Log.v(StackLog.class.getSimpleName(), currentTagForLog + "---------->");
-            String currentEntry = currentTagForLog + " -- ";
-            for(StackTraceElement stack : stacks)
-            {
-                Log.v(StackLog.class.getSimpleName(), currentEntry + stack.toString());
-            }
-            Log.v(StackLog.class.getSimpleName(), currentTagForLog + "<----------");
+            Log.v(StackLog.class.getSimpleName(), currentEntry + stack.toString());
         }
+        Log.v(StackLog.class.getSimpleName(), currentTagForLog + "<----------");
     }
 }
