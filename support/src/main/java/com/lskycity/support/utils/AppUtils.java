@@ -3,9 +3,12 @@ package com.lskycity.support.utils;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -61,5 +64,29 @@ public class AppUtils {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+    }
+
+    /**
+     * scan activity from context.
+     *
+     * @return Activity if find or null if not found
+     * */
+    public static Activity scanForActivity(Context cont) {
+
+        if (cont instanceof Activity)
+            return (Activity)cont;
+        else if (cont instanceof ContextWrapper)
+            return scanForActivity(((ContextWrapper)cont).getBaseContext());
+
+        return null;
+    }
+
+    /**
+     * find Activity from view
+     *
+     * @return Activity if this view attached in a activity, null if not
+     * */
+    public static Activity getActivity(@NonNull View view) {
+        return scanForActivity(view.getContext());
     }
 }
