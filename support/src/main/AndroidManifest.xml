@@ -1,9 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lskycity.support">
 
-    <application android:allowBackup="true" android:label="@string/app_name"
-        android:supportsRtl="true">
-
-    </application>
+    <application android:label="@string/com_lskycity_support_name"/>
 
 </manifest>
