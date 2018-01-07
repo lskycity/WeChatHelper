@@ -1,12 +1,13 @@
 package com.lskycity.support.utils;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
-import java.lang.reflect.Method;
 import java.util.Locale;
 
 public final class DeviceUtils {
@@ -140,15 +141,7 @@ public final class DeviceUtils {
         String model = Build.MODEL;
         String brand = Build.BRAND;
 
-        if (brand.toLowerCase(Locale.US).contains(HUAWEI) || brand.toLowerCase(Locale.US).contains(HONOR)) {
-            return true;
-        }
-        return model.toLowerCase(Locale.US).contains(HUAWEI);
-    }
-
-    public static boolean isNexus6P() {
-        String model = Build.MODEL;
-        return model.equalsIgnoreCase("Nexus 6P");
+        return brand.toLowerCase(Locale.US).contains(HUAWEI) || brand.toLowerCase(Locale.US).contains(HONOR) || model.toLowerCase(Locale.US).contains(HUAWEI);
     }
 
     public static boolean isSamsungDevice() {
@@ -156,28 +149,15 @@ public final class DeviceUtils {
         return BRAND.SAMSUNG.equalsIgnoreCase(brand);
     }
 
-    public static boolean isMCDevice()
-    {
-        String model = Build.MODEL;
-        return model.startsWith(MC_DEVICE_PREFIX);
-    }
-
     /**
      * getSerialNumber
-     * @return result is same to getSerialNumber1()
      */
+    @SuppressLint("HardwareIds")
     public static String getSerialNumber(){
-        String serial = null;
-        try {
-            Class<?> c =Class.forName("android.os.SystemProperties");
-            Method get =c.getMethod("get", String.class);
-            serial = (String)get.invoke(c, "ro.serialno");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return serial;
+        return Build.SERIAL;
     }
 
+    @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     @SuppressLint("HardwareIds")
     public static String getIMEI(Context context) {
         return ((TelephonyManager)context.getSystemService(
@@ -197,22 +177,24 @@ public final class DeviceUtils {
 
     }
 
-    public static String getSerialNumber1() {
-        return android.os.Build.SERIAL;
-    }
-
 
     public static String getDeviceId(Context context) {
         String deviceId = getAndroidId(context);
 
         if(TextUtils.isEmpty(deviceId)) {
-            deviceId = getSerialNumber1();
+            deviceId = Build.SERIAL;
         }
 
         if(TextUtils.isEmpty(deviceId)) {
             deviceId = "";
         }
         return deviceId;
+    }
+
+    public static boolean isInArc() {
+        // https://github.com/google/talkback/blob/master/src/main/java/com/google/android/marvin/talkback/TalkBackService.java#L1779-L1781
+        // this is detect arc from google's app
+        return Build.DEVICE != null && Build.DEVICE.matches(".+_cheets");
     }
 
 

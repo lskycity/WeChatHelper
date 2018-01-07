@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lskycity.support">
 
-    <application android:label="@string/com_lskycity_support_name"/>
+    <application/>
 
 </manifest>

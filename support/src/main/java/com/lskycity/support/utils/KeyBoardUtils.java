@@ -2,6 +2,7 @@ package com.lskycity.support.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -50,6 +51,10 @@ public class KeyBoardUtils {
         InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 
+    }
+
+    public static boolean isHardwareKeyboardAvailable(Context context) {
+        return context.getResources().getConfiguration().keyboard != Configuration.KEYBOARD_NOKEYS;
     }
 
 }

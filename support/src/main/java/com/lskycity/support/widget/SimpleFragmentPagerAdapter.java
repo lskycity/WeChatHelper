@@ -5,6 +5,7 @@
 package com.lskycity.support.widget;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -62,6 +63,7 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
         return fragmentManager.findFragmentByTag(fragmentTags.get(position));
     }
 
+    @NonNull
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         Fragment fragment = (Fragment) super.instantiateItem(container, position);
