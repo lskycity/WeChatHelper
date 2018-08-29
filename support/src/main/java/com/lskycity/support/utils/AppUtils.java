@@ -69,6 +69,8 @@ public class AppUtils {
     /**
      * scan activity from context.
      *
+     * @param cont a context
+     *
      * @return Activity if find or null if not found
      * */
     public static Activity scanForActivity(Context cont) {
@@ -83,6 +85,7 @@ public class AppUtils {
 
     /**
      * find Activity from view
+     *@param view view already attached to activity.
      *
      * @return Activity if this view attached in a activity, null if not
      * */

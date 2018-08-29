@@ -27,7 +27,8 @@ public class ConfigurationUtils {
 
     /**
      * using Application or Activity may return different value, since multi screen support
-     *
+     * @param context using activity or an activity wrappred context
+     * @return if a sw600dp size
      * */
     public static boolean isTablet(Context context) {
         return (context.getResources().getConfiguration().smallestScreenWidthDp >= 600);

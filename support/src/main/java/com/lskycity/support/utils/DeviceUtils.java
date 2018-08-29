@@ -150,7 +150,7 @@ public final class DeviceUtils {
     }
 
     /**
-     * getSerialNumber
+     * @return Serial Number, you may cannot get the right value if you are P, request read phone states permission first
      */
     @SuppressLint("HardwareIds")
     public static String getSerialNumber(){
