@@ -11,7 +11,7 @@ import android.view.ViewOutlineProvider;
 
 /**
  *@author liuzhaofeng
- *@date Mar 9, 2015
+ *@since Mar 9, 2015
  */
 public class ViewOutlineUtils {
     private static float avatar_radius_Rate = 7f / 80f;
