@@ -16,6 +16,7 @@ import com.lskycity.support.utils.IntentUtils;
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.app.BaseActivity;
 import com.zhaofliu.wechathelper.app.HunterApplication;
+import com.zhaofliu.wechathelper.apputils.AppIntentUtils;
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.UpgradeUtils;
 import com.zhaofliu.wechathelper.apputils.VersionInfo;
@@ -93,7 +94,7 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
         } else if(v.getId() == R.id.new_version_download) {
             IntentUtils.startUrl(this, (String) v.getTag());
         } else if(v.getId() == R.id.forward_to_website) {
-            IntentUtils.startUrl(this, Constants.WECHAT_VERSION_URL);
+            AppIntentUtils.startUrlWithCustomTab(this, Constants.WECHAT_VERSION_URL);
         } else if(v.getId() == R.id.share_to_friend) {
             IntentUtils.shareText(this, getString(R.string.share_to_friend), Constants.WECHAT_VERSION_URL);
         }

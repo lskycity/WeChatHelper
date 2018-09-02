@@ -29,6 +29,7 @@ import com.lskycity.support.utils.IntentUtils;
 import com.zhaofliu.wechathelper.R;
 import com.zhaofliu.wechathelper.app.BaseActivity;
 import com.zhaofliu.wechathelper.app.HunterApplication;
+import com.zhaofliu.wechathelper.apputils.AppIntentUtils;
 import com.zhaofliu.wechathelper.apputils.Constants;
 import com.zhaofliu.wechathelper.apputils.Feedback;
 
@@ -217,7 +218,7 @@ public class FeedbackActivity extends BaseActivity implements TextWatcher, View.
             Intent intent = new Intent(this, UserGuideActivity.class);
             startActivity(intent);
         } else if(v.getId() == R.id.check_new_version) {
-            IntentUtils.startUrl(this, Constants.WECHAT_VERSION_URL);
+            AppIntentUtils.startUrlWithCustomTab(this, Constants.WECHAT_VERSION_URL);
         } else if(v.getId() == R.id.go_to_protect) {
             IntentUtils.startUrl(this, Constants.PROTECT_URL);
         }
