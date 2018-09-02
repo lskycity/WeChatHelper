@@ -47,6 +47,9 @@ public class AppUtils {
 
     public static boolean isDeviceProtected(Context context) {
         KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+        if(keyguardManager == null) {
+            return false;
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return keyguardManager.isDeviceSecure();
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

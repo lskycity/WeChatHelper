@@ -25,6 +25,10 @@ public class ConfigurationUtils {
         return (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
     }
 
+    public static boolean isLandScape(Context context) {
+        return (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
+    }
+
     /**
      * using Application or Activity may return different value, since multi screen support
      * @param context using activity or an activity wrappred context

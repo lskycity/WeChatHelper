@@ -77,41 +77,6 @@ public final class DeviceUtils {
         public static final String SAMSUNG = "SAMSUNG";
     }
 
-    public static boolean isANRDevice() {
-        final String[] NOTE4_MODELS = new String[]
-                {"SM-N9100", "SM-N9106W", "SM-N9108V", "SM-N9108W", "SM-N9109W", "SM-N910A", "SM-N910C", "SCL24", "SC-01G", "SM-N910F", "SM-N910FD",
-                        "SM-N910FQ", "SM-N910G", "SM-N910H", "SM-N910K", "SM-N910L", "SM-N910P", "SM-N910R4", "SM-N910S", "SM-N910T", "SM-N910T1",
-                        "SM-N910U", "SM-N910V", "SM-N910W8", "SM-N910X"};
-
-        final String[] MATE7_MODELS = new String[]
-                {"MT7-UL00", "mt7-ul00"};
-
-        final String[] HONOR6_MODELS = new String[]
-                {"Mulan", "H60-L01", "H60-L02", "H60-L11", "H60-L12", "Glory 6"};
-
-        String model = android.os.Build.MODEL;
-
-        for (String note4 : NOTE4_MODELS) {
-            if (model.contains(note4)) {
-                return true;
-            }
-        }
-
-        for (String mate7 : MATE7_MODELS) {
-            if (model.contains(mate7)) {
-                return true;
-            }
-        }
-
-        for (String honor6 : HONOR6_MODELS) {
-            if (model.contains(honor6)) {
-                return true;
-            }
-        }
-        return false;
-
-    }
-
     public static boolean isBlackBerryDevice() {
         String model = Build.MODEL;
         String product = Build.PRODUCT;
