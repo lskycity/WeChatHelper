@@ -220,7 +220,7 @@ public class FeedbackActivity extends BaseActivity implements TextWatcher, View.
         } else if(v.getId() == R.id.check_new_version) {
             AppIntentUtils.startUrlWithCustomTab(this, Constants.WECHAT_VERSION_URL);
         } else if(v.getId() == R.id.go_to_protect) {
-            IntentUtils.startUrl(this, Constants.PROTECT_URL);
+            AppIntentUtils.startUrlWithCustomTab(this, Constants.PROTECT_URL);
         }
     }
 }
