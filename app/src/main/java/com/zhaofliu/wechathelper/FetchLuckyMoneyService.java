@@ -165,6 +165,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 mCurrentUI = event.getClassName().toString();
+                System.out.println("111111111 " + mCurrentUI);
                 if (TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_RECEIVER)) {
 
                     int delay = PacketUtils.getRandomDelayTime();
