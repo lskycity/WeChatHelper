@@ -44,7 +44,7 @@ public class LuckyMoneyCursorAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder holder = (ViewHolder) view.getTag();
         if (cursor != null) {
-            String amount = cursor.getString(1) + context.getString(R.string.key_word_money_unit);
+            String amount = context.getString(R.string.key_word_money_unit) + cursor.getString(1);
             long time = cursor.getLong(2);
             String sender = cursor.getString(3);
             String description = cursor.getString(4);
