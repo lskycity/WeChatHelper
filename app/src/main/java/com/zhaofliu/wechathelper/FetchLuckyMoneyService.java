@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
@@ -100,7 +99,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
         public void handleMessage(Message msg) {
             boolean success = PacketUtils.openPacketInDetail(FetchLuckyMoneyService.this);
             isOpenedSuccess = success;
-            if(!success && TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_RECEIVER)
+            if(!success && TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_NOT_HOOK_RECEIVER)
                     && !PacketUtils.checkLuckyMoneyOver24Hour(FetchLuckyMoneyService.this)
                     && !PacketUtils.checkNoLuckyMoney(FetchLuckyMoneyService.this)
                     ) {
@@ -166,7 +165,7 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 mCurrentUI = event.getClassName().toString();
                 System.out.println("111111111 " + mCurrentUI);
-                if (TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_RECEIVER)) {
+                if (TextUtils.equals(mCurrentUI, Constants.WECHAT_LUCKY_MONEY_NOT_HOOK_RECEIVER)) {
 
                     int delay = PacketUtils.getRandomDelayTime();
 
@@ -255,9 +254,9 @@ public class FetchLuckyMoneyService extends AccessibilityService implements Noti
     }
 
     private boolean checkLastMessageAndOpenLuckyMoney(int lastCount) {
-        AccessibilityNodeInfo packet = PacketUtils.getLastPacket(this);
+        AccessibilityNodeInfo packet = PacketUtils.getLastNoHookPacket(this);
         if (packet != null && PacketUtils.isLastNodeInListView(packet, lastCount)) {
-            return PacketUtils.clickThePacketNode(this, packet);
+            return PacketUtils.clickNode(packet);
         }
         return false;
     }

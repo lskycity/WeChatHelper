@@ -1,6 +1,7 @@
 package com.zhaofliu.wechathelper;
 
 import android.accessibilityservice.AccessibilityService;
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.content.Context;
 import android.os.Build;
@@ -169,13 +170,15 @@ public class NotificationFlowHelper {
                         if(!DeviceUtils.isSamsungDevice()) {
                             mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);  //back to chat window
                         }
+
+                        // save the count
                         changeToState(State.invalid);
                         return true;
                     } else {
                         changeToState(State.invalid);
                         return false;
                     }
-                } else if(TextUtils.equals(className, Constants.WECHAT_LUCKY_MONEY_RECEIVER)) {
+                } else if(TextUtils.equals(className, Constants.WECHAT_LUCKY_MONEY_NOT_HOOK_RECEIVER)) {
                     if(mState==State.clickedInList) {
                         boolean fetchSuccess = PacketUtils.openPacketInDetail(mService);
                         if (fetchSuccess) {
@@ -221,8 +224,8 @@ public class NotificationFlowHelper {
     }
 
     private boolean fetchPacketAndClick() {
-        AccessibilityNodeInfo nodeInfo = PacketUtils.getLastPacket(mService);
-        return nodeInfo != null && PacketUtils.clickThePacketNode(mService, nodeInfo);
+        AccessibilityNodeInfo nodeInfo = PacketUtils.getLastNoHookPacket(mService);
+        return nodeInfo != null && PacketUtils.clickNode(nodeInfo);
     }
 
     private boolean isScreenOn() {
@@ -238,6 +241,7 @@ public class NotificationFlowHelper {
         acquireWakeLock();
     }
 
+    @SuppressLint("InvalidWakeLockTag")
     private void acquireWakeLock(){
         PowerManager powerManager = (PowerManager)mService.getSystemService(Context.POWER_SERVICE);
         if(mWakeLock==null) {

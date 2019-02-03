@@ -13,6 +13,10 @@ public class Constants {
      */
     public static final String WECHAT_LUCKY_MONEY_RECEIVER = "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI";
     /**
+     * open detail not hold
+     */
+    public static final String WECHAT_LUCKY_MONEY_NOT_HOOK_RECEIVER = "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyNotHookReceiveUI";
+    /**
      * lucky money detail
      */
     public static final String WECHAT_LUCKY_MONEY_DETAIL = "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI";
